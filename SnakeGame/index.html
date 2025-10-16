@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnakeDev Simulator - Создание Snake Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Экран входа -->
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-content">
+                <h1>🐍 SnakeDev Simulator</h1>
+                <p class="subtitle">Полный цикл разработки игры "Змейка" на Python с MongoDB, логированием и CI/CD</p>
+                <div class="step-info">
+                    <p>Введите ваше имя для начала проекта:</p>
+                    <input type="text" id="player-name" placeholder="Ваше имя разработчика">
+                    <button id="start-btn" class="btn-primary">🚀 Начать проект</button>
+                </div>
+                <div class="features">
+                    <div class="feature">✅ 50+ этапов разработки</div>
+                    <div class="feature">🔧 Реальные команды Linux</div>
+                    <div class="feature">📊 Визуализация архитектуры</div>
+                    <div class="feature">🎮 Запуск готовой игры</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран игры -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <h1>Разработка: <span id="game-title">Snake Game</span></h1>
+                <div class="player-info">
+                    👨‍💻 <span id="current-player" class="user-name"></span>
+                    | 🏆 Очки: <span id="score">0</span>
+                    <button id="architecture-btn" class="btn-secondary">📁 Архитектура</button>
+                </div>
+            </div>
+            
+            <div class="game-layout">
+                <div class="left-panel">
+                    <div class="progress-section">
+                        <div class="progress-bar">
+                            <div class="progress" id="progress-bar"></div>
+                        </div>
+                        <div class="step-counter">🎯 Шаг <span id="current-step">1</span> из <span id="total-steps">50</span></div>
+                    </div>
+                    
+                    <div class="step-info" id="step-info">
+                        <!-- Информация о текущем шаге -->
+                    </div>
+                    
+                    <div class="options-container" id="options-container">
+                        <!-- Кнопки с вариантами ответов -->
+                    </div>
+                </div>
+                
+                <div class="right-panel">
+                    <div class="terminal-container">
+                        <div class="terminal-header">
+                            <span>🐧 ubuntu-terminal</span>
+                            <div class="terminal-controls">
+                                <button class="term-btn" id="clear-terminal">🧹 Очистить</button>
+                                <button class="term-btn" id="copy-commands">📋 Копировать команды</button>
+                            </div>
+                        </div>
+                        <div class="terminal" id="terminal">
+                            <!-- Терминал с командами -->
+                        </div>
+                    </div>
+                    
+                    <div class="story-feedback" id="story-feedback">
+                        <!-- Сюжетный фидбек -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно архитектуры -->
+        <div id="architecture-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>📁 Архитектура проекта Snake Game</h2>
+                    <button class="close-btn" id="close-architecture">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="code-preview" id="code-preview">
+                        <!-- Предпросмотр кода -->
+                    </div>
+                    <div class="file-tree" id="file-tree">
+                        <!-- Дерево файлов -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран результатов -->
+        <div id="results-screen" class="screen">
+            <div class="results-content">
+                <h1>🎉 Проект завершен!</h1>
+                <div id="final-results">
+                    <!-- Результаты -->
+                </div>
+                
+                <div class="project-analysis">
+                    <h3>📊 Анализ вашего стиля разработки:</h3>
+                    <div id="dev-profile" class="dev-profile">
+                        <!-- Профиль разработчика -->
+                    </div>
+                </div>
+                
+                <div class="game-preview" id="game-preview">
+                    <!-- Превью готовой игры -->
+                </div>
+                
+                <div class="actions">
+                    <button id="restart-btn" class="btn-primary">🔄 Новый проект</button>
+                    <button id="play-game-btn" class="btn-success">🎮 Запустить игру</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="game-data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,619 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --primary: #2b6cb0;
+    --success: #38a169;
+    --warning: #d69e2e;
+    --danger: #e53e3e;
+    --dark: #1a202c;
+    --darker: #0f1419;
+    --light: #e2e8f0;
+    --terminal: #011627;
+}
+
+body {
+    background: linear-gradient(135deg, var(--darker), var(--dark));
+    color: var(--light);
+    min-height: 100vh;
+    padding: 0;
+    overflow: hidden;
+}
+
+.container {
+    max-width: 100vw;
+    height: 100vh;
+    margin: 0 auto;
+    background-color: rgba(26, 32, 44, 0.98);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen {
+    padding: 20px;
+    display: none;
+    flex: 1;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Welcome Screen */
+.welcome-content {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.welcome-content h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #68d391, #63b3ed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #a0aec0;
+    margin-bottom: 40px;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 40px;
+}
+
+.feature {
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid var(--success);
+}
+
+/* Game Screen */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #2d3748;
+    flex-shrink: 0;
+}
+
+.game-header h1 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 600;
+}
+
+.game-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    flex: 1;
+    overflow: hidden;
+    height: calc(100vh - 120px);
+}
+
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow: hidden;
+}
+
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow: hidden;
+}
+
+/* Progress Section */
+.progress-section {
+    background: #2d3748;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid #63b3ed;
+    flex-shrink: 0;
+}
+
+.progress-bar {
+    height: 10px;
+    background-color: #4a5568;
+    border-radius: 5px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(to right, #68d391, #38a169);
+    width: 0%;
+    transition: width 0.5s ease;
+}
+
+.step-counter {
+    text-align: center;
+    font-weight: 600;
+    color: #a0aec0;
+    font-size: 0.9rem;
+}
+
+/* Step Info */
+.step-info {
+    background: #2d3748;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #4299e1;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 200px;
+}
+
+.step-info h2 {
+    color: #90cdf4;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+.step-info p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+/* Options */
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.option-btn {
+    text-align: left;
+    padding: 15px;
+    background: #2d3748;
+    border: 2px solid #4a5568;
+    border-radius: 8px;
+    color: var(--light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.option-btn:hover:not(:disabled) {
+    border-color: #63b3ed;
+    transform: translateX(5px);
+}
+
+.option-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.btn-success { border-left: 4px solid var(--success); }
+.btn-warning { border-left: 4px solid var(--warning); }
+.btn-danger { border-left: 4px solid var(--danger); }
+
+/* Terminal */
+.terminal-container {
+    background: var(--terminal);
+    border-radius: 10px;
+    overflow: hidden;
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+}
+
+.terminal-header {
+    background: #1a365d;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #2d3748;
+    flex-shrink: 0;
+}
+
+.term-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    margin: 0 5px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #4a5568;
+}
+
+.terminal {
+    background-color: var(--terminal);
+    color: var(--light);
+    padding: 15px;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    flex: 1;
+    overflow-y: auto;
+    line-height: 1.4;
+    font-size: 0.9rem;
+}
+
+.terminal .command {
+    color: #68d391;
+    margin-bottom: 5px;
+}
+
+.terminal .output {
+    color: #e2e8f0;
+    margin-bottom: 8px;
+}
+
+.terminal .error { color: #fc8181; }
+.terminal .warning { color: #f6e05e; }
+.terminal .info { color: #63b3ed; }
+.terminal .prompt { color: #68d391; }
+
+/* Story Feedback */
+.story-feedback {
+    background: #2d3748;
+    border-radius: 10px;
+    padding: 15px;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 150px;
+    border-left: 4px solid #d69e2e;
+}
+
+.story-message {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    font-style: italic;
+}
+
+.story-success { background: rgba(72, 187, 120, 0.2); border-left: 3px solid var(--success); }
+.story-warning { background: rgba(237, 137, 54, 0.2); border-left: 3px solid var(--warning); }
+.story-error { background: rgba(245, 101, 101, 0.2); border-left: 3px solid var(--danger); }
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: var(--dark);
+    border-radius: 15px;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 20px;
+    background: #2d3748;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #4a5568;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--light);
+    cursor: pointer;
+}
+
+.modal-body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.code-preview, .file-tree {
+    background: #2d3748;
+    border-radius: 8px;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.file-tree {
+    font-family: 'Fira Code', monospace;
+}
+
+.file-item {
+    padding: 5px 10px;
+    margin: 2px 0;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.file-item:hover {
+    background: #4a5568;
+}
+
+.file-item.folder::before {
+    content: '📁 ';
+}
+
+.file-item.file::before {
+    content: '📄 ';
+}
+
+/* Results Screen */
+.results-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.dev-profile {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.profile-card {
+    background: #2d3748;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.profile-card h4 {
+    color: #63b3ed;
+    margin-bottom: 10px;
+}
+
+.game-preview {
+    margin: 30px 0;
+    padding: 20px;
+    background: #2d3748;
+    border-radius: 10px;
+    border: 2px dashed #4a5568;
+}
+
+.snake-preview {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    background: #1a202c;
+    border: 2px solid #4a5568;
+    position: relative;
+}
+
+.actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(45deg, var(--primary), #3182ce);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary {
+    background: linear-gradient(45deg, #4a5568, #718096);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.btn-success {
+    background: linear-gradient(45deg, var(--success), #48bb78);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.user-name {
+    color: #68d391;
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .game-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+    
+    .modal-body {
+        grid-template-columns: 1fr;
+    }
+    
+    .features {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #2d3748;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4a5568;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #63b3ed;
+}
+
+/* Добавляем в существующий CSS */
+
+/* Options Container - исправляем скроллинг */
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-shrink: 0;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+/* Улучшаем скроллбар для options */
+.options-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.options-container::-webkit-scrollbar-track {
+    background: #2d3748;
+    border-radius: 3px;
+}
+
+.options-container::-webkit-scrollbar-thumb {
+    background: #4a5568;
+    border-radius: 3px;
+}
+
+.options-container::-webkit-scrollbar-thumb:hover {
+    background: #63b3ed;
+}
+
+/* Option buttons - делаем компактнее */
+.option-btn {
+    text-align: left;
+    padding: 12px;
+    background: #2d3748;
+    border: 2px solid #4a5568;
+    border-radius: 8px;
+    color: var(--light);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    word-break: break-word;
+}
+
+/* Нейтральные стили кнопок до выбора */
+.option-btn.neutral {
+    border-left: 4px solid #718096;
+}
+
+/* Стили после выбора */
+.option-btn.correct {
+    border-left: 4px solid var(--success);
+    background: rgba(72, 187, 120, 0.1);
+}
+
+.option-btn.partial {
+    border-left: 4px solid var(--warning);
+    background: rgba(237, 137, 54, 0.1);
+}
+
+.option-btn.incorrect {
+    border-left: 4px solid var(--danger);
+    background: rgba(245, 101, 101, 0.1);
+}
+
+/* Уменьшаем высоту других элементов чтобы вместить кнопки */
+.step-info {
+    background: #2d3748;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid #4299e1;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 150px;
+    max-height: 300px;
+}
+
+.story-feedback {
+    background: #2d3748;
+    border-radius: 10px;
+    padding: 12px;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 120px;
+    max-height: 200px;
+}
+
+/* Улучшаем отзывчивость для мобильных */
+@media (max-width: 768px) {
+    .game-layout {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        height: auto;
+    }
+    
+    .options-container {
+        max-height: 200px;
+    }
+    
+    .option-btn {
+        padding: 10px;
+        font-size: 0.85rem;
+        min-height: 50px;
+    }
+}

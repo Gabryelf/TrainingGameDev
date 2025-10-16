@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameDev Simulator - Создание игры на Python</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .screen {
+            padding: 30px;
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        h1 {
+            color: #2a5298;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.2rem;
+        }
+
+        h2 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+
+        p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        button {
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(to right, #6a89cc, #4a69bd);
+        }
+
+        .btn-danger {
+            background: linear-gradient(to right, #e55039, #eb2f06);
+        }
+
+        .btn-success {
+            background: linear-gradient(to right, #78e08f, #38ada9);
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .option-btn {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 15px;
+            font-size: 1rem;
+        }
+
+        .terminal {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            min-height: 150px;
+            overflow-y: auto;
+            max-height: 300px;
+        }
+
+        .terminal .command {
+            color: #68d391;
+        }
+
+        .terminal .output {
+            color: #e2e8f0;
+            margin-top: 5px;
+        }
+
+        .score-display {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #78e08f, #38ada9);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .step-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid #4a69bd;
+        }
+
+        .feedback {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        .feedback.error {
+            background-color: #ffeaa7;
+            border-left: 5px solid #fdcb6e;
+            color: #e17055;
+        }
+
+        .feedback.warning {
+            background-color: #dfe6e9;
+            border-left: 5px solid #b2bec3;
+            color: #636e72;
+        }
+
+        .feedback.success {
+            background-color: #55efc4;
+            border-left: 5px solid #00b894;
+            color: #00684a;
+        }
+
+        .user-name {
+            color: #1e3c72;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Экран входа -->
+        <div id="welcome-screen" class="screen active">
+            <h1>GameDev Simulator</h1>
+            <p>Добро пожаловать в симулятор разработки игр! Здесь вы научитесь создавать игру "Крестики-нолики" на Python, используя Ubuntu, Bash и GitHub.</p>
+            <div class="step-info">
+                <p>Введите ваше имя для начала обучения:</p>
+                <input type="text" id="player-name" placeholder="Ваше имя">
+                <button id="start-btn">Начать обучение</button>
+            </div>
+        </div>
+
+        <!-- Экран выбора модуля -->
+        <div id="module-screen" class="screen">
+            <h1>Выберите модуль обучения</h1>
+            <p>В настоящее время доступен один модуль:</p>
+            <div class="options-container">
+                <button class="option-btn" data-module="python-game">Создание игры "Крестики-нолики" на Python</button>
+                <button class="option-btn btn-secondary" disabled>Дополнительные модули (скоро)</button>
+            </div>
+        </div>
+
+        <!-- Экран игры -->
+        <div id="game-screen" class="screen">
+            <h1>Создание игры "Крестики-нолики"</h1>
+            <div class="progress-bar">
+                <div class="progress" id="progress-bar"></div>
+            </div>
+            <div class="step-info" id="step-info">
+                <!-- Здесь будет информация о текущем шаге -->
+            </div>
+            <div class="terminal" id="terminal">
+                <!-- Здесь будет терминал с командами -->
+            </div>
+            <div class="options-container" id="options-container">
+                <!-- Здесь будут кнопки с вариантами ответов -->
+            </div>
+        </div>
+
+        <!-- Экран результатов -->
+        <div id="results-screen" class="screen">
+            <h1>Результаты обучения</h1>
+            <div id="final-results">
+                <!-- Здесь будут отображаться результаты -->
+            </div>
+            <button id="restart-btn">Начать заново</button>
+        </div>
+    </div>
+
+    <div class="score-display" id="score-display">
+        Очки: <span id="score">0</span>
+    </div>
+
+    <script>
+        // Данные игры
+        const gameData = {
+            playerName: '',
+            score: 0,
+            currentStep: 0,
+            steps: [
+                {
+                    title: "Настройка окружения",
+                    description: "Вы начинаете разработку игры 'Крестики-нолики' на Python. Первым шагом нужно создать рабочую директорию для проекта.",
+                    question: "Какую команду вы выполните для создания папки проекта?",
+                    terminal: "user@ubuntu:~$ ",
+                    options: [
+                        {
+                            text: "mkdir tic-tac-toe-game",
+                            command: "mkdir tic-tac-toe-game",
+                            feedback: "Отлично! Вы создали директорию для проекта с понятным названием.",
+                            score: 2,
+                            type: "success"
+                        },
+                        {
+                            text: "cd tic-tac-toe-game",
+                            command: "cd tic-tac-toe-game",
+                            feedback: "Эта команда переходит в директорию, но сначала её нужно создать.",
+                            score: 0,
+                            type: "error"
+                        },
+                        {
+                            text: "create folder tic-tac-toe",
+                            command: "create folder tic-tac-toe",
+                            feedback: "В Linux для создания папки используется команда mkdir, а не create folder.",
+                            score: 0,
+                            type: "error"
+                        },
+                        {
+                            text: "mkdir game && cd game",
+                            command: "mkdir game && cd game",
+                            feedback: "Хороший вариант, но лучше использовать более описательное имя для проекта.",
+                            score: 1,
+                            type: "warning"
+                        }
+                    ]
+                },
+                {
+                    title: "Создание файла игры",
+                    description: "Теперь нужно создать файл для кода игры. Какой командой вы это сделаете?",
+                    question: "Выберите правильную команду:",
+                    terminal: "user@ubuntu:~/tic-tac-toe-game$ ",
+                    options: [
+                        {
+                            text: "touch game.py",
+                            command: "touch game.py",
+                            feedback: "Правильно! Команда touch создает пустой файл с именем game.py.",
+                            score: 2,
+                            type: "success"
+                        },
+                        {
+                            text: "nano game.py",
+                            command: "nano game.py",
+                            feedback: "Команда nano открывает редактор, но файл будет создан только после сохранения.",
+                            score: 1,
+                            type: "warning"
+                        },
+                        {
+                            text: "create game.py",
+                            command: "create game.py",
+                            feedback: "В Linux нет команды create для создания файлов.",
+                            score: 0,
+                            type: "error"
+                        },
+                        {
+                            text: "echo '' > game.py",
+                            command: "echo '' > game.py",
+                            feedback: "Технически это создаст файл, но touch - более стандартный способ.",
+                            score: 1,
+                            type: "warning"
+                        }
+                    ]
+                },
+                {
+                    title: "Написание кода игры",
+                    description: "Пришло время написать код для игры 'Крестики-нолики'. Какой подход вы выберете?",
+                    question: "С чего начнете реализацию игры?",
+                    terminal: "user@ubuntu:~/tic-tac-toe-game$ nano game.py",
+                    options: [
+                        {
+                            text: "Создам игровое поле в виде списка и функции для отображения",
+                            command: "# Создание игрового поля\nboard = [' ' for _ in range(9)]",
+                            feedback: "Отличное начало! Четкая структура данных - залог успеха.",
+                            score: 2,
+                            type: "success"
+                        },
+                        {
+                            text: "Сразу начну с реализации сложной логики ИИ",
+                            command: "# Попытка реализовать ИИ\nimport tensorflow as tf",
+                            feedback: "Слишком сложно для начала. Лучше начать с базовой функциональности.",
+                            score: 0,
+                            type: "error"
+                        },
+                        {
+                            text: "Напишу код без планирования структуры",
+                            command: "# Код без структуры\nprint('X turn')",
+                            feedback: "Без планирования структуры код может стать беспорядочным.",
+                            score: 0,
+                            type: "error"
+                        },
+                        {
+                            text: "Создам класс для игры и основные методы",
+                            command: "class TicTacToe:\n    def __init__(self):\n        self.board = [' ']*9",
+                            feedback: "Хороший объектно-ориентированный подход, но для простой игры можно обойтись функциями.",
+                            score: 1,
+                            type: "warning"
+                        }
+                    ]
+                },
+                {
+                    title: "Тестирование игры",
+                    description: "Код написан, пришло время протестировать игру. Как вы это сделаете?",
+                    question: "Какой командой запустите игру для тестирования?",
+                    terminal: "user@ubuntu:~/tic-tac-toe-game$ ",
+                    options: [
+                        {
+                            text: "python3 game.py",
+                            command: "python3 game.py",
+                            feedback: "Правильно! Эта команда запускает Python-скрипт для выполнения.",
+                            score: 2,
+                            type: "success"
+                        },
+                        {
+                            text: "run game.py",
+                            command: "run game.py",
+                            feedback: "В Linux нет команды run для запуска Python-скриптов.",
+                            score: 0,
+                            type: "error"
+                        },
+                        {
+                            text: "./game.py",
+                            command: "./game.py",
+                            feedback: "Это сработает только если файл исполняемый и имеет shebang строку.",
+                            score: 1,
+                            type: "warning"
+                        },
+                        {
+                            text: "python game.py",
+                            command: "python game.py",
+                            feedback: "В Ubuntu по умолчанию python ссылается на Python 2, а нужно использовать python3.",
+                            score: 0,
+                            type: "error"
+                        }
+                    ]
+                },
+                {
+                    title: "Создание репозитория Git",
+                    description: "Игра работает правильно. Теперь нужно сохранить код в репозитории Git.",
+                    question: "Какую последовательность команд Git вы выполните?",
+                    terminal: "user@ubuntu:~/tic-tac-toe-game$ ",
+                    options: [
+                        {
+                            text: "git init, git add ., git commit -m 'Initial commit'",
+                            command: "git init\ngit add .\ngit commit -m 'Initial commit'",
+                            feedback: "Идеально! Вы правильно инициализировали репозиторий и сделали первый коммит.",
+                            score: 2,
+                            type: "success"
+                        },
+                        {
+                            text: "git init, git commit -m 'First commit'",
+                            command: "git init\ngit commit -m 'First commit'",
+                            feedback: "Пропущен этап добавления файлов в индекс (git add).",
+                            score: 0,
+                            type: "error"
+                        },
+                        {
+                            text: "git create, git add *, git save",
+                            command: "git create\ngit add *\ngit save",
+                            feedback: "Команды git create и git save не существуют в Git.",
+                            score: 0,
+                            type: "error"
+                        },
+                        {
+                            text: "git init, git add game.py, git commit -m 'Game'",
+                            command: "git init\ngit add game.py\ngit commit -m 'Game'",
+                            feedback: "Хорошо, но лучше добавить все файлы проекта, а не только один.",
+                            score: 1,
+                            type: "warning"
+                        }
+                    ]
+                },
+                {
+                    title: "Публикация на GitHub",
+                    description: "Код сохранен локально. Теперь нужно поделиться им с миром через GitHub.",
+                    question: "Как вы опубликуете код на GitHub?",
+                    terminal: "user@ubuntu:~/tic-tac-toe-game$ ",
+                    options: [
+                        {
+                            text: "Создам репозиторий на GitHub и свяжу с локальным",
+                            command: "# Создать репозиторий на GitHub\n# Затем:\ngit remote add origin https://github.com/user/tic-tac-toe.git\ngit push -u origin main",
+                            feedback: "Превосходно! Вы правильно связали локальный и удаленный репозиторий.",
+                            score: 2,
+                            type: "success"
+                        },
+                        {
+                            text: "Скопирую код напрямую в веб-интерфейс GitHub",
+                            command: "# Копирование кода через веб-интерфейс",
+                            feedback: "Это возможно, но не эффективно для больших проектов и теряется история коммитов.",
+                            score: 0,
+                            type: "error"
+                        },
+                        {
+                            text: "Использую GitHub Desktop вместо командной строки",
+                            command: "# Использование GitHub Desktop",
+                            feedback: "GitHub Desktop - хороший инструмент, но важно уметь работать с Git из командной строки.",
+                            score: 1,
+                            type: "warning"
+                        },
+                        {
+                            text: "Отправлю код по email",
+                            command: "# Прикрепление файлов к email",
+                            feedback: "Это неэффективный и непрофессиональный способ обмена кодом.",
+                            score: 0,
+                            type: "error"
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // Элементы DOM
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const moduleScreen = document.getElementById('module-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const playerNameInput = document.getElementById('player-name');
+        const startBtn = document.getElementById('start-btn');
+        const scoreDisplay = document.getElementById('score-display');
+        const scoreElement = document.getElementById('score');
+        const progressBar = document.getElementById('progress-bar');
+        const stepInfo = document.getElementById('step-info');
+        const terminal = document.getElementById('terminal');
+        const optionsContainer = document.getElementById('options-container');
+        const finalResults = document.getElementById('final-results');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // Инициализация игры
+        function initGame() {
+            startBtn.addEventListener('click', startGame);
+            restartBtn.addEventListener('click', restartGame);
+            
+            // Обработчики для выбора модуля
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (!this.disabled) {
+                        startModule(this.dataset.module);
+                    }
+                });
+            });
+        }
+
+        // Начало игры
+        function startGame() {
+            const name = playerNameInput.value.trim();
+            if (name === '') {
+                alert('Пожалуйста, введите ваше имя');
+                return;
+            }
+            
+            gameData.playerName = name;
+            welcomeScreen.classList.remove('active');
+            moduleScreen.classList.add('active');
+        }
+
+        // Запуск модуля
+        function startModule(moduleName) {
+            moduleScreen.classList.remove('active');
+            gameScreen.classList.add('active');
+            scoreDisplay.style.display = 'block';
+            
+            // Сброс состояния игры
+            gameData.score = 0;
+            gameData.currentStep = 0;
+            updateScore();
+            showStep();
+        }
+
+        // Показать текущий шаг
+        function showStep() {
+            const step = gameData.steps[gameData.currentStep];
+            
+            // Обновление информации о шаге
+            stepInfo.innerHTML = `
+                <h2>${step.title}</h2>
+                <p>${step.description}</p>
+                <p><strong>${step.question}</strong></p>
+            `;
+            
+            // Обновление терминала
+            terminal.innerHTML = `<div class="command">${step.terminal}</div>`;
+            
+            // Обновление прогресс-бара
+            const progress = ((gameData.currentStep + 1) / gameData.steps.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            
+            // Создание кнопок с вариантами ответов
+            optionsContainer.innerHTML = '';
+            step.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                if (option.type === 'success') button.classList.add('btn-success');
+                if (option.type === 'warning') button.classList.add('btn-secondary');
+                if (option.type === 'error') button.classList.add('btn-danger');
+                
+                button.textContent = option.text;
+                button.addEventListener('click', () => handleAnswer(option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        // Обработка ответа
+        function handleAnswer(option) {
+            const step = gameData.steps[gameData.currentStep];
+            
+            // Добавление команды в терминал
+            const commandLine = document.createElement('div');
+            commandLine.className = 'command';
+            commandLine.textContent = step.terminal + option.command;
+            terminal.appendChild(commandLine);
+            
+            // Добавление обратной связи
+            const feedback = document.createElement('div');
+            feedback.className = `feedback ${option.type}`;
+            feedback.textContent = option.feedback;
+            stepInfo.appendChild(feedback);
+            
+            // Обновление счета
+            gameData.score += option.score;
+            updateScore();
+            
+            // Отключение кнопок после выбора
+            const buttons = optionsContainer.querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.style.opacity = '0.6';
+            });
+            
+            // Переход к следующему шагу через 3 секунды
+            setTimeout(() => {
+                gameData.currentStep++;
+                
+                if (gameData.currentStep < gameData.steps.length) {
+                    showStep();
+                } else {
+                    showResults();
+                }
+            }, 3000);
+        }
+
+        // Обновление счета
+        function updateScore() {
+            scoreElement.textContent = gameData.score;
+        }
+
+        // Показать результаты
+        function showResults() {
+            gameScreen.classList.remove('active');
+            resultsScreen.classList.add('active');
+            scoreDisplay.style.display = 'none';
+            
+            let message = '';
+            if (gameData.score >= 10) {
+                message = `<div class="feedback success">
+                    <h2>Превосходно, ${gameData.playerName}!</h2>
+                    <p>Вы набрали ${gameData.score} из ${gameData.steps.length * 2} возможных баллов.</p>
+                    <p>Вы отлично справились с созданием игры и работой в командной строке!</p>
+                </div>`;
+            } else if (gameData.score >= 6) {
+                message = `<div class="feedback warning">
+                    <h2>Хорошая работа, ${gameData.playerName}!</h2>
+                    <p>Вы набрали ${gameData.score} из ${gameData.steps.length * 2} возможных баллов.</p>
+                    <p>Вы хорошо понимаете процесс разработки, но есть куда расти!</p>
+                </div>`;
+            } else {
+                message = `<div class="feedback error">
+                    <h2>Неплохо, ${gameData.playerName}!</h2>
+                    <p>Вы набрали ${gameData.score} из ${gameData.steps.length * 2} возможных баллов.</p>
+                    <p>Вам нужно больше практики с командной строкой и процессом разработки.</p>
+                </div>`;
+            }
+            
+            finalResults.innerHTML = message;
+        }
+
+        // Перезапуск игры
+        function restartGame() {
+            resultsScreen.classList.remove('active');
+            welcomeScreen.classList.add('active');
+            playerNameInput.value = '';
+        }
+
+        // Запуск игры при загрузке страницы
+        window.addEventListener('DOMContentLoaded', initGame);
+    </script>
+</body>
+</html>
