@@ -3,749 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terminal Quest - Изучение команд через игру</title>
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --success-color: #27ae60;
-            --warning-color: #f39c12;
-            --danger-color: #e74c3c;
-            --terminal-bg: #1a1a1a;
-            --terminal-text: #00ff00;
-            --terminal-prompt: #ffff00;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Courier New', monospace;
-        }
-
-        body {
-            background-color: var(--primary-color);
-            color: white;
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        header {
-            text-align: center;
-            padding: 20px 0;
-            border-bottom: 2px solid var(--secondary-color);
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            color: var(--secondary-color);
-            margin-bottom: 10px;
-        }
-
-        .game-area {
-            display: flex;
-            flex: 1;
-            gap: 20px;
-            flex-direction: column;
-        }
-
-        @media (min-width: 768px) {
-            .game-area {
-                flex-direction: row;
-            }
-        }
-
-        .terminal-container {
-            flex: 2;
-            background-color: var(--terminal-bg);
-            border-radius: 8px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .terminal-header {
-            background-color: #333;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .terminal-controls {
-            display: flex;
-            gap: 10px;
-        }
-
-        .control {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .close { background-color: var(--danger-color); }
-        .minimize { background-color: var(--warning-color); }
-        .maximize { background-color: var(--success-color); }
-
-        .terminal {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            color: var(--terminal-text);
-            font-family: 'Courier New', monospace;
-            line-height: 1.4;
-        }
-
-        .terminal-line {
-            margin-bottom: 5px;
-        }
-
-        .prompt {
-            color: var(--terminal-prompt);
-        }
-
-        .command {
-            color: white;
-        }
-
-        .output {
-            color: var(--terminal-text);
-        }
-
-        .error {
-            color: var(--danger-color);
-        }
-
-        .interaction-panel {
-            flex: 1;
-            background-color: #34495e;
-            border-radius: 8px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .story-section {
-            background-color: #2c3e50;
-            padding: 15px;
-            border-radius: 5px;
-            flex: 1;
-            overflow-y: auto;
-        }
-
-        .commands-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 10px;
-        }
-
-        .command-btn {
-            background-color: var(--secondary-color);
-            border: none;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            text-align: center;
-        }
-
-        .command-btn:hover {
-            background-color: #2980b9;
-        }
-
-        .command-btn:disabled {
-            background-color: #7f8c8d;
-            cursor: not-allowed;
-        }
-
-        .stats-panel {
-            background-color: #34495e;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 20px;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--secondary-color);
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: var(--primary-color);
-            padding: 30px;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 500px;
-            text-align: center;
-        }
-
-        .modal h2 {
-            margin-bottom: 20px;
-            color: var(--secondary-color);
-        }
-
-        .modal input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        .modal button {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 0 5px;
-        }
-
-        .mode-selector {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            justify-content: center;
-        }
-
-        .mode-btn {
-            background-color: #34495e;
-            border: 2px solid var(--secondary-color);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .mode-btn.active {
-            background-color: var(--secondary-color);
-        }
-
-        .save-notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--success-color);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            display: none;
-        }
-
-        @media (max-width: 768px) {
-            .commands-section {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .stats {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-    </style>
+    <title>Terminal Quest Pro</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Terminal Quest</h1>
-            <p>Изучайте команды терминала через увлекательную текстовую RPG!</p>
-            <div class="mode-selector">
-                <button class="mode-btn active" id="linux-mode">Linux Bash</button>
-                <button class="mode-btn" id="windows-mode">Windows CMD</button>
+    <div id="app">
+        <!-- Top Toolbar -->
+        <div class="toolbar top-toolbar">
+            <div class="toolbar-left">
+                <button class="toolbar-btn" id="menu-btn" title="Меню">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <span class="app-title">Terminal Quest Pro</span>
             </div>
-        </header>
-
-        <div class="game-area">
-            <div class="terminal-container">
-                <div class="terminal-header">
-                    <div>terminal_quest</div>
-                    <div class="terminal-controls">
-                        <div class="control close"></div>
-                        <div class="control minimize"></div>
-                        <div class="control maximize"></div>
-                    </div>
-                </div>
-                <div class="terminal" id="terminal">
-                    <div class="terminal-line">
-                        <span class="prompt">user@terminal-quest:~$ </span>
-                        <span class="command">start_game</span>
-                    </div>
-                    <div class="terminal-line output">
-                        Добро пожаловать в Terminal Quest! Для начала введите ваше имя.
-                    </div>
+            <div class="toolbar-center">
+                <div class="player-info">
+                    <span id="player-class-badge" class="class-badge">Новичок</span>
+                    <span id="player-level" class="level-badge">Ур. 1</span>
                 </div>
             </div>
+            <div class="toolbar-right">
+                <button class="toolbar-btn" id="save-btn" title="Сохранить">
+                    <i class="fas fa-save"></i>
+                </button>
+                <button class="toolbar-btn" id="settings-btn" title="Настройки">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </div>
 
-            <div class="interaction-panel">
-                <div class="story-section" id="story">
-                    <h3>Сюжет</h3>
-                    <p>Вы просыпаетесь в неизвестном месте. Вокруг вас только компьютер с терминалом. Похоже, вам предстоит разгадать тайну этого места, используя команды терминала.</p>
+        <!-- Main Game Area -->
+        <div class="game-container">
+            <!-- Left Sidebar -->
+            <div class="sidebar left-sidebar">
+                <div class="player-panel">
+                    <div class="avatar-container">
+                        <div class="avatar" id="player-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="player-stats">
+                            <h3 id="player-name">Игрок</h3>
+                            <div class="xp-bar">
+                                <div class="xp-fill" id="xp-fill"></div>
+                                <span class="xp-text" id="xp-text">0/100 XP</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Класс</span>
+                            <span class="stat-value" id="stat-class">Хакер</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Очки</span>
+                            <span class="stat-value" id="stat-score">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Команды</span>
+                            <span class="stat-value" id="stat-commands">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Глава</span>
+                            <span class="stat-value" id="stat-chapter">1</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="commands-section" id="commands">
-                    <!-- Команды будут добавляться динамически -->
+
+                <div class="skills-panel">
+                    <h4>Способности класса</h4>
+                    <div id="class-skills" class="skills-list">
+                        <!-- Skills will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Game Area -->
+            <div class="main-content">
+                <div class="terminal-container">
+                    <div class="terminal-header">
+                        <div class="terminal-title">
+                            <i class="fas fa-terminal"></i>
+                            <span id="terminal-title">terminal_quest</span>
+                        </div>
+                        <div class="terminal-controls">
+                            <button class="control-btn" id="clear-terminal" title="Очистить">
+                                <i class="fas fa-broom"></i>
+                            </button>
+                            <button class="control-btn" id="export-terminal" title="Экспорт">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="terminal" id="terminal">
+                        <!-- Terminal content will be populated here -->
+                    </div>
+                </div>
+
+                <div class="story-panel">
+                    <div class="story-header">
+                        <h3 id="story-title">Глава 1: Пробуждение</h3>
+                        <div class="progress-indicator">
+                            <span id="story-progress">0%</span>
+                        </div>
+                    </div>
+                    <div class="story-content" id="story-content">
+                        <!-- Story content will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="sidebar right-sidebar">
+                <div class="commands-panel">
+                    <div class="panel-header">
+                        <h4>Доступные команды</h4>
+                        <div class="filter-controls">
+                            <button class="filter-btn active" data-filter="all">Все</button>
+                            <button class="filter-btn" data-filter="learned">Изученные</button>
+                            <button class="filter-btn" data-filter="new">Новые</button>
+                        </div>
+                    </div>
+                    <div class="commands-grid" id="commands-grid">
+                        <!-- Command buttons will be populated here -->
+                    </div>
+                </div>
+
+                <div class="events-panel">
+                    <h4>Активные события</h4>
+                    <div id="active-events" class="events-list">
+                        <!-- Active events will be shown here -->
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="stats-panel">
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-label">Игрок</div>
-                    <div class="stat-value" id="player-name">Неизвестный</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Уровень</div>
-                    <div class="stat-value" id="player-level">1</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Опыт</div>
-                    <div class="stat-value" id="player-xp">0/100</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Очки</div>
-                    <div class="stat-value" id="player-score">0</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label">Выучено команд</div>
-                    <div class="stat-value" id="commands-learned">0</div>
-                </div>
+        <!-- Bottom Toolbar -->
+        <div class="toolbar bottom-toolbar">
+            <div class="quick-actions">
+                <button class="action-btn" id="quick-save" title="Быстрое сохранение">
+                    <i class="fas fa-save"></i>
+                </button>
+                <button class="action-btn" id="quick-help" title="Помощь">
+                    <i class="fas fa-question"></i>
+                </button>
+                <button class="action-btn" id="toggle-theme" title="Сменить тему">
+                    <i class="fas fa-palette"></i>
+                </button>
+            </div>
+            <div class="status-indicators">
+                <span class="status-item" id="game-time">Время: 00:00</span>
+                <span class="status-item" id="game-date">День: 1</span>
+                <span class="status-item" id="auto-save">Автосохранение: Вкл</span>
             </div>
         </div>
     </div>
 
-    <div class="modal" id="name-modal">
+    <!-- Modals -->
+    <div id="character-creation-modal" class="modal">
         <div class="modal-content">
-            <h2>Введите ваше имя</h2>
-            <input type="text" id="player-name-input" placeholder="Ваше имя" maxlength="20">
-            <button id="start-game-btn">Начать игру</button>
+            <h2>Создание персонажа</h2>
+            <div class="character-creation">
+                <!-- В модальном окне создания персонажа (character-creation-modal) -->
+                <div class="modal-actions">
+                    <button id="continue-game-btn" class="btn-secondary" style="display: none;">Продолжить игру</button>
+                    <button id="start-game-btn" class="btn-primary">Начать новую игру</button>
+                </div>
+                <div class="form-group">
+                    <label for="player-name-input">Имя пользователя:</label>
+                    <input type="text" id="player-name-input" placeholder="Введите ваше имя" maxlength="15">
+                </div>
+                <div class="form-group">
+                    <label for="computer-name-input">Имя компьютера:</label>
+                    <input type="text" id="computer-name-input" placeholder="hostname" maxlength="10" value="terminal-quest">
+                </div>
+                <div class="form-group">
+                    <label>Выберите начальный класс:</label>
+                    <div class="classes-grid" id="classes-selection">
+                        <!-- Classes will be populated from config -->
+                    </div>
+                </div>
+                
+                <button id="start-game-btn" class="btn-primary">Начать игру</button>
+            </div>
         </div>
     </div>
 
-    <div class="save-notification" id="save-notification">
-        Игра сохранена!
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <h2>Настройки игры</h2>
+            <div class="settings-content">
+                <div class="setting-group">
+                    <h3>Управление сохранениями</h3>
+                    <div class="setting-item">
+                        <label>Экспорт сохранения:</label>
+                        <button id="export-save-btn" class="btn-secondary">Экспортировать</button>
+                    </div>
+                    <div class="setting-item">
+                        <label>Импорт сохранения:</label>
+                        <input type="file" id="import-save-input" accept=".json" style="display: none;">
+                        <button id="import-save-btn" class="btn-secondary">Импортировать</button>
+                    </div>
+                    <div class="setting-item">
+                        <label>Сброс прогресса:</label>
+                        <button id="reset-game-btn" class="btn-danger">Сбросить игру</button>
+                    </div>
+                </div>
+                
+                <div class="setting-group">
+                    <h3>Настройки интерфейса</h3>
+                    <div class="setting-item">
+                        <label>Тема интерфейса:</label>
+                        <select id="theme-selector">
+                            <option value="dark">Тёмная</option>
+                            <option value="light">Светлая</option>
+                            <option value="auto">Авто</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label>Автосохранение:</label>
+                        <label class="switch">
+                            <input type="checkbox" id="auto-save-toggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="setting-group">
+                    <h3>Информация о игре</h3>
+                    <div class="game-info">
+                        <p>Версия: 1.0.0</p>
+                        <p>Время игры: <span id="total-play-time">0</span></p>
+                        <p>Последнее сохранение: <span id="last-save-time">-</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="close-settings-btn" class="btn-primary">Закрыть</button>
+            </div>
+        </div>
     </div>
 
-    <script>
-        // Игровые данные
-        const gameData = {
-            player: {
-                name: '',
-                level: 1,
-                xp: 0,
-                score: 0,
-                commandsLearned: 0
-            },
-            currentMode: 'linux', // 'linux' или 'windows'
-            gameState: 'start', // 'start', 'playing', 'completed'
-            currentChapter: 1,
-            availableCommands: [],
-            commandHistory: [],
-            storyProgress: 0
-        };
-
-        // Команды для разных режимов
-        const linuxCommands = [
-            { id: 'ls', name: 'ls', description: 'Показать содержимое директории', xp: 10, chapter: 1 },
-            { id: 'cd', name: 'cd', description: 'Перейти в другую директорию', xp: 10, chapter: 1 },
-            { id: 'pwd', name: 'pwd', description: 'Показать текущую директорию', xp: 5, chapter: 1 },
-            { id: 'mkdir', name: 'mkdir', description: 'Создать директорию', xp: 15, chapter: 2 },
-            { id: 'touch', name: 'touch', description: 'Создать файл', xp: 15, chapter: 2 },
-            { id: 'cp', name: 'cp', description: 'Копировать файл/директорию', xp: 20, chapter: 3 },
-            { id: 'mv', name: 'mv', description: 'Переместить/переименовать файл', xp: 20, chapter: 3 },
-            { id: 'rm', name: 'rm', description: 'Удалить файл', xp: 25, chapter: 4 },
-            { id: 'cat', name: 'cat', description: 'Показать содержимое файла', xp: 15, chapter: 4 },
-            { id: 'grep', name: 'grep', description: 'Поиск текста в файлах', xp: 30, chapter: 5 },
-            { id: 'chmod', name: 'chmod', description: 'Изменить права доступа', xp: 35, chapter: 5 },
-            { id: 'ps', name: 'ps', description: 'Показать запущенные процессы', xp: 25, chapter: 6 },
-            { id: 'kill', name: 'kill', description: 'Завершить процесс', xp: 30, chapter: 6 }
-        ];
-
-        const windowsCommands = [
-            { id: 'dir', name: 'dir', description: 'Показать содержимое директории', xp: 10, chapter: 1 },
-            { id: 'cd', name: 'cd', description: 'Перейти в другую директорию', xp: 10, chapter: 1 },
-            { id: 'cls', name: 'cls', description: 'Очистить экран', xp: 5, chapter: 1 },
-            { id: 'mkdir', name: 'mkdir', description: 'Создать директорию', xp: 15, chapter: 2 },
-            { id: 'type', name: 'type', description: 'Показать содержимое файла', xp: 15, chapter: 2 },
-            { id: 'copy', name: 'copy', description: 'Копировать файл', xp: 20, chapter: 3 },
-            { id: 'move', name: 'move', description: 'Переместить файл', xp: 20, chapter: 3 },
-            { id: 'del', name: 'del', description: 'Удалить файл', xp: 25, chapter: 4 },
-            { id: 'ren', name: 'ren', description: 'Переименовать файл', xp: 20, chapter: 4 },
-            { id: 'find', name: 'find', description: 'Поиск текста в файлах', xp: 30, chapter: 5 },
-            { id: 'tasklist', name: 'tasklist', description: 'Показать запущенные процессы', xp: 25, chapter: 6 },
-            { id: 'taskkill', name: 'taskkill', description: 'Завершить процесс', xp: 30, chapter: 6 }
-        ];
-
-        // Сюжетные линии для глав
-        const storyChapters = [
-            {
-                title: "Пробуждение",
-                description: "Вы просыпаетесь в неизвестной комнате. Перед вами только компьютер с терминалом. Похоже, вам нужно исследовать окружение с помощью базовых команд.",
-                commands: ['ls', 'cd', 'pwd', 'cls']
-            },
-            {
-                title: "Создание структуры",
-                description: "Вы обнаружили, что находитесь в пустой директории. Чтобы продвигаться дальше, вам нужно создать файлы и папки для организации информации.",
-                commands: ['mkdir', 'touch', 'type']
-            },
-            {
-                title: "Управление файлами",
-                description: "Теперь, когда у вас есть файлы, нужно научиться их копировать и перемещать. Это поможет вам организовать данные эффективнее.",
-                commands: ['cp', 'mv', 'copy', 'move']
-            },
-            {
-                title: "Работа с содержимым",
-                description: "Вы нашли зашифрованные файлы. Чтобы прочитать их содержимое и удалить ненужное, вам понадобятся новые команды.",
-                commands: ['rm', 'cat', 'del', 'ren']
-            },
-            {
-                title: "Поиск и безопасность",
-                description: "Вам нужно найти конкретную информацию среди множества файлов и настроить права доступа к важным данным.",
-                commands: ['grep', 'chmod', 'find']
-            },
-            {
-                title: "Управление процессами",
-                description: "Вы обнаружили подозрительные процессы в системе. Нужно разобраться с ними, чтобы завершить ваше приключение.",
-                commands: ['ps', 'kill', 'tasklist', 'taskkill']
-            }
-        ];
-
-        // DOM элементы
-        const terminal = document.getElementById('terminal');
-        const storySection = document.getElementById('story');
-        const commandsSection = document.getElementById('commands');
-        const nameModal = document.getElementById('name-modal');
-        const playerNameInput = document.getElementById('player-name-input');
-        const startGameBtn = document.getElementById('start-game-btn');
-        const saveNotification = document.getElementById('save-notification');
-        const linuxModeBtn = document.getElementById('linux-mode');
-        const windowsModeBtn = document.getElementById('windows-mode');
-
-        // Элементы статистики
-        const playerNameElement = document.getElementById('player-name');
-        const playerLevelElement = document.getElementById('player-level');
-        const playerXpElement = document.getElementById('player-xp');
-        const playerScoreElement = document.getElementById('player-score');
-        const commandsLearnedElement = document.getElementById('commands-learned');
-
-        // Инициализация игры
-        function initGame() {
-            loadGame();
-            updateUI();
+    <!-- Модальное окно помощи -->
+<div id="help-modal" class="modal">
+    <div class="modal-content">
+        <h2>Помощь по игре</h2>
+        <div class="help-content">
+            <div class="help-section">
+                <h3>🎮 Как играть</h3>
+                <p><strong>Основной геймплей:</strong></p>
+                <ol>
+                    <li>Нажимайте на команды в правой панели для их выполнения</li>
+                    <li>Изучайте новые команды для прогресса по сюжету</li>
+                    <li>Выполняйте цели глав (показаны в нижней панели)</li>
+                    <li>Повышайте уровень и открывайте новые возможности</li>
+                </ol>
+                <p><strong>Первые шаги:</strong></p>
+                <ul>
+                    <li>Начните с команд <code>ls</code> и <code>pwd</code> чтобы освоиться</li>
+                    <li>Используйте <code>mkdir</code> чтобы создать свою первую папку</li>
+                    <li>Команда <code>cd</code> поможет перемещаться между папками</li>
+                </ul>
+                <h3>🎮 Основы игры</h3>
+                <p>Terminal Quest Pro - это игра-симулятор для изучения команд терминала через увлекательный сюжет.</p>
+                <ul>
+                    <li>Используйте команды для взаимодействия с системой</li>
+                    <li>Изучайте новые команды для прогресса в игре</li>
+                    <li>Выполняйте цели глав для продвижения по сюжету</li>
+                    <li>Повышайте уровень и улучшайте класс персонажа</li>
+                </ul>
+            </div>
             
-            // Показать модальное окно для ввода имени, если игра новая
-            if (!gameData.player.name) {
-                nameModal.style.display = 'flex';
-            } else {
-                startGame();
-            }
+            <div class="help-section">
+                <h3>⌨️ Горячие клавиши</h3>
+                <ul>
+                    <li><strong>Ctrl + S</strong> - Быстрое сохранение</li>
+                    <li><strong>Ctrl + L</strong> - Очистка терминала</li>
+                    <li><strong>F1</strong> - Открыть справку</li>
+                    <li><strong>Ctrl + R</strong> - Перезагрузка игры (в разработке)</li>
+                </ul>
+            </div>
             
-            // Настройка обработчиков событий
-            setupEventListeners();
-        }
-
-        // Настройка обработчиков событий
-        function setupEventListeners() {
-            startGameBtn.addEventListener('click', startGame);
-            playerNameInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    startGame();
-                }
-            });
+            <div class="help-section">
+                <h3>🎯 Система классов</h3>
+                <p>Каждый класс имеет уникальные способности и бонусы:</p>
+                <ul>
+                    <li><strong>Хакер</strong> - Быстрое обучение, скрытность</li>
+                    <li><strong>Системный администратор</strong> - Эффективные команды, ремонт системы</li>
+                    <li><strong>Разработчик</strong> - Скрипты, отладка</li>
+                </ul>
+            </div>
             
-            linuxModeBtn.addEventListener('click', () => switchMode('linux'));
-            windowsModeBtn.addEventListener('click', () => switchMode('windows'));
-        }
+            <div class="help-section">
+                <h3>💾 Система сохранений</h3>
+                <p>Игра автоматически сохраняется каждую минуту. Вы также можете:</p>
+                <ul>
+                    <li>Использовать кнопку "Сохранить" в тулбаре</li>
+                    <li>Нажать Ctrl+S для быстрого сохранения</li>
+                    <li>Экспортировать/импортировать сохранения в настройках</li>
+                </ul>
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button id="close-help-btn" class="btn-primary">Закрыть</button>
+        </div>
+    </div>
+</div>
 
-        // Начать игру
-        function startGame() {
-            const name = playerNameInput.value.trim();
-            if (name) {
-                gameData.player.name = name;
-                nameModal.style.display = 'none';
-                gameData.gameState = 'playing';
-                
-                addTerminalOutput(`Добро пожаловать, ${name}!`);
-                addTerminalOutput(`Вы находитесь в системе ${gameData.currentMode === 'linux' ? 'Linux' : 'Windows'}.`);
-                addTerminalOutput('Используйте доступные команды для взаимодействия с системой.');
-                
-                updateAvailableCommands();
-                updateStory();
-                saveGame();
-                updateUI();
-            } else {
-                alert('Пожалуйста, введите ваше имя');
-            }
-        }
+    <div id="level-up-modal" class="modal">
+        <div class="modal-content">
+            <h2>Повышение уровня!</h2>
+            <div id="level-up-content">
+                <!-- Level up content will be populated here -->
+            </div>
+        </div>
+    </div>
 
-        // Переключение режима (Linux/Windows)
-        function switchMode(mode) {
-            if (gameData.gameState === 'playing') {
-                if (confirm('Переключение режима сбросит ваш прогресс. Вы уверены?')) {
-                    resetGame();
-                } else {
-                    return;
-                }
-            }
-            
-            gameData.currentMode = mode;
-            
-            if (mode === 'linux') {
-                linuxModeBtn.classList.add('active');
-                windowsModeBtn.classList.remove('active');
-            } else {
-                windowsModeBtn.classList.add('active');
-                linuxModeBtn.classList.remove('active');
-            }
-            
-            if (gameData.gameState === 'playing') {
-                addTerminalOutput(`Режим переключен на ${mode === 'linux' ? 'Linux Bash' : 'Windows CMD'}`);
-                updateAvailableCommands();
-                updateStory();
-                saveGame();
-                updateUI();
-            }
-        }
-
-        // Обновление доступных команд
-        function updateAvailableCommands() {
-            commandsSection.innerHTML = '';
-            
-            const commands = gameData.currentMode === 'linux' ? linuxCommands : windowsCommands;
-            const availableCommands = commands.filter(cmd => 
-                cmd.chapter <= gameData.currentChapter && 
-                !gameData.availableCommands.includes(cmd.id)
-            );
-            
-            // Добавить уже изученные команды
-            gameData.availableCommands.forEach(cmdId => {
-                const command = commands.find(c => c.id === cmdId);
-                if (command) {
-                    availableCommands.push(command);
-                }
-            });
-            
-            // Сортировка по главам
-            availableCommands.sort((a, b) => a.chapter - b.chapter);
-            
-            // Создание кнопок команд
-            availableCommands.forEach(cmd => {
-                const button = document.createElement('button');
-                button.className = 'command-btn';
-                button.textContent = cmd.name;
-                button.title = cmd.description;
-                
-                if (gameData.availableCommands.includes(cmd.id)) {
-                    button.style.backgroundColor = 'var(--success-color)';
-                }
-                
-                button.addEventListener('click', () => useCommand(cmd));
-                commandsSection.appendChild(button);
-            });
-        }
-
-        // Использование команды
-        function useCommand(command) {
-            // Добавить команду в историю
-            addTerminalInput(command.name);
-            
-            // Если команда еще не изучена, добавить ее
-            if (!gameData.availableCommands.includes(command.id)) {
-                gameData.availableCommands.push(command.id);
-                gameData.player.commandsLearned++;
-                gameData.player.xp += command.xp;
-                gameData.player.score += command.xp * 10;
-                
-                addTerminalOutput(`Вы изучили команду: ${command.name} - ${command.description}`);
-                addTerminalOutput(`+${command.xp} опыта получено!`);
-                
-                // Проверить повышение уровня
-                checkLevelUp();
-                
-                // Проверить переход к следующей главе
-                checkChapterProgress();
-            } else {
-                // Команда уже изучена, просто выполнить
-                addTerminalOutput(`Команда выполнена: ${command.name}`);
-                gameData.player.score += 5;
-            }
-            
-            // Обновить интерфейс
-            updateAvailableCommands();
-            saveGame();
-            updateUI();
-        }
-
-        // Проверка повышения уровня
-        function checkLevelUp() {
-            const xpNeeded = gameData.player.level * 100;
-            if (gameData.player.xp >= xpNeeded) {
-                gameData.player.level++;
-                gameData.player.xp = 0;
-                addTerminalOutput(`Поздравляем! Вы достигли уровня ${gameData.player.level}!`);
-            }
-        }
-
-        // Проверка прогресса по главам
-        function checkChapterProgress() {
-            const commands = gameData.currentMode === 'linux' ? linuxCommands : windowsCommands;
-            const chapterCommands = commands.filter(cmd => cmd.chapter === gameData.currentChapter);
-            const learnedChapterCommands = chapterCommands.filter(cmd => 
-                gameData.availableCommands.includes(cmd.id)
-            );
-            
-            if (learnedChapterCommands.length === chapterCommands.length && 
-                gameData.currentChapter < storyChapters.length) {
-                gameData.currentChapter++;
-                addTerminalOutput(`=== Глава ${gameData.currentChapter}: ${storyChapters[gameData.currentChapter-1].title} ===`);
-                updateStory();
-            }
-        }
-
-        // Обновление сюжета
-        function updateStory() {
-            const chapter = storyChapters[gameData.currentChapter - 1];
-            storySection.innerHTML = `
-                <h3>Глава ${gameData.currentChapter}: ${chapter.title}</h3>
-                <p>${chapter.description}</p>
-                <p><strong>Цель:</strong> Изучите все команды этой главы, чтобы продвинуться дальше.</p>
-            `;
-        }
-
-        // Добавление ввода в терминал
-        function addTerminalInput(command) {
-            const prompt = gameData.currentMode === 'linux' ? 
-                `user@terminal-quest:~$ ` : 
-                `C:\\Users\\user> `;
-            
-            const line = document.createElement('div');
-            line.className = 'terminal-line';
-            line.innerHTML = `<span class="prompt">${prompt}</span><span class="command">${command}</span>`;
-            terminal.appendChild(line);
-            terminal.scrollTop = terminal.scrollHeight;
-        }
-
-        // Добавление вывода в терминал
-        function addTerminalOutput(text, isError = false) {
-            const line = document.createElement('div');
-            line.className = `terminal-line ${isError ? 'error' : 'output'}`;
-            line.textContent = text;
-            terminal.appendChild(line);
-            terminal.scrollTop = terminal.scrollHeight;
-        }
-
-        // Обновление интерфейса
-        function updateUI() {
-            playerNameElement.textContent = gameData.player.name || 'Неизвестный';
-            playerLevelElement.textContent = gameData.player.level;
-            playerXpElement.textContent = `${gameData.player.xp}/${gameData.player.level * 100}`;
-            playerScoreElement.textContent = gameData.player.score;
-            commandsLearnedElement.textContent = gameData.player.commandsLearned;
-        }
-
-        // Сохранение игры
-        function saveGame() {
-            localStorage.setItem('terminalQuestSave', JSON.stringify(gameData));
-            
-            // Показать уведомление о сохранении
-            saveNotification.style.display = 'block';
-            setTimeout(() => {
-                saveNotification.style.display = 'none';
-            }, 2000);
-        }
-
-        // Загрузка игры
-        function loadGame() {
-            const saved = localStorage.getItem('terminalQuestSave');
-            if (saved) {
-                const savedData = JSON.parse(saved);
-                Object.assign(gameData, savedData);
-            }
-        }
-
-        // Сброс игры
-        function resetGame() {
-            if (confirm('Вы уверены, что хотите сбросить прогресс?')) {
-                gameData.player = {
-                    name: '',
-                    level: 1,
-                    xp: 0,
-                    score: 0,
-                    commandsLearned: 0
-                };
-                gameData.gameState = 'start';
-                gameData.currentChapter = 1;
-                gameData.availableCommands = [];
-                gameData.commandHistory = [];
-                gameData.storyProgress = 0;
-                
-                terminal.innerHTML = `
-                    <div class="terminal-line">
-                        <span class="prompt">user@terminal-quest:~$ </span>
-                        <span class="command">start_game</span>
-                    </div>
-                    <div class="terminal-line output">
-                        Добро пожаловать в Terminal Quest! Для начала введите ваше имя.
-                    </div>
-                `;
-                
-                nameModal.style.display = 'flex';
-                playerNameInput.value = '';
-                updateUI();
-                saveGame();
-            }
-        }
-
-        // Инициализация игры при загрузке страницы
-        window.addEventListener('load', initGame);
-        
-        // Добавление обработчика для сброса игры (для отладки)
-        window.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'r') {
-                e.preventDefault();
-                resetGame();
-            }
-        });
-    </script>
+    <!-- Scripts -->
+    <script src="js/config/commands.js"></script>
+    <script src="js/config/story.js"></script>
+    <script src="js/config/classes.js"></script>
+    <script src="js/config/events.js"></script>
+    
+    <script src="js/utils/Helpers.js"></script>
+    <script src="js/utils/Storage.js"></script>
+    
+    <script src="js/game/Player.js"></script>
+    <script src="js/game/Terminal.js"></script>
+    <script src="js/game/StoryEngine.js"></script>
+    <script src="js/game/GameEngine.js"></script>
+    
+    <script src="js/ui/Modal.js"></script>
+    <script src="js/ui/Toolbar.js"></script>
+    <script src="js/ui/UIManager.js"></script>
+    
+    <script src="js/main.js"></script>
 </body>
 </html>

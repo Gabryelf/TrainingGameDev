@@ -1,0 +1,446 @@
+/* Планшеты (768px - 1024px) */
+@media (max-width: 1024px) {
+    .game-container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        max-height: 200px;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .sidebar.right-sidebar {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .main-content {
+        padding: 10px;
+    }
+    
+    .commands-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .toolbar {
+        padding: 8px 15px;
+    }
+    
+    .app-title {
+        font-size: 1rem;
+    }
+}
+
+/* Мобильные устройства (до 768px) */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .game-container {
+        gap: 10px;
+    }
+    
+    .sidebar {
+        max-height: 150px;
+        padding: 15px;
+    }
+    
+    .main-content {
+        padding: 5px;
+        gap: 10px;
+    }
+    
+    .terminal-container {
+        flex: 1;
+    }
+    
+    .terminal {
+        padding: 15px;
+        font-size: 0.9rem;
+    }
+    
+    .terminal-header {
+        padding: 10px 15px;
+    }
+    
+    .story-panel {
+        padding: 15px;
+    }
+    
+    .commands-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    
+    .command-btn {
+        padding: 10px 5px;
+        font-size: 0.8rem;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    
+    .stat-item {
+        padding: 8px;
+    }
+    
+    .stat-value {
+        font-size: 1rem;
+    }
+    
+    .toolbar {
+        padding: 5px 10px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .toolbar-left,
+    .toolbar-right,
+    .toolbar-center {
+        flex: 1;
+        min-width: 100px;
+    }
+    
+    .toolbar-center {
+        order: 3;
+        flex-basis: 100%;
+        justify-content: center;
+        margin-top: 5px;
+    }
+    
+    .status-indicators {
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+    }
+    
+    .status-item {
+        font-size: 0.8rem;
+    }
+    
+    .quick-actions {
+        display: flex;
+        gap: 5px;
+    }
+    
+    .action-btn {
+        padding: 6px 8px;
+    }
+    
+    /* Модальные окна на мобильных */
+    .modal-content {
+        padding: 20px;
+        margin: 10px;
+        width: calc(100% - 20px);
+    }
+    
+    .classes-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .class-label {
+        padding: 12px;
+    }
+    
+    .class-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    /* Скрытие второстепенных элементов на мобильных */
+    .terminal-controls .control-btn:not(#clear-terminal) {
+        display: none;
+    }
+    
+    .filter-controls {
+        display: none;
+    }
+    
+    .events-panel {
+        display: none;
+    }
+}
+
+/* Маленькие мобильные устройства (до 480px) */
+@media (max-width: 480px) {
+    .container {
+        padding: 5px;
+    }
+    
+    .sidebar {
+        padding: 10px;
+        max-height: 120px;
+    }
+    
+    .player-panel {
+        padding: 15px;
+    }
+    
+    .avatar-container {
+        gap: 10px;
+    }
+    
+    .avatar {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+    
+    .commands-panel {
+        padding: 15px;
+    }
+    
+    .commands-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .command-btn {
+        padding: 8px 4px;
+        font-size: 0.75rem;
+    }
+    
+    .terminal {
+        padding: 10px;
+        font-size: 0.8rem;
+    }
+    
+    .terminal-header {
+        padding: 8px 12px;
+    }
+    
+    .story-panel {
+        padding: 12px;
+    }
+    
+    .story-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+    
+    .progress-indicator {
+        align-self: flex-end;
+    }
+    
+    .toolbar-btn {
+        padding: 6px 8px;
+    }
+    
+    .action-btn {
+        padding: 4px 6px;
+    }
+    
+    .status-item {
+        font-size: 0.7rem;
+    }
+    
+    .notification {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        transform: translateY(-100%);
+    }
+    
+    .notification.show {
+        transform: translateY(0);
+    }
+}
+
+/* Очень высокие экраны */
+@media (min-height: 1000px) {
+    .game-container {
+        max-height: 1400px;
+    }
+    
+    .sidebar {
+        max-height: 300px;
+    }
+}
+
+/* Портретная ориентация на мобильных */
+@media (max-height: 600px) and (orientation: portrait) {
+    .toolbar {
+        padding: 3px 10px;
+    }
+    
+    .sidebar {
+        max-height: 100px;
+        padding: 8px;
+    }
+    
+    .avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .player-stats h3 {
+        font-size: 0.9rem;
+    }
+    
+    .xp-bar {
+        height: 15px;
+    }
+    
+    .xp-text {
+        font-size: 0.7rem;
+    }
+    
+    .terminal {
+        padding: 8px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Ландшафтная ориентация на мобильных */
+@media (max-width: 900px) and (orientation: landscape) {
+    .game-container {
+        flex-direction: row;
+    }
+    
+    .sidebar {
+        width: 250px;
+        max-height: none;
+    }
+    
+    .sidebar.left-sidebar {
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: none;
+    }
+    
+    .sidebar.right-sidebar {
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: none;
+    }
+    
+    .commands-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Темная тема (по умолчанию) */
+body.dark-theme {
+    --primary-bg: #1a1a2e;
+    --secondary-bg: #16213e;
+    --tertiary-bg: #0f3460;
+    --terminal-bg: #000000;
+}
+
+/* Светлая тема */
+body.light-theme {
+    --primary-bg: #f8f9fa;
+    --secondary-bg: #e9ecef;
+    --tertiary-bg: #dee2e6;
+    --accent-color: #e63946;
+    --success-color: #2a9d8f;
+    --warning-color: #e9c46a;
+    --danger-color: #e76f51;
+    --info-color: #457b9d;
+    
+    --terminal-bg: #2b2d42;
+    --terminal-text: #90e0ef;
+    --terminal-prompt: #ffb4a2;
+    --terminal-error: #ff6b6b;
+    --terminal-warning: #ffd166;
+    
+    --text-primary: #2b2d42;
+    --text-secondary: #6c757d;
+    --text-muted: #adb5bd;
+    
+    color: var(--text-primary);
+}
+
+body.light-theme .terminal {
+    background: var(--terminal-bg);
+    color: var(--terminal-text);
+}
+
+body.light-theme .toolbar-btn,
+body.light-theme .action-btn,
+body.light-theme .control-btn {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--text-primary);
+}
+
+body.light-theme .toolbar-btn:hover,
+body.light-theme .action-btn:hover,
+body.light-theme .control-btn:hover {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+/* Поддержка сенсорных устройств */
+@media (hover: none) and (pointer: coarse) {
+    .command-btn:hover,
+    .toolbar-btn:hover,
+    .action-btn:hover,
+    .control-btn:hover {
+        transform: none;
+    }
+    
+    .command-btn:active,
+    .toolbar-btn:active,
+    .action-btn:active,
+    .control-btn:active {
+        transform: scale(0.95);
+    }
+}
+
+/* Улучшенная доступность */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Высококонтрастный режим */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-bg: #000000;
+        --secondary-bg: #111111;
+        --tertiary-bg: #222222;
+        --accent-color: #ffff00;
+        --success-color: #00ff00;
+        --warning-color: #ffa500;
+        --danger-color: #ff0000;
+        --info-color: #0000ff;
+    }
+    
+    .command-btn {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Печать */
+@media print {
+    .toolbar,
+    .sidebar,
+    .commands-panel,
+    .terminal-controls {
+        display: none !important;
+    }
+    
+    .terminal-container {
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+    
+    .terminal {
+        color: #000 !important;
+        background: #fff !important;
+    }
+}
