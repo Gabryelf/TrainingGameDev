@@ -1,221 +1,151 @@
-🎮 Learn Tech Through Games
+# 🎮 Learn Tech Through Games  
+# 🎮 Изучай Технологии Через Игры
+
 <div align="center">
-Master IT skills by playing fun browser-based games
 
-https://img.shields.io/badge/Python-3.8+-blue?logo=python
-https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker
-https://img.shields.io/badge/Web-Browser-FF6B6B?logo=googlechrome
-https://img.shields.io/badge/Open%2520Source-Yes-brightgreen
+**Master IT skills by playing fun browser-based games**  
+**Осваивай IT-навыки через увлекательные браузерные игры**
 
-Turn learning into play - from zero to developer hero
+[![Python](https://img.shields.io/badge/Python-3.8+-blue?logo=python)](https://python.org)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker)](https://docker.com)
+[![Web](https://img.shields.io/badge/Web-Browser-FF6B6B?logo=googlechrome)](https://developer.mozilla.org)
+[![Open Source](https://img.shields.io/badge/Open_Source-Yes-brightgreen)](https://opensource.org)
 
-🚀 Quick Start • 🎮 Games • 🛠 Tech Stack • 📚 Learn Path
+*Turn learning into play - from zero to developer hero*  
+*Преврати обучение в игру - от нуля до профи*
+
+<br>
+
+[🚀 Quick Start](#-quick-start--быстрый-старт) • 
+[🎮 Games](#-games--игры) • 
+[🛠 Tech Stack](#-tech-stack--технологии)
 
 </div>
-🌟 What is this?
-An interactive platform where you learn Linux, Python, C#, Java, Databases, Docker, Git, and other IT technologies through engaging browser games.
 
-💡 Why games? Because playing is the most effective way to learn complex concepts!
+## 🎯 What is this? | О проекте
 
-🎮 Games Collection
-Game	Tech	Concept	Level
-🐍 Python Snake	Python	OOP, SOLID, Typing	🟢 Beginner
-🐧 Linux Quest	Linux	Bash, File System	🟢 Beginner
-🗃️ SQL Dungeon	Databases	SQL, Normalization	🟡 Intermediate
-☕ Java Jigsaw	Java	Patterns, Collections	🟡 Intermediate
-🐳 Docker Island	Docker	Containers, Orchestration	🟡 Intermediate
-🔄 Git Galaxy	Git	Version Control	🟢 Beginner
-🎯 C# Castle	C#/Unity	Game Development	🔴 Advanced
-🔐 Cyber Puzzle	Security	Encryption, Hashing	🟡 Intermediate
-🛠 Tech Stack
-yaml
-Backend:
-  - Python + FastAPI
-  - PostgreSQL + Redis
-  - Docker + Docker Compose
+An interactive platform where you learn **Linux, Python, C#, Java, Databases, Docker, Git** through **engaging browser games**.  
+Интерактивная платформа, где ты изучаешь **Linux, Python, C#, Java, Базы данных, Docker, Git** через **увлекательные браузерные игры**.
 
-Frontend:
-  - React + TypeScript
-  - Tailwind CSS
-  - Phaser 3 (Game Engine)
+> 💡 **Why games?** Because playing is the most effective way to learn!  
+> 💡 **Почему игры?** Потому что игра - самый эффективный способ обучения!
 
-Infrastructure:
-  - Containerized Games
-  - WebSocket Real-time
-  - Progressive Web App
-🚀 Quick Start
-Prerequisites
-bash
-git --version    # Git
-docker --version # Docker
-python --version # Python 3.8+
-Installation (3 minutes ⏱️)
-Clone & Run:
+## 🎮 Games | Игры
 
-bash
+| Game | Игра | Tech | Технология | Level | Уровень |
+|------|------|------|------------|-------|---------|
+| **🐍 Python Snake** | **🐍 Змейка на Python** | Python | Python | 🟢 Beginner | 🟢 Начинающий |
+| **🐧 Linux Quest** | **🐧 Linux Квест** | Linux | Linux | 🟢 Beginner | 🟢 Начинающий |
+| **🗃️ SQL Dungeon** | **🗃️ SQL Подземелье** | Databases | Базы данных | 🟡 Intermediate | 🟡 Средний |
+| **☕ Java Jigsaw** | **☕ Java Пазлы** | Java | Java | 🟡 Intermediate | 🟡 Средний |
+| **🐳 Docker Island** | **🐳 Docker Остров** | Docker | Docker | 🟡 Intermediate | 🟡 Средний |
+| **🔄 Git Galaxy** | **🔄 Git Галактика** | Git | Git | 🟢 Beginner | 🟢 Начинающий |
+
+## 🚀 Quick Start | Быстрый старт
+
+### Prerequisites | Требования
+```bash
+git --version    # Git installed | Git установлен
+docker --version # Docker installed | Docker установлен
+```
+
+### Installation | Установка (2 minutes ⏱️ | 2 минуты ⏱️)
+
+```bash
+# Clone & run | Клонируй и запускай
 git clone https://github.com/your-username/learn-tech-games.git
 cd learn-tech-games
-
-# Auto-setup (Linux/Mac)
 ./launch.sh
 
-# Or manually
+# Or manually | Или вручную
 docker-compose up -d
-Open browser:
 
-text
-http://localhost:8000
-Start playing! 🎯
+# Open browser | Открой в браузере
+# http://localhost:8000
+```
 
-📚 Learning Path
-🟢 Beginner Track
-Python Snake → OOP Basics
+## 🛠 Tech Stack | Технологии
 
-Linux Quest → Command Line
+**Backend:** Python + FastAPI + PostgreSQL  
+**Frontend:** React + TypeScript + Tailwind  
+**Infra:** Docker + WebSocket + PWA
 
-Git Galaxy → Version Control
+## 📚 Learning Path | Путь обучения
 
-SQL Dungeon → Database Fundamentals
+### 🟢 Beginner Track | Начинающий уровень
+1. **Python Snake** → OOP Basics → Основы ООП
+2. **Linux Quest** → Command Line → Командная строка  
+3. **Git Galaxy** → Version Control → Контроль версий
 
-🟡 Intermediate Track
-Java Jigsaw → Design Patterns
+### 🟡 Intermediate Track | Средний уровень
+1. **Java Jigsaw** → Design Patterns → Паттерны проектирования
+2. **Docker Island** → Containerization → Контейнеризация
 
-Docker Island → Containerization
+## 🏆 Progress System | Система прогресса
 
-Cyber Puzzle → Security Basics
-
-🔴 Advanced Track
-C# Castle → Game Development
-
-System Architecture → Distributed Systems
-
-DevOps Challenge → CI/CD Pipelines
-
-🏆 Progress System
-python
-# Your learning journey
+```python
 player = {
-    "level": "Junior Developer",
-    "xp": 1250,
-    "badges": ["🐍 Python Pro", "🐧 Linux Explorer"],
-    "completed_games": 4,
-    "skills": {
-        "python": 85,
-        "linux": 70,
-        "sql": 60,
-        "docker": 45
+    "level": "Junior Developer",  # Уровень: Младший разработчик
+    "xp": 1250,                   # Опыт: 1250
+    "badges": ["🐍 Python Pro", "🐧 Linux Explorer"],  # Значки
+    "skills": {                   # Навыки
+        "python": 85,            # Python: 85%
+        "linux": 70,             # Linux: 70%
+        "docker": 45             # Docker: 45%
     }
 }
-🏅 Earn Badges
-🐍 Python Novice - Complete Snake game
+```
 
-🐧 Linux Explorer - Master 20 commands
+### 🏅 Earn Badges | Получай значки
+- **🐍 Python Novice** - Complete Snake game | Пройди игру "Змейка"
+- **🐧 Linux Explorer** - Master 20 commands | Освой 20 команд
+- **🐳 Docker Sailor** - Run 10 containers | Запусти 10 контейнеров
 
-🗃️ DB Master - Write 50 SQL queries
+## 🎯 Who is this for? | Для кого это?
 
-🐳 Docker Sailor - Run 10 containers
+| Persona | Персона | Benefit | Польза |
+|---------|---------|---------|--------|
+| **👨‍🎓 Students** | **👨‍🎓 Студенты** | Practical supplement | Практика к теории |
+| **🔧 Career Switchers** | **🔧 Смена карьеры** | Smooth transition | Плавный переход в IT |
+| **🎮 Gamers** | **🎮 Геймеры** | Learn while having fun | Учись играя |
 
-🔥 Git Guru - Make 100 commits
+## 💡 Why It Works | Почему это работает
 
-🎯 Who is this for?
-Persona	Benefit
-👨‍🎓 Students	Practical supplement to theory
-🔧 Career Switchers	Smooth transition to IT
-🎮 Gamers	Learn while having fun
-👨‍💻 Junior Devs	Strengthen fundamentals
-👨‍🏫 Teachers	Interactive classroom tool
-💡 Why It Works
-Traditional Learning vs Game-Based
-Traditional	Game-Based
-📚 Passive lectures	🎮 Active participation
-📝 Abstract exercises	🏆 Real-world challenges
-😴 Low engagement	💪 High motivation
-📊 Delayed feedback	⚡ Instant results
-🔧 Development
-Add Your Own Game
-python
-from games.base import BaseGame
+| Traditional | Традиционно | Game-Based | Игровое |
+|------------|------------|------------|---------|
+| 📚 Passive lectures | 📚 Пассивные лекции | 🎮 Active participation | 🎮 Активное участие |
+| 📝 Abstract exercises | 📝 Абстрактные задания | 🏆 Real-world challenges | 🏆 Реальные задачи |
+| 😴 Low engagement | 😴 Низкая вовлеченность | 💪 High motivation | 💪 Высокая мотивация |
 
-class YourGame(BaseGame):
-    def start(self):
-        return "Welcome to your game!"
-    
-    def validate_solution(self, code: str) -> bool:
-        return self.check_learning_objective(code)
-Local Development
-bash
-# Start development environment
-./scripts/dev.sh
+## 🤝 Contributing | Участие
 
-# Run tests
-pytest tests/
+We love contributors! | Мы рады участникам!
 
-# Code quality
-black . && flake8 .
-🌐 Demo
-Live Demo: demo.learn-tech-games.com
+1. **🐛 Report Bugs** | **🐛 Сообщи об ошибке**
+2. **💡 Suggest Games** | **💡 Предложи игру**  
+3. **🔧 Code Contributions** | **🔧 Напиши код**
 
-Test Account:
+## 🌐 Demo | Демо
 
-Email: student@example.com
+**Live Demo:** [demo.learn-tech-games.com](https://demo.learn-tech-games.com)  
+**Демо:** [demo.learn-tech-games.com](https://demo.learn-tech-games.com)
 
-Password: demo123
+**Test Account | Тестовый аккаунт:**
+- Email: `student@example.com`
+- Password | Пароль: `demo123`
 
-🗺️ Roadmap
-✅ Released
-Core platform
-
-5 learning games
-
-Progress tracking
-
-Docker deployment
-
-🚧 In Progress
-Multiplayer modes
-
-Mobile app
-
-AI coding assistant
-
-10+ new games
-
-📅 Coming Soon
-Career paths
-
-Certifications
-
-Company challenges
-
-Community features
-
-🤝 Contributing
-We love contributors! Here's how you can help:
-
-🐛 Report Bugs - Create Issue
-
-💡 Suggest Games - Join Discussion
-
-🔧 Code Contributions - Fork & PR welcome!
-
-📚 Improve Docs - Help others learn
-
-First time contributing? Check out our Good First Issues!
-
-📄 License
-MIT License - see LICENSE for details.
-
-👥 Join Community
-💬 Discord: Join our server
-
-🐦 Twitter: @LearnTechGames
-
-📝 Blog: Dev tutorials & updates
+---
 
 <div align="center">
-Ready to level up your IT skills? 🚀
-Get Started • Play Demo • Contribute
 
-"The beautiful thing about learning is that nobody can take it away from you." - B.B. King
+### **Ready to level up?** 🚀  
+### **Готов прокачаться?** 🚀
+
+[Get Started](#-quick-start--быстрый-старт) • 
+[Play Demo](https://demo.learn-tech-games.com) • 
+[Contribute](#-contributing--участие)
+
+*"The beautiful thing about learning is that nobody can take it away from you." - B.B. King*  
+*"Самое прекрасное в знаниях - что их у тебя нельзя отнять." - B.B. King*
 
 </div>
