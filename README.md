@@ -53,7 +53,7 @@ docker --version # Docker installed | Docker установлен
 
 ```bash
 # Clone & run | Клонируй и запускай
-git clone https://github.com/your-username/learn-tech-games.git
+git clone https://github.com/Gabryelf/TrainingGameDev.git
 cd learn-tech-games
 ./launch.sh
 
@@ -124,15 +124,6 @@ We love contributors! | Мы рады участникам!
 1. **🐛 Report Bugs** | **🐛 Сообщи об ошибке**
 2. **💡 Suggest Games** | **💡 Предложи игру**  
 3. **🔧 Code Contributions** | **🔧 Напиши код**
-
-## 🌐 Demo | Демо
-
-**Live Demo:** [demo.learn-tech-games.com](https://demo.learn-tech-games.com)  
-**Демо:** [demo.learn-tech-games.com](https://demo.learn-tech-games.com)
-
-**Test Account | Тестовый аккаунт:**
-- Email: `student@example.com`
-- Password | Пароль: `demo123`
 
 ---
 
