@@ -1,3 +1,18 @@
+
+# Запуск в режиме разработки
+docker-compose -f docker-compose.dev.yml up
+
+# Или без Docker
+./scripts/start_dev.sh
+
+# Тестирование
+pytest tests/ -v
+
+# Линтинг
+flake8 backend/
+black backend/ --check
+
+
 # 🎮 Snake Game Dev Journey - Интерактивный курс разработки игр
 
 <div align="center">
