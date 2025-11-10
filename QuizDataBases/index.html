@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Design Quest | Колледж</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Students Panel -->
+        <div class="students-panel" id="studentsPanel"></div>
+        
+        <!-- Main Game Area -->
+        <div class="game-area">
+            <!-- Progress -->
+            <div class="game-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-info">
+                    <span class="level-counter" id="levelCounter">Уровень 1/30</span>
+                    <span class="mistakes-counter" id="mistakesCounter">Ошибки: 0/15</span>
+                </div>
+            </div>
+            
+            <!-- Question Area -->
+            <div class="question-area" id="questionArea">
+                <div class="question-header">
+                    <div class="question-icon" id="questionIcon">🎯</div>
+                    <div class="question-title-content">
+                        <h1 class="question-title" id="questionTitle">Проектирование БД Колледжа</h1>
+                        <p class="question-subtitle" id="questionSubtitle">Начните ваше путешествие в мир баз данных</p>
+                    </div>
+                </div>
+                
+                <div class="question-content" id="questionContent">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+            
+            <!-- Answers Area -->
+            <div class="answers-area" id="answersArea">
+                <div class="answers-grid" id="answersGrid"></div>
+            </div>
+            
+            <!-- Controls -->
+            <div class="controls-area">
+                <button class="control-btn" id="leaderboardBtn">
+                    <i class="fas fa-trophy"></i>
+                    Таблица лидеров
+                </button>
+                <button class="control-btn" id="hintBtn">
+                    <i class="fas fa-lightbulb"></i>
+                    Подсказка
+                </button>
+                <button class="control-btn" id="nextBtn" disabled>
+                    <i class="fas fa-arrow-right"></i>
+                    Следующий уровень
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modals -->
+    <div class="modal" id="setupModal">
+        <div class="modal-content">
+            <h2>🎮 Настройка викторины</h2>
+            <div class="setup-form">
+                <div class="form-group">
+                    <label>Добавьте участников (до 20 человек):</label>
+                    <div class="students-input-container">
+                        <input type="text" id="studentNameInput" placeholder="Введите имя студента" maxlength="20">
+                        <button class="add-btn" id="addStudentBtn">
+                            <i class="fas fa-plus"></i>
+                            Добавить
+                        </button>
+                    </div>
+                </div>
+                <div class="students-list" id="studentsList"></div>
+                <button class="start-btn" id="startGameBtn" disabled>
+                    <i class="fas fa-play"></i>
+                    Начать викторину
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal" id="leaderboardModal">
+        <div class="modal-content">
+            <h2>🏆 Таблица лидеров</h2>
+            <div class="leaderboard" id="leaderboardContent"></div>
+            <button class="close-btn" id="closeLeaderboardBtn">
+                <i class="fas fa-times"></i>
+                Закрыть
+            </button>
+        </div>
+    </div>
+    
+    <div class="modal" id="resultsModal">
+        <div class="modal-content">
+            <h2 id="resultsTitle">🎉 Поздравляем!</h2>
+            <div class="results-content" id="resultsContent"></div>
+            <button class="restart-btn" id="restartGameBtn">
+                <i class="fas fa-redo"></i>
+                Начать заново
+            </button>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
