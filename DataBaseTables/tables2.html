@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тренажер по нормализации БД - IT колледж</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --accent-color: #9b59b6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--dark-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 25px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--secondary-color);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border: 2px solid var(--primary-color);
+        }
+        
+        h1 {
+            margin-bottom: 15px;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: 600;
+            opacity: 0.9;
+            color: var(--primary-color);
+        }
+        
+        .dashboard {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--warning-color);
+        }
+        
+        .stats {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 10px;
+            color: white;
+            min-width: 140px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .roadmap {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+        
+        .table-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .table-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary-color);
+        }
+        
+        .table-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 20px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+        
+        .table-status {
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .status-completed {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .status-in-progress {
+            background-color: var(--warning-color);
+            color: white;
+        }
+        
+        .status-not-started {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+        
+        .table-content {
+            padding: 20px;
+        }
+        
+        .table-content p {
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 95%;
+            max-width: 1200px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border: 3px solid var(--primary-color);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .close-btn {
+            float: right;
+            font-size: 2rem;
+            font-weight: 800;
+            cursor: pointer;
+            color: var(--dark-color);
+            transition: color 0.3s;
+        }
+        
+        .close-btn:hover {
+            color: var(--danger-color);
+            transform: scale(1.1);
+        }
+        
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            margin: 25px 0;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .database-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.05rem;
+            font-weight: 600;
+            min-width: 800px;
+        }
+        
+        .database-table th, .database-table td {
+            border: 2px solid #ddd;
+            padding: 15px 12px;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+        
+        .database-table th {
+            background: linear-gradient(135deg, var(--secondary-color), var(--dark-color));
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            min-width: 120px;
+        }
+        
+        .database-table th:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+        }
+        
+        .database-table th.removed {
+            background: linear-gradient(135deg, var(--danger-color), #c0392b);
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        
+        .database-table th.added {
+            background: linear-gradient(135deg, var(--success-color), #27ae60);
+        }
+        
+        .database-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .database-table tr:hover {
+            background-color: #e9ecef;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), #2980b9);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-color), #27ae60);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger-color), #c0392b);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        
+        .result-modal {
+            text-align: center;
+        }
+        
+        .grade {
+            font-size: 4rem;
+            font-weight: 800;
+            margin: 25px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .grade-5 {
+            color: var(--success-color);
+            background: linear-gradient(135deg, var(--success-color), #27ae60);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .grade-4 {
+            color: var(--warning-color);
+            background: linear-gradient(135deg, var(--warning-color), #e67e22);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .grade-3 {
+            color: var(--danger-color);
+            background: linear-gradient(135deg, var(--danger-color), #c0392b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--accent-color);
+        }
+        
+        .instructions h2 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            font-weight: 800;
+            font-size: 1.8rem;
+        }
+        
+        .instructions ol {
+            margin-left: 25px;
+        }
+        
+        .instructions li {
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .table-progress {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: var(--dark-color);
+            font-weight: 700;
+            padding: 12px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: none;
+        }
+        
+        .feedback.correct {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.2), rgba(39, 174, 96, 0.3));
+            border: 2px solid var(--success-color);
+            color: var(--dark-color);
+        }
+        
+        .feedback.incorrect {
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.2), rgba(192, 57, 43, 0.3));
+            border: 2px solid var(--danger-color);
+            color: var(--dark-color);
+        }
+        
+        .additional-columns {
+            margin: 25px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-radius: 15px;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .additional-columns h3 {
+            margin-bottom: 15px;
+            font-weight: 800;
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+        }
+        
+        .columns-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .column-item {
+            padding: 15px 20px;
+            background: white;
+            border: 2px solid #90caf9;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        
+        .column-item:hover {
+            background-color: #e3f2fd;
+            transform: translateY(-3px);
+        }
+        
+        .column-item.added {
+            background: linear-gradient(135deg, var(--success-color), #27ae60);
+            color: white;
+            border-color: var(--success-color);
+        }
+        
+        .column-item.removed {
+            background: linear-gradient(135deg, var(--danger-color), #c0392b);
+            color: white;
+            border-color: var(--danger-color);
+            text-decoration: line-through;
+        }
+        
+        .task-description {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .detailed-explanation {
+            margin-top: 10px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            border-left: 3px solid var(--warning-color);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .stats {
+                justify-content: space-around;
+            }
+            
+            .roadmap {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-item {
+                min-width: 120px;
+            }
+            
+            .columns-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Тренажер по нормализации БД</h1>
+            <p class="subtitle">IT колледж - Нормализация таблиц базы данных</p>
+        </header>
+        
+        <div class="instructions">
+            <h2>Инструкция</h2>
+            <ol>
+                <li>Работайте в парах для выполнения задания</li>
+                <li>Изучите каждую таблицу и определите, какие столбцы нарушают нормализацию</li>
+                <li>Нажмите на лишние столбцы в таблице - они будут удалены (помечены красным)</li>
+                <li>Нажмите на нужные столбцы из дополнительных - они будут добавлены (помечены зеленым)</li>
+                <li>В каждой таблице нужно найти 5 проблем нормализации</li>
+                <li>У вас есть 8 попыток на таблицу - каждый клик отнимает попытку!</li>
+                <li>Если найдете все проблемы и останется 2+ попытки - оценка "5"</li>
+                <li>Если останется 1-2 попытки - оценка "4"</li>
+                <li>Если не найдете все проблемы - оценка "3"</li>
+            </ol>
+        </div>
+        
+        <div class="dashboard">
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="total-problems-found">0</div>
+                    <div class="stat-label">Проблем найдено</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="tables-completed">0/8</div>
+                    <div class="stat-label">Таблиц завершено</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="show-results">Показать результаты</button>
+        </div>
+        
+        <div class="roadmap" id="roadmap">
+            <!-- Таблицы будут добавлены через JavaScript -->
+        </div>
+    </div>
+    
+    <!-- Модальное окно для таблицы -->
+    <div class="modal" id="table-modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-modal">&times;</span>
+            <h2 id="modal-title">Название таблицы</h2>
+            <div class="table-progress" id="table-progress">Проблем найдено: 0/5, Попыток осталось: 8</div>
+            
+            <div class="task-description" id="task-description">
+                <!-- Описание задачи будет добавлено через JavaScript -->
+            </div>
+            
+            <div class="table-wrapper">
+                <div id="table-container">
+                    <!-- Таблица будет добавлена через JavaScript -->
+                </div>
+            </div>
+            
+            <div class="additional-columns" id="additional-columns">
+                <h3>Дополнительные столбцы:</h3>
+                <div class="columns-container" id="columns-container">
+                    <!-- Дополнительные столбцы будут добавлены через JavaScript -->
+                </div>
+            </div>
+            
+            <div class="feedback" id="feedback">
+                <!-- Сообщение о результате будет добавлено через JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для результатов -->
+    <div class="modal" id="result-modal">
+        <div class="modal-content result-modal">
+            <h2>Результаты нормализации</h2>
+            <div class="grade" id="final-grade">5</div>
+            <p id="result-text">Поздравляем! Вы правильно нормализовали все таблицы!</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="final-problems">0</div>
+                    <div class="stat-label">Проблем решено</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="final-tables">0</div>
+                    <div class="stat-label">Таблиц завершено</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="close-result">Закрыть</button>
+        </div>
+    </div>
+
+    <script>
+        // Данные таблиц для нормализации
+        const normalizationTables = [
+            {
+                id: 1,
+                name: "Сотрудники и отделы",
+                description: "Ненормализованная таблица сотрудников",
+                task: "Устраните избыточность данных и нарушения 1NF, 2NF",
+                columns: ["ID_Сотрудника", "ФИО", "Должность", "Отдел", "ID_Отдела", "Телефон_отдела", "Город_отдела"],
+                data: [
+                    [1, "Иванов И.И.", "Разработчик", "ИТ", 101, "79001234567", "Москва"],
+                    [2, "Петрова А.С.", "Аналитик", "ИТ", 101, "79001234567", "Москва"],
+                    [3, "Сидоров П.К.", "Менеджер", "Продажи", 102, "79009876543", "Санкт-Петербург"]
+                ],
+                additionalColumns: ["ID_Менеджера", "Название_проекта", "Адрес_сотрудника", "Email_сотрудника"],
+                problems: [
+                    { 
+                        type: "redundancy", 
+                        column: "Отдел", 
+                        description: "Дублирование данных отдела",
+                        explanation: "Столбец 'Отдел' дублирует информацию, которая уже содержится в 'ID_Отдела'. Это нарушает 2NF - данные должны зависеть от первичного ключа."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Телефон_отдела", 
+                        description: "Дублирование телефона отдела",
+                        explanation: "Телефон отдела зависит от отдела, а не от сотрудника. Это транзитивная зависимость, нарушающая 3NF."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Город_отдела", 
+                        description: "Дублирование города отдела",
+                        explanation: "Город отдела также зависит от отдела, а не от сотрудника. Нужно вынести в отдельную таблицу 'Отделы'."
+                    },
+                    { 
+                        type: "missing", 
+                        column: "Email_сотрудника", 
+                        description: "Отсутствует email сотрудника",
+                        explanation: "Email сотрудника является важным атрибутом и должен храниться в таблице сотрудников для связи и уведомлений."
+                    },
+                    { 
+                        type: "missing", 
+                        column: "Адрес_сотрудника", 
+                        description: "Отсутствует адрес сотрудника",
+                        explanation: "Адрес сотрудника - необходимый атрибут для кадрового учета и почтовой связи. Рекомендуется добавить этот столбец."
+                    }
+                ],
+                attemptsLeft: 8,
+                problemsFound: 0,
+                completed: false
+            },
+            {
+                id: 2,
+                name: "Заказы и клиенты",
+                description: "Таблица заказов с нарушениями нормализации",
+                task: "Устраните транзитивные зависимости и нарушения 3NF",
+                columns: ["ID_Заказа", "Дата_заказа", "ID_Клиента", "Имя_клиента", "Телефон_клиента", "Город_клиента", "ID_Товара", "Название_товара", "Цена_товара", "Категория_товара"],
+                data: [
+                    [1001, "2023-01-15", 501, "ООО Ромашка", "79001112233", "Москва", 201, "Ноутбук", 50000, "Электроника"],
+                    [1002, "2023-01-16", 502, "ИП Сидоров", "79004445566", "Казань", 202, "Монитор", 15000, "Электроника"],
+                    [1003, "2023-01-17", 501, "ООО Ромашка", "79001112233", "Москва", 203, "Клавиатура", 2000, "Аксессуары"]
+                ],
+                additionalColumns: ["Количество", "Статус_заказа", "Email_клиента", "Менеджер_заказа"],
+                problems: [
+                    { 
+                        type: "redundancy", 
+                        column: "Имя_клиента", 
+                        description: "Дублирование данных клиента",
+                        explanation: "Имя клиента зависит от ID_Клиента, а не от заказа. Это транзитивная зависимость, нарушающая 3NF."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Телефон_клиента", 
+                        description: "Дублирование телефона клиента",
+                        explanation: "Телефон клиента также зависит от клиента, а не от заказа. Нужно вынести в таблицу 'Клиенты'."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Город_клиента", 
+                        description: "Дублирование города клиента",
+                        explanation: "Город клиента - атрибут клиента, а не заказа. Дублирование приводит к аномалиям обновления."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Название_товара", 
+                        description: "Дублирование названия товара",
+                        explanation: "Название товара зависит от ID_Товара. При изменении названия придется обновлять все связанные заказы."
+                    },
+                    { 
+                        type: "missing", 
+                        column: "Количество", 
+                        description: "Отсутствует количество товара в заказе",
+                        explanation: "Без количества невозможно корректно учесть товары в заказе. Это обязательный атрибут для таблицы заказов."
+                    }
+                ],
+                attemptsLeft: 8,
+                problemsFound: 0,
+                completed: false
+            },
+            {
+                id: 3,
+                name: "Студенты и курсы",
+                description: "Таблица студентов с учебными курсами",
+                task: "Устраните многозначные зависимости и нарушения 4NF",
+                columns: ["ID_Студента", "ФИО_студента", "Группа", "ID_Курса", "Название_курса", "Преподаватель", "Email_преподавателя", "Оценка", "Дата_экзамена"],
+                data: [
+                    [1, "Иванов А.А.", "П-41", 301, "Базы данных", "Петров П.П.", "petrov@college.ru", 5, "2023-12-20"],
+                    [1, "Иванов А.А.", "П-41", 302, "Программирование", "Сидорова С.С.", "sidorova@college.ru", 4, "2023-12-22"],
+                    [2, "Петрова Б.Б.", "П-42", 301, "Базы данных", "Петров П.П.", "petrov@college.ru", 4, "2023-12-20"]
+                ],
+                additionalColumns: ["ID_Преподавателя", "Семестр", "Тип_контроля", "Аудитория"],
+                problems: [
+                    { 
+                        type: "redundancy", 
+                        column: "ФИО_студента", 
+                        description: "Дублирование ФИО студента",
+                        explanation: "ФИО студента зависит от ID_Студента, а не от курса. Это нарушает 2NF."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Группа", 
+                        description: "Дублирование группы студента",
+                        explanation: "Группа студента также зависит от студента, а не от курса. Дублирование приводит к избыточности."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Преподаватель", 
+                        description: "Дублирование данных преподавателя",
+                        explanation: "Преподаватель зависит от курса, но дублируется в каждой записи. Нужна отдельная таблица 'Преподаватели'."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Email_преподавателя", 
+                        description: "Дублирование email преподавателя",
+                        explanation: "Email преподавателя также зависит от преподавателя. Это транзитивная зависимость."
+                    },
+                    { 
+                        type: "missing", 
+                        column: "ID_Преподавателя", 
+                        description: "Отсутствует ID преподавателя для связи",
+                        explanation: "Без ID преподавателя невозможно установить корректную связь с таблицей преподавателей."
+                    }
+                ],
+                attemptsLeft: 8,
+                problemsFound: 0,
+                completed: false
+            },
+            {
+                id: 4,
+                name: "Проекты и сотрудники",
+                description: "Таблица проектов с назначенными сотрудниками",
+                task: "Устраните нарушения 5NF и создать корректные связи",
+                columns: ["ID_Проекта", "Название_проекта", "Бюджет", "ID_Сотрудника", "ФИО_сотрудника", "Роль_в_проекте", "Отдел_сотрудника", "Дата_начала", "Дата_окончания", "Статус_проекта"],
+                data: [
+                    [701, "Разработка CRM", 500000, 101, "Иванов И.И.", "Разработчик", "ИТ", "2023-01-01", "2023-06-01", "В работе"],
+                    [701, "Разработка CRM", 500000, 102, "Петров П.П.", "Тестировщик", "ИТ", "2023-01-01", "2023-06-01", "В работе"],
+                    [702, "Внедрение ERP", 300000, 103, "Сидоров С.С.", "Аналитик", "Бизнес", "2023-02-01", "2023-05-01", "Завершен"]
+                ],
+                additionalColumns: ["ID_Менеджера", "Приоритет", "Затраченные_часы", "Процент_выполнения"],
+                problems: [
+                    { 
+                        type: "redundancy", 
+                        column: "Название_проекта", 
+                        description: "Дублирование названия проекта",
+                        explanation: "Название проекта дублируется для каждого сотрудника. Это нарушает 1NF."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Бюджет", 
+                        description: "Дублирование бюджета проекта",
+                        explanation: "Бюджет проекта также дублируется. Нужна отдельная таблица 'Проекты'."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "ФИО_сотрудника", 
+                        description: "Дублирование ФИО сотрудника",
+                        explanation: "ФИО сотрудника зависит от ID_Сотрудника. Это транзитивная зависимость."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Отдел_сотрудника", 
+                        description: "Дублирование отдела сотрудника",
+                        explanation: "Отдел сотрудника также зависит от сотрудника. Нарушает 3NF."
+                    },
+                    { 
+                        type: "missing", 
+                        column: "Затраченные_часы", 
+                        description: "Отсутствует учет затраченного времени",
+                        explanation: "Для учета работы сотрудников над проектами необходим столбец с затраченными часами."
+                    }
+                ],
+                attemptsLeft: 8,
+                problemsFound: 0,
+                completed: false
+            },
+            {
+                id: 5,
+                name: "Библиотека и книги",
+                description: "Таблица библиотечного учета",
+                task: "Устранить составные атрибуты и нарушения 1NF",
+                columns: ["ID_Книги", "Название_книги", "Авторы", "Жанры", "ID_Читателя", "ФИО_читателя", "Группа_читателя", "Дата_выдачи", "Срок_возврата"],
+                data: [
+                    [401, "Базы данных", "Иванов, Петров", "Учебная, IT", 201, "Сидоров А.А.", "П-41", "2023-09-01", "2023-10-01"],
+                    [402, "Программирование", "Сидорова", "Учебная", 202, "Петрова Б.Б.", "П-42", "2023-09-02", "2023-10-02"],
+                    [403, "Сети", "Кузнецов, Николаев", "Учебная, IT", 201, "Сидоров А.А.", "П-41", "2023-09-03", "2023-10-03"]
+                ],
+                additionalColumns: ["ID_Автора", "ID_Жанра", "Статус_книги", "Штраф"],
+                problems: [
+                    { 
+                        type: "redundancy", 
+                        column: "Авторы", 
+                        description: "Составной атрибут - нарушение 1NF",
+                        explanation: "Столбец 'Авторы' содержит несколько значений в одной ячейке. Нарушает первую нормальную форму."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Жанры", 
+                        description: "Составной атрибут - нарушение 1NF",
+                        explanation: "Столбец 'Жанры' также содержит несколько значений. Нужны отдельные таблицы для авторов и жанров."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "ФИО_читателя", 
+                        description: "Дублирование данных читателя",
+                        explanation: "ФИО читателя зависит от ID_Читателя. Нарушает 2NF."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Группа_читателя", 
+                        description: "Дублирование группы читателя",
+                        explanation: "Группа читателя также зависит от читателя. Это транзитивная зависимость."
+                    },
+                    { 
+                        type: "missing", 
+                        column: "ID_Автора", 
+                        description: "Отсутствует отдельная таблица авторов",
+                        explanation: "Для нормализации нужна связь многие-ко-многим через таблицу 'Авторы_Книги'."
+                    }
+                ],
+                attemptsLeft: 8,
+                problemsFound: 0,
+                completed: false
+            },
+            {
+                id: 6,
+                name: "Продажи и товары",
+                description: "Таблица продаж магазина",
+                task: "Устранить частичные зависимости и нарушения 2NF",
+                columns: ["ID_Продажи", "Дата_продажи", "ID_Товара", "Название_товара", "Категория", "Цена_закупки", "Цена_продажи", "ID_Магазина", "Адрес_магазина", "ID_Продавца", "ФИО_продавца"],
+                data: [
+                    [901, "2023-03-01", 501, "Ноутбук", "Электроника", 40000, 50000, 1, "ул. Ленина, 10", 101, "Иванов И.И."],
+                    [902, "2023-03-01", 502, "Мышь", "Аксессуары", 500, 1000, 1, "ул. Ленина, 10", 101, "Иванов И.И."],
+                    [903, "2023-03-02", 501, "Ноутбук", "Электроника", 40000, 50000, 2, "ул. Мира, 25", 102, "Петрова А.А."]
+                ],
+                additionalColumns: ["Количество", "Скидка", "Способ_оплаты", "Статус_продажи"],
+                problems: [
+                    { 
+                        type: "redundancy", 
+                        column: "Название_товара", 
+                        description: "Дублирование названия товара",
+                        explanation: "Название товара зависит от ID_Товара, а не от продажи. Нарушает 2NF."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Категория", 
+                        description: "Дублирование категории товара",
+                        explanation: "Категория товара также зависит от товара. Это частичная зависимость."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Цена_закупки", 
+                        description: "Дублирование цены закупки",
+                        explanation: "Цена закупки зависит от товара. Дублирование приводит к аномалиям обновления."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Адрес_магазина", 
+                        description: "Дублирование адреса магазина",
+                        explanation: "Адрес магазина зависит от ID_Магазина. Нарушает 3NF."
+                    },
+                    { 
+                        type: "missing", 
+                        column: "Количество", 
+                        description: "Отсутствует количество проданного товара",
+                        explanation: "Без количества невозможно корректно учесть объем продаж."
+                    }
+                ],
+                attemptsLeft: 8,
+                problemsFound: 0,
+                completed: false
+            },
+            {
+                id: 7,
+                name: "Пациенты и врачи",
+                description: "Таблица медицинских записей",
+                task: "Устранить транзитивные зависимости и нарушения 3NF",
+                columns: ["ID_Записи", "Дата_приема", "ID_Пациента", "ФИО_пациента", "Пол", "Возраст", "ID_Врача", "ФИО_врача", "Специализация", "Диагноз", "Назначения"],
+                data: [
+                    [1001, "2023-04-01", 201, "Иванов А.А.", "М", 25, 301, "Петров П.П.", "Терапевт", "Грипп", "Постельный режим"],
+                    [1002, "2023-04-02", 202, "Петрова Б.Б.", "Ж", 30, 302, "Сидорова С.С.", "Хирург", "Аппендицит", "Операция"],
+                    [1003, "2023-04-03", 201, "Иванов А.А.", "М", 25, 301, "Петров П.П.", "Терапевт", "Осмотр", "Здоров"]
+                ],
+                additionalColumns: ["ID_Отделения", "Статус_пациента", "Страховая_компания", "Дата_след_приема"],
+                problems: [
+                    { 
+                        type: "redundancy", 
+                        column: "ФИО_пациента", 
+                        description: "Дублирование ФИО пациента",
+                        explanation: "ФИО пациента зависит от ID_Пациента. Нарушает 2NF."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Пол", 
+                        description: "Дублирование пола пациента",
+                        explanation: "Пол пациента также зависит от пациента. Это транзитивная зависимость."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Возраст", 
+                        description: "Дублирование возраста пациента",
+                        explanation: "Возраст пациента зависит от пациента. Дублирование приводит к избыточности."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "ФИО_врача", 
+                        description: "Дублирование ФИО врача",
+                        explanation: "ФИО врача зависит от ID_Врача. Нарушает 3NF."
+                    },
+                    { 
+                        type: "missing", 
+                        column: "ID_Отделения", 
+                        description: "Отсутствует связь с отделением",
+                        explanation: "Для корректной структуры БД нужна связь врача с отделением через ID_Отделения."
+                    }
+                ],
+                attemptsLeft: 8,
+                problemsFound: 0,
+                completed: false
+            },
+            {
+                id: 8,
+                name: "Склад и поставки",
+                description: "Таблица складского учета",
+                task: "Устранить все нарушения нормальных форм",
+                columns: ["ID_Поставки", "Дата_поставки", "ID_Товара", "Название_товара", "Категория", "Поставщик", "Телефон_поставщика", "Адрес_поставщика", "Количество", "Цена", "ID_Сотрудника", "ФИО_сотрудника"],
+                data: [
+                    [801, "2023-05-01", 601, "Монитор", "Электроника", "ООО Техно", "79001112233", "Москва", 10, 15000, 101, "Иванов И.И."],
+                    [802, "2023-05-02", 602, "Клавиатура", "Аксессуары", "ИП Компьютерщик", "79004445566", "СПб", 20, 2000, 102, "Петрова А.А."],
+                    [803, "2023-05-03", 601, "Монитор", "Электроника", "ООО Техно", "79001112233", "Москва", 5, 15000, 101, "Иванов И.И."]
+                ],
+                additionalColumns: ["ID_Поставщика", "Склад", "Статус_поставки", "Срок_годности"],
+                problems: [
+                    { 
+                        type: "redundancy", 
+                        column: "Название_товара", 
+                        description: "Дублирование названия товара",
+                        explanation: "Название товара зависит от ID_Товара. Нарушает 2NF."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Категория", 
+                        description: "Дублирование категории товара",
+                        explanation: "Категория товара также зависит от товара. Это частичная зависимость."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Поставщик", 
+                        description: "Дублирование данных поставщика",
+                        explanation: "Поставщик зависит от товара/поставки. Нужна отдельная таблица 'Поставщики'."
+                    },
+                    { 
+                        type: "redundancy", 
+                        column: "Телефон_поставщика", 
+                        description: "Дублирование телефона поставщика",
+                        explanation: "Телефон поставщика зависит от поставщика. Нарушает 3NF."
+                    },
+                    { 
+                        type: "missing", 
+                        column: "ID_Поставщика", 
+                        description: "Отсутствует ID поставщика для связи",
+                        explanation: "Без ID поставщика невозможно установить корректную связь с таблицей поставщиков."
+                    }
+                ],
+                attemptsLeft: 8,
+                problemsFound: 0,
+                completed: false
+            }
+        ];
+
+        // Инициализация приложения
+        document.addEventListener('DOMContentLoaded', function() {
+            const roadmap = document.getElementById('roadmap');
+            const tableModal = document.getElementById('table-modal');
+            const resultModal = document.getElementById('result-modal');
+            const closeModalBtn = document.getElementById('close-modal');
+            const showResultsBtn = document.getElementById('show-results');
+            const closeResultBtn = document.getElementById('close-result');
+            const feedbackContainer = document.getElementById('feedback');
+            
+            let currentTable = null;
+            let totalProblemsFound = 0;
+            let tablesCompleted = 0;
+            
+            // Обновление статистики
+            function updateStats() {
+                document.getElementById('total-problems-found').textContent = totalProblemsFound;
+                document.getElementById('tables-completed').textContent = `${tablesCompleted}/${normalizationTables.length}`;
+            }
+            
+            // Создание roadmap
+            function createRoadmap() {
+                roadmap.innerHTML = '';
+                
+                normalizationTables.forEach(table => {
+                    const card = document.createElement('div');
+                    card.className = 'table-card';
+                    card.dataset.id = table.id;
+                    
+                    const statusClass = table.completed ? 'status-completed' : 
+                                      (table.problemsFound > 0 ? 'status-in-progress' : 'status-not-started');
+                    
+                    card.innerHTML = `
+                        <div class="table-header">${table.name}</div>
+                        <div class="table-status ${statusClass}">
+                            ${table.completed ? 'Завершено' : (table.problemsFound > 0 ? 'В процессе' : 'Не начато')}
+                        </div>
+                        <div class="table-content">
+                            <p>${table.description}</p>
+                            <p>Проблем решено: ${table.problemsFound}/5</p>
+                            <p>Попыток осталось: ${table.attemptsLeft}</p>
+                        </div>
+                    `;
+                    
+                    card.addEventListener('click', () => openTableModal(table.id));
+                    roadmap.appendChild(card);
+                });
+            }
+            
+            // Функция для перерисовки таблицы
+            function renderTable() {
+                const tableContainer = document.getElementById('table-container');
+                const currentColumns = [...currentTable.columns];
+                
+                // Добавляем добавленные столбцы
+                currentTable.problems.forEach(problem => {
+                    if (problem.type === "missing" && problem.found) {
+                        // Находим позицию для вставки (после последнего связанного столбца)
+                        const baseColumn = problem.column.includes('Email') ? 'ФИО' : 
+                                         problem.column.includes('Адрес') ? 'ФИО' : 
+                                         problem.column.includes('ID_') ? currentTable.columns[0] : 
+                                         currentTable.columns[currentTable.columns.length - 1];
+                        
+                        const baseIndex = currentColumns.indexOf(baseColumn);
+                        if (baseIndex !== -1) {
+                            currentColumns.splice(baseIndex + 1, 0, problem.column);
+                        } else {
+                            currentColumns.push(problem.column);
+                        }
+                    }
+                });
+                
+                // Убираем удаленные столбцы
+                const finalColumns = currentColumns.filter(col => {
+                    const problem = currentTable.problems.find(p => p.column === col && p.type === "redundancy");
+                    return !problem || !problem.found;
+                });
+                
+                // Создаем таблицу
+                tableContainer.innerHTML = `
+                    <table class="database-table">
+                        <thead>
+                            <tr>
+                                ${finalColumns.map(col => {
+                                    const problem = currentTable.problems.find(p => p.column === col);
+                                    const isRemoved = problem && problem.type === "redundancy" && problem.found;
+                                    const isAdded = problem && problem.type === "missing" && problem.found;
+                                    return `<th class="${isRemoved ? 'removed' : isAdded ? 'added' : ''}" 
+                                             data-column="${col}">${col}</th>`;
+                                }).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${currentTable.data.map(row => {
+                                const finalRow = finalColumns.map(col => {
+                                    const originalIndex = currentTable.columns.indexOf(col);
+                                    if (originalIndex !== -1) {
+                                        return row[originalIndex];
+                                    } else {
+                                        // Для добавленных столбцов генерируем значения
+                                        if (col === "Email_сотрудника" || col === "Email_клиента") {
+                                            const name = row[1] || "user";
+                                            return name.toLowerCase().replace(/[.\s]/g, '') + "@company.ru";
+                                        } else if (col === "Адрес_сотрудника") {
+                                            return "ул. Примерная, д. " + (Math.floor(Math.random() * 100) + 1);
+                                        } else if (col === "Количество") {
+                                            return Math.floor(Math.random() * 5) + 1;
+                                        } else if (col.includes("ID_")) {
+                                            return Math.floor(Math.random() * 100) + 100;
+                                        } else {
+                                            return "Новое значение";
+                                        }
+                                    }
+                                });
+                                return `<tr>${finalRow.map(cell => `<td>${cell}</td>`).join('')}</tr>`;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                `;
+                
+                // Добавляем обработчики для столбцов таблицы
+                const tableHeaders = tableContainer.querySelectorAll('th');
+                tableHeaders.forEach(header => {
+                    header.addEventListener('click', function() {
+                        if (currentTable.attemptsLeft <= 0 || currentTable.completed) return;
+                        
+                        const column = this.dataset.column;
+                        const problem = currentTable.problems.find(p => p.column === column && p.type === "redundancy");
+                        
+                        if (problem && !problem.found) {
+                            // Правильное удаление лишнего столбца
+                            problem.found = true;
+                            currentTable.problemsFound++;
+                            totalProblemsFound++;
+                            
+                            showFeedback(
+                                `✅ Правильно! Удален лишний столбец: ${column}`,
+                                problem.explanation,
+                                true
+                            );
+                            
+                            // Перерисовываем таблицу
+                            setTimeout(renderTable, 500);
+                        } else if (problem && problem.found) {
+                            showFeedback(
+                                "Этот столбец уже удален", 
+                                "Вы уже отметили этот столбец как лишний. Продолжайте работать с другими столбцами.",
+                                false
+                            );
+                        } else {
+                            showFeedback(
+                                "❌ Этот столбец не является лишним", 
+                                "Данный столбец необходим в таблице и не нарушает нормализацию.",
+                                false
+                            );
+                        }
+                        
+                        // Отнимаем попытку
+                        currentTable.attemptsLeft--;
+                        updateTableProgress();
+                        
+                        checkTableCompletion();
+                    });
+                });
+            }
+            
+            // Открытие модального окна с таблицей
+            function openTableModal(tableId) {
+                currentTable = normalizationTables.find(t => t.id === tableId);
+                if (!currentTable) return;
+                
+                document.getElementById('modal-title').textContent = currentTable.name;
+                document.getElementById('task-description').textContent = currentTable.task;
+                updateTableProgress();
+                
+                const columnsContainer = document.getElementById('columns-container');
+                
+                // Рендерим таблицу
+                renderTable();
+                
+                // Создаем дополнительные столбцы
+                columnsContainer.innerHTML = currentTable.additionalColumns.map(col => {
+                    const problem = currentTable.problems.find(p => p.column === col && p.type === "missing");
+                    const isAdded = problem && problem.found;
+                    return `<div class="column-item ${isAdded ? 'added' : ''}" data-column="${col}">${col}</div>`;
+                }).join('');
+                
+                // Добавляем обработчики для дополнительных столбцов
+                const additionalColumns = columnsContainer.querySelectorAll('.column-item');
+                additionalColumns.forEach(column => {
+                    column.addEventListener('click', function() {
+                        if (currentTable.attemptsLeft <= 0 || currentTable.completed) return;
+                        
+                        const columnName = this.dataset.column;
+                        const problem = currentTable.problems.find(p => p.column === columnName && p.type === "missing");
+                        
+                        if (problem && !problem.found) {
+                            // Правильное добавление столбца
+                            problem.found = true;
+                            currentTable.problemsFound++;
+                            totalProblemsFound++;
+                            this.classList.add('added');
+                            
+                            showFeedback(
+                                `✅ Правильно! Добавлен необходимый столбец: ${columnName}`,
+                                problem.explanation,
+                                true
+                            );
+                            
+                            // Перерисовываем таблицу
+                            setTimeout(renderTable, 500);
+                        } else if (problem && problem.found) {
+                            showFeedback(
+                                "Этот столбец уже добавлен",
+                                "Вы уже добавили этот столбец в таблицу. Продолжайте работать с другими столбцами.",
+                                false
+                            );
+                        } else {
+                            showFeedback(
+                                "❌ Этот столбец не требуется добавлять",
+                                "Данный столбец не нужен в этой таблице или нарушит нормализацию.",
+                                false
+                            );
+                        }
+                        
+                        // Отнимаем попытку
+                        currentTable.attemptsLeft--;
+                        updateTableProgress();
+                        
+                        checkTableCompletion();
+                    });
+                });
+                
+                // Сбрасываем состояние feedback
+                feedbackContainer.style.display = 'none';
+                
+                tableModal.style.display = 'block';
+            }
+            
+            // Показать feedback с подробным объяснением
+            function showFeedback(message, explanation, isCorrect) {
+                feedbackContainer.innerHTML = `
+                    <p>${message}</p>
+                    <div class="detailed-explanation">
+                        <strong>Объяснение:</strong> ${explanation}
+                    </div>
+                `;
+                feedbackContainer.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+                feedbackContainer.style.display = 'block';
+                
+                updateStats();
+                createRoadmap();
+            }
+            
+            // Обновление прогресса таблицы
+            function updateTableProgress() {
+                document.getElementById('table-progress').textContent = 
+                    `Проблем найдено: ${currentTable.problemsFound}/5, Попыток осталось: ${currentTable.attemptsLeft}`;
+            }
+            
+            // Проверка завершения таблицы
+            function checkTableCompletion() {
+                if (currentTable.problemsFound === 5) {
+                    currentTable.completed = true;
+                    tablesCompleted++;
+                    setTimeout(() => {
+                        showFeedback(
+                            "🎉 Поздравляем! Таблица полностью нормализована!",
+                            "Вы успешно устранили все нарушения нормальных форм. Таблица теперь соответствует принципам нормализации баз данных.",
+                            true
+                        );
+                        setTimeout(closeTableModal, 3000);
+                    }, 1000);
+                } else if (currentTable.attemptsLeft <= 0) {
+                    setTimeout(() => {
+                        showFeedback(
+                            "⏰ Закончились попытки!",
+                            `Вы решили ${currentTable.problemsFound} из 5 проблем. Изучите теорию нормализации и попробуйте еще раз.`,
+                            false
+                        );
+                        setTimeout(closeTableModal, 3000);
+                    }, 1000);
+                }
+            }
+            
+            // Закрытие модального окна
+            function closeTableModal() {
+                tableModal.style.display = 'none';
+                updateStats();
+                createRoadmap();
+            }
+            
+            // Показ финальных результатов
+            function showFinalResults() {
+                let totalGrade = 0;
+                let completedTables = 0;
+                
+                normalizationTables.forEach(table => {
+                    if (table.completed) {
+                        completedTables++;
+                        // Оценка для каждой таблицы
+                        if (table.attemptsLeft >= 2) {
+                            totalGrade += 5;
+                        } else if (table.attemptsLeft >= 0) {
+                            totalGrade += 4;
+                        } else {
+                            totalGrade += 3;
+                        }
+                    } else {
+                        totalGrade += 3;
+                    }
+                });
+                
+                // Средняя оценка
+                const averageGrade = Math.round(totalGrade / normalizationTables.length);
+                
+                let message;
+                if (averageGrade === 5) {
+                    message = "Поздравляем! Вы отлично справились с нормализацией!";
+                } else if (averageGrade === 4) {
+                    message = "Хорошая работа! Есть небольшие недочеты в нормализации.";
+                } else {
+                    message = "Вам нужно больше практики по нормализации БД. Попробуйте еще раз!";
+                }
+                
+                document.getElementById('final-grade').textContent = averageGrade;
+                document.getElementById('final-grade').className = `grade grade-${averageGrade}`;
+                document.getElementById('result-text').textContent = message;
+                document.getElementById('final-problems').textContent = totalProblemsFound;
+                document.getElementById('final-tables').textContent = completedTables;
+                
+                resultModal.style.display = 'block';
+            }
+            
+            // Назначаем обработчики событий
+            closeModalBtn.addEventListener('click', closeTableModal);
+            showResultsBtn.addEventListener('click', showFinalResults);
+            closeResultBtn.addEventListener('click', function() {
+                resultModal.style.display = 'none';
+            });
+            
+            // Закрытие модальных окон при клике вне их
+            window.addEventListener('click', function(event) {
+                if (event.target === tableModal) {
+                    closeTableModal();
+                }
+                if (event.target === resultModal) {
+                    resultModal.style.display = 'none';
+                }
+            });
+            
+            // Инициализация приложения
+            updateStats();
+            createRoadmap();
+        });
+    </script>
+</body>
+</html>

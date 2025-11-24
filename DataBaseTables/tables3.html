@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тренажер по базам данных - IT колледж</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --accent-color: #9b59b6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--dark-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 25px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--secondary-color);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            border: 2px solid var(--primary-color);
+        }
+        
+        h1 {
+            margin-bottom: 15px;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--secondary-color);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: 600;
+            opacity: 0.9;
+            color: var(--primary-color);
+        }
+        
+        .dashboard {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--warning-color);
+        }
+        
+        .stats {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 10px;
+            color: white;
+            min-width: 140px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .roadmap {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+        
+        .table-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .table-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary-color);
+        }
+        
+        .table-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 20px;
+            font-weight: 800;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+        
+        .table-status {
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .status-completed {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .status-in-progress {
+            background-color: var(--warning-color);
+            color: white;
+        }
+        
+        .status-not-started {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+        
+        .table-content {
+            padding: 20px;
+        }
+        
+        .table-content p {
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 20px;
+            width: 95%;
+            max-width: 1200px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            border: 3px solid var(--primary-color);
+        }
+        
+        .close-btn {
+            float: right;
+            font-size: 2rem;
+            font-weight: 800;
+            cursor: pointer;
+            color: var(--dark-color);
+            transition: color 0.3s;
+        }
+        
+        .close-btn:hover {
+            color: var(--danger-color);
+            transform: scale(1.1);
+        }
+        
+        .database-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 1.05rem;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .database-table th, .database-table td {
+            border: 2px solid #ddd;
+            padding: 15px 12px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .database-table th {
+            background: linear-gradient(135deg, var(--secondary-color), var(--dark-color));
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        
+        .database-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .database-table tr:hover {
+            background-color: #e9ecef;
+        }
+        
+        .cell-selected {
+            background-color: rgba(52, 152, 219, 0.4) !important;
+            transform: scale(1.02);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+        }
+        
+        .cell-error {
+            background-color: rgba(231, 76, 60, 0.3) !important;
+        }
+        
+        .cell-correct {
+            background-color: rgba(46, 204, 113, 0.4) !important;
+        }
+        
+        .error-reasons {
+            margin-top: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-radius: 15px;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .error-reasons h3 {
+            margin-bottom: 15px;
+            font-weight: 800;
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+        }
+        
+        .reason-option {
+            margin-bottom: 12px;
+            padding: 15px;
+            border: 2px solid #90caf9;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+            background: white;
+        }
+        
+        .reason-option:hover {
+            background-color: #e3f2fd;
+            transform: translateX(5px);
+        }
+        
+        .reason-option.selected {
+            background-color: rgba(52, 152, 219, 0.2);
+            border-color: var(--primary-color);
+            transform: translateX(10px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 3px solid #eee;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), #2980b9);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-color), #27ae60);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger-color), #c0392b);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        
+        .result-modal {
+            text-align: center;
+        }
+        
+        .grade {
+            font-size: 4rem;
+            font-weight: 800;
+            margin: 25px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .grade-5 {
+            color: var(--success-color);
+            background: linear-gradient(135deg, var(--success-color), #27ae60);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .grade-4 {
+            color: var(--warning-color);
+            background: linear-gradient(135deg, var(--warning-color), #e67e22);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .grade-3 {
+            color: var(--danger-color);
+            background: linear-gradient(135deg, var(--danger-color), #c0392b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--accent-color);
+        }
+        
+        .instructions h2 {
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+            font-weight: 800;
+            font-size: 1.8rem;
+        }
+        
+        .instructions ol {
+            margin-left: 25px;
+        }
+        
+        .instructions li {
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .table-progress {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: var(--dark-color);
+            font-weight: 700;
+            padding: 12px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 15px;
+            display: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .feedback.correct {
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.2), rgba(39, 174, 96, 0.3));
+            border: 2px solid var(--success-color);
+            color: var(--dark-color);
+        }
+        
+        .feedback.incorrect {
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.2), rgba(192, 57, 43, 0.3));
+            border: 2px solid var(--danger-color);
+            color: var(--dark-color);
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .stats {
+                justify-content: space-around;
+            }
+            
+            .roadmap {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-item {
+                min-width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Тренажер по базам данных</h1>
+            <p class="subtitle">IT колледж - Исправление ошибок в таблицах БД</p>
+        </header>
+        
+        <div class="instructions">
+            <h2>Инструкция</h2>
+            <ol>
+                <li>Работайте в парах для выполнения задания</li>
+                <li>Изучите каждую таблицу базы данных и найдите ошибки проектирования</li>
+                <li>В каждой таблице есть 5 ошибок, у вас есть 8 попыток на таблицу</li>
+                <li>Любой клик по ячейке отнимает попытку - будьте внимательны!</li>
+                <li>Нажмите на ячейку с ошибкой и выберите правильную причину из 4 вариантов</li>
+                <li>Если найдете все ошибки и останется 2+ попытки - оценка "5"</li>
+                <li>Если останется 1-2 попытки - оценка "4"</li>
+                <li>Если не найдете все ошибки - оценка "3"</li>
+            </ol>
+        </div>
+        
+        <div class="dashboard">
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="total-errors-found">0</div>
+                    <div class="stat-label">Всего найдено ошибок</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="tables-completed">0/8</div>
+                    <div class="stat-label">Таблиц завершено</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="show-results">Показать результаты</button>
+        </div>
+        
+        <div class="roadmap" id="roadmap">
+            <!-- Таблицы будут добавлены через JavaScript -->
+        </div>
+    </div>
+    
+    <!-- Модальное окно для таблицы -->
+    <div class="modal" id="table-modal">
+        <div class="modal-content">
+            <span class="close-btn" id="close-modal">&times;</span>
+            <h2 id="modal-title">Название таблицы</h2>
+            <div class="table-progress" id="table-progress">Ошибок найдено: 0/5, Попыток осталось: 8</div>
+            <div id="table-container">
+                <!-- Таблица будет добавлена через JavaScript -->
+            </div>
+            <div class="error-reasons" id="error-reasons">
+                <h3>Выберите ячейку с ошибкой и причину:</h3>
+                <!-- Варианты ответов будут добавлены через JavaScript -->
+            </div>
+            <div class="feedback" id="feedback">
+                <!-- Сообщение о результате будет добавлено через JavaScript -->
+            </div>
+            <div class="controls">
+                <button class="btn btn-danger" id="cancel-btn">Закрыть</button>
+                <button class="btn btn-success" id="submit-error">Подтвердить выбор</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для результатов -->
+    <div class="modal" id="result-modal">
+        <div class="modal-content result-modal">
+            <h2>Результаты проверки</h2>
+            <div class="grade" id="final-grade">5</div>
+            <p id="result-text">Поздравляем! Вы нашли все ошибки и сохранили дополнительные попытки!</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="final-errors">0</div>
+                    <div class="stat-label">Всего найдено ошибок</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="final-tables">0</div>
+                    <div class="stat-label">Таблиц завершено</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="close-result">Закрыть</button>
+        </div>
+    </div>
+
+    <script>
+        // Типы ошибок и их описания
+        const errorTypes = {
+            DATA_TYPE: "Несоответствие типа данных",
+            NULL_VALUE: "Недопустимое пустое значение",
+            FOREIGN_KEY: "Нарушение целостности внешнего ключа",
+            PRIMARY_KEY: "Нарушение уникальности первичного ключа",
+            FORMAT: "Неверный формат данных",
+            CONSTRAINT: "Нарушение ограничения",
+            DUPLICATE: "Дублирование данных",
+            RELATION: "Нарушение связи между таблицами"
+        };
+
+        // Данные таблиц с ошибками
+        const databaseTables = [
+            {
+                id: 1,
+                name: "Студенты",
+                description: "Таблица содержит информацию о студентах колледжа",
+                columns: ["ID", "ФИО", "Дата рождения", "Группа", "Телефон", "Email", "Адрес", "Паспорт"],
+                data: [
+                    [1, "Иванов Иван Иванович", "2000-05-15", "П-41", "79001234567", "ivanov@itcollege.ru", "ул. Ленина, д. 10, кв. 5", "4510123456"],
+                    [2, "Петрова Анна Сергеевна", "2001-03-22", "П-41", "79007654321", "petrova@itcollege.ru", "ул. Мира, д. 25, кв. 12", "4511 614321"],
+                    [1, "Сидоров Алексей Петрович", "1999-11-08", "П42", "79001112233", "sidorov@itcollege.ru", "пр. Победы, д. 7, кв. 30", "4511 112233"],
+                    [4, "Козлова Мария Дмитриевна", "2000-07-30", "П-41", "7900998877", "kozlovam@itcollege.ru", "ул. Центральная, д. 15, кв. 8", "4511 991177"],
+                    [5, "Николаев Денис Олегович", null, "П-42", "79005554433", "nikolaev@itcollege.ru", "ул. Школьная, д. 3, кв. 14", "4511 554113"]
+                ],
+                errors: [
+                    { 
+                        row: 3, 
+                        col: 4, 
+                        type: errorTypes.FORMAT, 
+                        description: "Неверный формат телефона (не хватает цифр)",
+                        explanation: "Телефонный номер должен содержать 11 цифр. В данной ячейке только 10 цифр."
+                    },
+                    { 
+                        row: 4, 
+                        col: 2, 
+                        type: errorTypes.NULL_VALUE, 
+                        description: "Дата рождения не может быть пустой",
+                        explanation: "Поле 'Дата рождения' является обязательным для заполнения и не может содержать NULL значение"
+                    },
+                    { 
+                        row: 0, 
+                        col: 7, 
+                        type: errorTypes.FORMAT, 
+                        description: "Неверный формат паспортных данных",
+                        explanation: "Паспортные данные должны быть в формате: серия (4 цифры) пробел номер (6 цифр). В данной ячейке номер содержит цифры без пробела."
+                    },
+                    { 
+                        row: 2, 
+                        col: 3, 
+                        type: errorTypes.RELATION, 
+                        description: "Группа с таким номером не существует",
+                        explanation: "Группа 'П42' отсутствует в таблице учебных групп - написана с ошибкой, что нарушает ссылочную целостность "
+                    },
+                    { 
+                        row: 1, 
+                        col: 0, 
+                        type: errorTypes.DUPLICATE, 
+                        description: "Дублирование ID студента",
+                        explanation: "ID студента должен быть уникальным. В таблице уже есть запись с ID=1"
+                    }
+                ],
+                attemptsLeft: 8,
+                errorsFound: 0,
+                completed: false
+            },
+            {
+                id: 2,
+                name: "Преподаватели",
+                description: "Таблица содержит информацию о преподавателях",
+                columns: ["ID", "ФИО", "Должность", "Стаж", "Телефон", "Email", "Кафедра"],
+                data: [
+                    [1, "Смирнов Александр Васильевич", "Старший преподаватель", 15, "79005554433", "smirnov@itcollege.ru", "Программирования"],
+                    [5, "Федорова Ольга Ивановна", "Доцент", 20, "79004445566", "fedorova@itcollege.ru", "Информационные системы"],
+                    [3, "Никитин Дмитрий Сергеевич", "Профессор", 25, "79007778899", "nikIt@itcollege.ru", "Математика"],
+                    [4, "Кузнецова Елена Викторовна", "Ассистент", -2, "79002223344", "kuznetsova@itcollege.ru", "Программирование"],
+                    [5, "Васильев Игорь Петрович", "Доцент", 18, "не указан", "vasilyev@itcollege.ru", "Информационные системы"]
+                ],
+                errors: [
+                    { 
+                        row: 3, 
+                        col: 3, 
+                        type: errorTypes.DATA_TYPE, 
+                        description: "Стаж не может быть отрицательным",
+                        explanation: "Значение стажа работы должно быть положительным числом или нулем"
+                    },
+                    { 
+                        row: 4, 
+                        col: 4, 
+                        type: errorTypes.DATA_TYPE, 
+                        description: "Телефон должен содержать только цифры",
+                        explanation: "Поле 'Телефон' должно содержать номер телефона (только цифры) или быть пустым (NULL)"
+                    },
+                    { 
+                        row: 0, 
+                        col: 6, 
+                        type: errorTypes.FORMAT, 
+                        description: "Некорректное название кафедры",
+                        explanation: "Название кафедры должно заканчиваться правильно (что, а не чего?) для дисциплин: 'Программирование', 'Математика' и т.д."
+                    },
+                    { 
+                        row: 2, 
+                        col: 5, 
+                        type: errorTypes.FORMAT, 
+                        description: "Email должен содержать фамилию в правильном формате",
+                        explanation: "Email адрес должен содержать фамилию в првильном полном формате: фамилия@itcollege.ru (строчные буквы)"
+                    },
+                    { 
+                        row: 1, 
+                        col: 0, 
+                        type: errorTypes.PRIMARY_KEY, 
+                        description: "Нарушение уникальности первичного ключа",
+                        explanation: "ID преподавателя должен быть уникальным. В таблице уже есть запись с ID=5"
+                    }
+                ],
+                attemptsLeft: 8,
+                errorsFound: 0,
+                completed: false
+            },
+            {
+                id: 3,
+                name: "Предметы",
+                description: "Таблица содержит информацию об учебных предметах",
+                columns: ["ID", "Название", "Количество часов", "Семестр", "Тип", "Преподаватель"],
+                data: [
+                    [1, "Базы данных", 120, 7, "Экзамен", "Смирнов А.В."],
+                    [2, "Программирование", 150, 2, "Итоговый", "Федорова О.И."],
+                    [1, "Математика", 180, 1, "Экзамен", "Никитин Д.С."],
+                    [4, "Сети", 90, 4, "Зачет", "Смирнов А."],
+                    [5, "Физика", "сто двадцать", 2, "Экзамен", "Петров В.К."]
+                ],
+                errors: [
+                    { 
+                        row: 4, 
+                        col: 2, 
+                        type: errorTypes.DATA_TYPE, 
+                        description: "Количество часов должно быть числом, а не текстом",
+                        explanation: "Поле 'Количество часов' должно содержать числовое значение, а не текстовое представление числа"
+                    },
+                    { 
+                        row: 0, 
+                        col: 3, 
+                        type: errorTypes.CONSTRAINT, 
+                        description: "Некорректный номер семестра",
+                        explanation: "Не может быть 7 семестров в учебном году"
+                    },
+                    { 
+                        row: 3, 
+                        col: 5, 
+                        type: errorTypes.RELATION, 
+                        description: "Преподаватель не найден в таблице преподавателей",
+                        explanation: "Преподаватель 'Смирнов А.' дубляж/ошибка записи 'Смирнов А.В.'"
+                    },
+                    { 
+                        row: 1, 
+                        col: 4, 
+                        type: errorTypes.FORMAT, 
+                        description: "Тип контроля должен быть записан полностью",
+                        explanation: "Тип контроля должен быть записан полностью: 'Зачет' или 'Экзамен', без сокращений"
+                    },
+                    { 
+                        row: 2, 
+                        col: 0, 
+                        type: errorTypes.DUPLICATE, 
+                        description: "Дублирование ID предмета",
+                        explanation: "ID предмета должен быть уникальным. В таблице уже есть запись с ID=1"
+                    }
+                ],
+                attemptsLeft: 8,
+                errorsFound: 0,
+                completed: false
+            },
+            {
+                id: 4,
+                name: "Оценки",
+                description: "Таблица содержит информацию об оценках студентов",
+                columns: ["ID", "ID_Студента", "ID_Предмета", "Оценка", "Дата", "Тип_контроля"],
+                data: [
+                    [1, 0, 1, 5, "2023-12-20", "Экзамен"],
+                    [2, 1, 1, 4, "2023-13-20", "Экзамен"],
+                    [3, 2, 2, "зачет", "2023-12-15", "Зачет"],
+                    [4, 3, 0.3, 5, "2023-12-18", "Экзамен"],
+                    [5, 4, 4, 6, "2023-12-22", "Экзамен"]
+                ],
+                errors: [
+                    { 
+                        row: 2, 
+                        col: 3, 
+                        type: errorTypes.DATA_TYPE, 
+                        description: "Неверный тип данных для оценки",
+                        explanation: "Для зачета оценка должна быть 'зачет' или 'незачет', для оценки - числом"
+                    },
+                    { 
+                        row: 4, 
+                        col: 3, 
+                        type: errorTypes.CONSTRAINT, 
+                        description: "Недопустимое значение оценки",
+                        explanation: "Оценка по экзамену должна быть в диапазоне от 2 до 5"
+                    },
+                    { 
+                        row: 0, 
+                        col: 1, 
+                        type: errorTypes.RELATION, 
+                        description: "Студент с таким ID не существует",
+                        explanation: "Студент с ID=0 отсутствует в таблице студентов, инкрементность не позволяет создавать 0 значение"
+                    },
+                    { 
+                        row: 3, 
+                        col: 2, 
+                        type: errorTypes.RELATION, 
+                        description: "Предмет с таким ID не существует",
+                        explanation: "Предмет с ID=0.3 отсутствует в таблице предметов"
+                    },
+                    { 
+                        row: 1, 
+                        col: 4, 
+                        type: errorTypes.FORMAT, 
+                        description: "Неверный формат даты",
+                        explanation: "Дата должна быть в формате ГГГГ-ММ-ДД. В данной ячейке месяц 13 не существует"
+                    }
+                ],
+                attemptsLeft: 8,
+                errorsFound: 0,
+                completed: false
+            },
+            {
+                id: 5,
+                name: "Группы",
+                description: "Таблица содержит информацию о учебных группах",
+                columns: ["ID", "Название", "Куратор", "Количество_студентов", "Год_поступления", "Специальность"],
+                data: [
+                    [1, "П-41", "С.А.В.", 25, 2023, "Программирование"],
+                    [2, "П-42", "Федорова О.И.", 28, 2022, "Программирование."],
+                    [3, "ИС-41", "Никитин Д.С.", -5, 2024, "Информационные системы"],
+                    [4, "ИС-42", "Петров В.К.", 22, 2026, "Информационные системы"],
+                    [5, "П-41", "Сидоров П.М.", 24, 2025, "Программирование"]
+                ],
+                errors: [
+                    { 
+                        row: 2, 
+                        col: 3, 
+                        type: errorTypes.DATA_TYPE, 
+                        description: "Количество студентов не может быть отрицательным",
+                        explanation: "Количество студентов должно быть положительным числом или нулем"
+                    },
+                    { 
+                        row: 4, 
+                        col: 1, 
+                        type: errorTypes.DUPLICATE, 
+                        description: "Дублирование названия группы",
+                        explanation: "Название группы должно быть уникальным. Группа 'П-41' уже существует"
+                    },
+                    { 
+                        row: 0, 
+                        col: 2, 
+                        type: errorTypes.RELATION, 
+                        description: "Куратор не найден в таблице преподавателей",
+                        explanation: "Преподаватель 'С.А.В.' отсутствует в таблице преподавателей, фамилия не может быть просто символом"
+                    },
+                    { 
+                        row: 3, 
+                        col: 4, 
+                        type: errorTypes.CONSTRAINT, 
+                        description: "Некорректный год поступления",
+                        explanation: "Год поступления не может быть в будущем времени"
+                    },
+                    { 
+                        row: 1, 
+                        col: 5, 
+                        type: errorTypes.FORMAT, 
+                        description: "Неверное название специальности",
+                        explanation: "Специальность указана с точкой, лишний символ!"
+                    }
+                ],
+                attemptsLeft: 8,
+                errorsFound: 0,
+                completed: false
+            },
+            {
+                id: 6,
+                name: "Аудитории",
+                description: "Таблица содержит информацию об учебных аудиториях",
+                columns: ["ID", "Номер", "Вместимость", "Этаж", "Тип", "Оснащение"],
+                data: [
+                    [1, "301", 30, 1, "Лекционная", "Проектор, доска"],
+                    [2, "102", 25, 1, "Практическая", "_"],
+                    [3, "201", 35, 2, "Приемная", "Проектор, микрофон"],
+                    [4, "202", -20, 2, "Лаборатория", "Оборудование"],
+                    [5, "301", 40, 4, "Лекционная", "Интерактивная доска"]
+                ],
+                errors: [
+                    { 
+                        row: 3, 
+                        col: 2, 
+                        type: errorTypes.DATA_TYPE, 
+                        description: "Вместимость не может быть отрицательной",
+                        explanation: "Вместимость аудитории должна быть положительным числом"
+                    },
+                    { 
+                        row: 0, 
+                        col: 1, 
+                        type: errorTypes.DUPLICATE, 
+                        description: "Дублирование номера аудитории",
+                        explanation: "Номер аудитории должен быть уникальным. Аудитория '301' уже существует и находится на 3 этаже"
+                    },
+                    { 
+                        row: 2, 
+                        col: 4, 
+                        type: errorTypes.FORMAT, 
+                        description: "Неверный тип аудитории",
+                        explanation: "Тип аудитории должен быть одним из: 'Лекционная', 'Практическая', 'Лабораторная'"
+                    },
+                    { 
+                        row: 1, 
+                        col: 5, 
+                        type: errorTypes.NULL_VALUE, 
+                        description: "Отсутствует информация об оснащении",
+                        explanation: "Поле 'Оснащение' не может быть пустым для практической аудитории"
+                    },
+                    { 
+                        row: 4, 
+                        col: 3, 
+                        type: errorTypes.CONSTRAINT, 
+                        description: "Несоответствующий этаж или номер",
+                        explanation: "В здании каждый этаж имеет номер - допустим 3 и к нему прилагается номер аудитории 01, 02 и тд - в итоге 301, 302"
+                    }
+                ],
+                attemptsLeft: 8,
+                errorsFound: 0,
+                completed: false
+            },
+            {
+                id: 7,
+                name: "Расписание",
+                description: "Таблица содержит расписание занятий",
+                columns: ["ID", "День_недели", "Время", "ID_Предмета", "ID_Аудитории", "ID_Преподавателя"],
+                data: [
+                    [1, "Понедельник", "09:00", 0, 1, 1],
+                    [2, "Вторник", "10:30", 2, 301, 2],
+                    [3, "Среда", "14:00", 3, 3, "I"],
+                    [4, "Воскресенье", "11:00", 4, 4, 4],
+                    [5, "Пятница", "06:00", 5, 5, 5]
+                ],
+                errors: [
+                    { 
+                        row: 3, 
+                        col: 1, 
+                        type: errorTypes.CONSTRAINT, 
+                        description: "Занятия не проводятся в воскресенье",
+                        explanation: "Учебное заведение не работает по воскресеньям"
+                    },
+                    { 
+                        row: 4, 
+                        col: 2, 
+                        type: errorTypes.CONSTRAINT, 
+                        description: "Неверное время начала занятия",
+                        explanation: "Занятия не могут начинаться раньше 08:00"
+                    },
+                    { 
+                        row: 0, 
+                        col: 3, 
+                        type: errorTypes.RELATION, 
+                        description: "Предмет с таким ID не существует",
+                        explanation: "Предмет с ID=0 отсутствует в таблице предметов"
+                    },
+                    { 
+                        row: 1, 
+                        col: 4, 
+                        type: errorTypes.RELATION, 
+                        description: "Аудитория с таким ID не существует",
+                        explanation: "Аудитория с ID=301 отсутствует в таблице аудиторий"
+                    },
+                    { 
+                        row: 2, 
+                        col: 5, 
+                        type: errorTypes.RELATION, 
+                        description: "Преподаватель с таким ID не существует",
+                        explanation: "Преподаватель с ID=I отсутствует в таблице преподавателей"
+                    }
+                ],
+                attemptsLeft: 8,
+                errorsFound: 0,
+                completed: false
+            },
+            {
+                id: 8,
+                name: "Специальности",
+                description: "Таблица содержит информацию о специальностях",
+                columns: ["ID", "Название", "Код", "Количество_курсов", "Факультет", "Стоимость_обучения"],
+                data: [
+                    [1, "Программирование", "09.2.07", 1, "Разработка игр", 50000],
+                    [2, "Информационные системы", "09.02.04", 4, "ИТ", 45000],
+                    [3, "Кибербезопасность", "10.02.02", 10, "Администрирование", 55000],
+                    [4, "Программирование", "09.02.07", 5, "Разработка игр", 50000],
+                    [5, "Веб-дизайн", "09.02.06", 3, "Дизайн", "бесплатно"]
+                ],
+                errors: [
+                    { 
+                        row: 3, 
+                        col: 1, 
+                        type: errorTypes.DUPLICATE, 
+                        description: "Дублирование названия специальности",
+                        explanation: "Название специальности должно быть уникальным. 'Программирование' уже существует"
+                    },
+                    { 
+                        row: 4, 
+                        col: 5, 
+                        type: errorTypes.DATA_TYPE, 
+                        description: "Неверный тип данных для стоимости",
+                        explanation: "Стоимость обучения должна быть числом, а не строкой"
+                    },
+                    { 
+                        row: 0, 
+                        col: 2, 
+                        type: errorTypes.FORMAT, 
+                        description: "Неверный формат кода специальности",
+                        explanation: "Код специальности должен соответствовать формату: XX.XX.XX"
+                    },
+                    { 
+                        row: 2, 
+                        col: 3, 
+                        type: errorTypes.CONSTRAINT, 
+                        description: "Некорректное количество курсов",
+                        explanation: "Количество курсов должно быть в диапазоне от 1 до 6"
+                    },
+                    { 
+                        row: 1, 
+                        col: 4, 
+                        type: errorTypes.FORMAT, 
+                        description: "Неверное название факультета",
+                        explanation: "Факультет должен записываться полностью: 'Информационные технологии'"
+                    }
+                ],
+                attemptsLeft: 8,
+                errorsFound: 0,
+                completed: false
+            }
+        ];
+
+        // Инициализация приложения
+        document.addEventListener('DOMContentLoaded', function() {
+            const roadmap = document.getElementById('roadmap');
+            const tableModal = document.getElementById('table-modal');
+            const resultModal = document.getElementById('result-modal');
+            const closeModalBtn = document.getElementById('close-modal');
+            const cancelBtn = document.getElementById('cancel-btn');
+            const submitErrorBtn = document.getElementById('submit-error');
+            const showResultsBtn = document.getElementById('show-results');
+            const closeResultBtn = document.getElementById('close-result');
+            const errorReasonsContainer = document.getElementById('error-reasons');
+            const feedbackContainer = document.getElementById('feedback');
+            
+            let currentTable = null;
+            let selectedCell = null;
+            let selectedReason = null;
+            let totalErrorsFound = 0;
+            let tablesCompleted = 0;
+            
+            // Обновление статистики
+            function updateStats() {
+                document.getElementById('total-errors-found').textContent = totalErrorsFound;
+                document.getElementById('tables-completed').textContent = `${tablesCompleted}/${databaseTables.length}`;
+            }
+            
+            // Создание roadmap
+            function createRoadmap() {
+                roadmap.innerHTML = '';
+                
+                databaseTables.forEach(table => {
+                    const card = document.createElement('div');
+                    card.className = 'table-card';
+                    card.dataset.id = table.id;
+                    
+                    const statusClass = table.completed ? 'status-completed' : 
+                                      (table.errorsFound > 0 ? 'status-in-progress' : 'status-not-started');
+                    
+                    card.innerHTML = `
+                        <div class="table-header">${table.name}</div>
+                        <div class="table-status ${statusClass}">
+                            ${table.completed ? 'Завершено' : (table.errorsFound > 0 ? 'В процессе' : 'Не начато')}
+                        </div>
+                        <div class="table-content">
+                            <p>${table.description}</p>
+                            <p>Ошибок найдено: ${table.errorsFound}/5</p>
+                            <p>Попыток осталось: ${table.attemptsLeft}</p>
+                        </div>
+                    `;
+                    
+                    card.addEventListener('click', () => openTableModal(table.id));
+                    roadmap.appendChild(card);
+                });
+            }
+            
+            // Открытие модального окна с таблицей
+            function openTableModal(tableId) {
+                currentTable = databaseTables.find(t => t.id === tableId);
+                if (!currentTable) return;
+                
+                document.getElementById('modal-title').textContent = currentTable.name;
+                updateTableProgress();
+                
+                const tableContainer = document.getElementById('table-container');
+                tableContainer.innerHTML = `
+                    <p>${currentTable.description}</p>
+                    <table class="database-table">
+                        <thead>
+                            <tr>
+                                ${currentTable.columns.map(col => `<th>${col}</th>`).join('')}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${currentTable.data.map((row, rowIndex) => `
+                                <tr>
+                                    ${row.map((cell, colIndex) => {
+                                        const error = currentTable.errors.find(e => 
+                                            e.row === rowIndex && e.col === colIndex);
+                                        let cellClass = '';
+                                        if (error && error.found) {
+                                            cellClass = 'cell-correct';
+                                        }
+                                        return `<td class="${cellClass}" 
+                                                 data-row="${rowIndex}" data-col="${colIndex}">${cell}</td>`;
+                                    }).join('')}
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                    <p><strong>Внимание:</strong> Любой клик по ячейке отнимает попытку!</p>
+                `;
+                
+                // Добавляем обработчики для всех ячеек
+                const cells = tableContainer.querySelectorAll('td');
+                cells.forEach(cell => {
+                    cell.addEventListener('click', function() {
+                        // Отнимаем попытку при любом клике
+                        currentTable.attemptsLeft--;
+                        updateTableProgress();
+                        
+                        // Снимаем выделение с предыдущей ячейки
+                        if (selectedCell) {
+                            selectedCell.classList.remove('cell-selected');
+                        }
+                        
+                        // Выделяем новую ячейку
+                        this.classList.add('cell-selected');
+                        selectedCell = this;
+                        
+                        const row = parseInt(this.dataset.row);
+                        const col = parseInt(this.dataset.col);
+                        
+                        // Проверяем, есть ли ошибка в этой ячейке
+                        const error = currentTable.errors.find(e => 
+                            e.row === row && e.col === col && !e.found);
+                        
+                        if (error) {
+                            showErrorReasons(error);
+                        } else {
+                            // Если ошибки нет или она уже найдена
+                            const existingError = currentTable.errors.find(e => 
+                                e.row === row && e.col === col);
+                            
+                            if (existingError && existingError.found) {
+                                errorReasonsContainer.innerHTML = '<p>Эта ошибка уже исправлена</p>';
+                            } else {
+                                errorReasonsContainer.innerHTML = '<p>В этой ячейке нет ошибки. Попробуйте другую ячейку.</p>';
+                            }
+                            selectedReason = null;
+                        }
+                        
+                        // Скрываем предыдущий feedback
+                        feedbackContainer.style.display = 'none';
+                        
+                        // Проверяем условия завершения для текущей таблицы
+                        if (currentTable.attemptsLeft <= 0 && !currentTable.completed) {
+                            setTimeout(() => {
+                                alert(`Закончились попытки для таблицы "${currentTable.name}". Вы нашли ${currentTable.errorsFound} из 5 ошибок.`);
+                                closeTableModal();
+                                updateStats();
+                                createRoadmap();
+                            }, 500);
+                        }
+                    });
+                });
+                
+                // Сбрасываем состояние выбора
+                errorReasonsContainer.innerHTML = '<p>Выберите ячейку с ошибкой</p>';
+                feedbackContainer.style.display = 'none';
+                selectedCell = null;
+                selectedReason = null;
+                
+                tableModal.style.display = 'block';
+            }
+            
+            // Показать варианты причин ошибки
+            function showErrorReasons(error) {
+                // Генерируем 4 варианта ответа (1 правильный и 3 случайных неправильных)
+                const reasons = [error.description];
+                
+                // Берем описания других ошибок из этой же таблицы
+                const otherErrorDescriptions = currentTable.errors
+                    .filter(e => e !== error && !e.found)
+                    .map(e => e.description);
+                
+                // Если недостаточно уникальных ошибок, добавляем общие
+                const generalErrors = [
+                    "Нарушение нормальной формы базы данных",
+                    "Избыточность данных", 
+                    "Некорректная индексация",
+                    "Отсутствие валидации данных",
+                    "Нарушение атомарности данных"
+                ];
+                
+                while (otherErrorDescriptions.length < 3) {
+                    const randomGeneralError = generalErrors[Math.floor(Math.random() * generalErrors.length)];
+                    if (!otherErrorDescriptions.includes(randomGeneralError) && !reasons.includes(randomGeneralError)) {
+                        otherErrorDescriptions.push(randomGeneralError);
+                    }
+                }
+                
+                // Перемешиваем и берем 3 случайных неправильных ответа
+                const shuffled = [...otherErrorDescriptions].sort(() => 0.5 - Math.random());
+                reasons.push(...shuffled.slice(0, 3));
+                
+                // Перемешиваем варианты ответов
+                const shuffledReasons = [...reasons].sort(() => 0.5 - Math.random());
+                const correctIndex = shuffledReasons.indexOf(error.description);
+                
+                errorReasonsContainer.innerHTML = `
+                    <h3>Выберите причину ошибки в выбранной ячейке:</h3>
+                    ${shuffledReasons.map((reason, index) => `
+                        <div class="reason-option" data-index="${index}" data-correct="${index === correctIndex}">
+                            ${reason}
+                        </div>
+                    `).join('')}
+                `;
+                
+                // Добавляем обработчики для вариантов ответа
+                const reasonOptions = errorReasonsContainer.querySelectorAll('.reason-option');
+                reasonOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        // Снимаем выделение с предыдущего варианта
+                        reasonOptions.forEach(opt => opt.classList.remove('selected'));
+                        
+                        // Выделяем новый вариант
+                        this.classList.add('selected');
+                        selectedReason = {
+                            index: parseInt(this.dataset.index),
+                            isCorrect: this.dataset.correct === 'true',
+                            text: this.textContent
+                        };
+                    });
+                });
+            }
+            
+            // Обновление прогресса таблицы
+            function updateTableProgress() {
+                document.getElementById('table-progress').textContent = 
+                    `Ошибок найдено: ${currentTable.errorsFound}/5, Попыток осталось: ${currentTable.attemptsLeft}`;
+            }
+            
+            // Закрытие модального окна
+            function closeTableModal() {
+                tableModal.style.display = 'none';
+                selectedCell = null;
+                selectedReason = null;
+            }
+            
+            // Подтверждение ошибки
+            function submitError() {
+                if (!selectedCell) {
+                    alert('Пожалуйста, выберите ячейку с ошибкой');
+                    return;
+                }
+                
+                if (!selectedReason) {
+                    alert('Пожалуйста, выберите причину ошибки');
+                    return;
+                }
+                
+                const row = parseInt(selectedCell.dataset.row);
+                const col = parseInt(selectedCell.dataset.col);
+                
+                const error = currentTable.errors.find(e => 
+                    e.row === row && e.col === col && !e.found);
+                
+                if (error && selectedReason.isCorrect) {
+                    // Правильный ответ
+                    error.found = true;
+                    currentTable.errorsFound++;
+                    totalErrorsFound++;
+                    selectedCell.classList.remove('cell-selected');
+                    selectedCell.classList.add('cell-correct');
+                    
+                    // Показываем feedback с объяснением
+                    feedbackContainer.innerHTML = `
+                        <h4>✅ Правильно!</h4>
+                        <p><strong>Объяснение:</strong> ${error.explanation}</p>
+                    `;
+                    feedbackContainer.className = 'feedback correct';
+                    feedbackContainer.style.display = 'block';
+                    
+                    // Проверяем, все ли ошибки в таблице найдены
+                    if (currentTable.errorsFound === 5) {
+                        currentTable.completed = true;
+                        tablesCompleted++;
+                        setTimeout(() => {
+                            alert(`Поздравляем! Вы нашли все ошибки в таблице "${currentTable.name}"`);
+                            closeTableModal();
+                            updateStats();
+                            createRoadmap();
+                        }, 1500);
+                    }
+                } else {
+                    // Неправильный ответ
+                    feedbackContainer.innerHTML = `
+                        <h4>❌ Неправильно!</h4>
+                        <p>Выбранная причина "${selectedReason.text}" не соответствует ошибке в этой ячейке.</p>
+                        <p>Попробуйте выбрать другую ячейку или другую причину.</p>
+                    `;
+                    feedbackContainer.className = 'feedback incorrect';
+                    feedbackContainer.style.display = 'block';
+                    
+                    // Сбрасываем выбор
+                    if (selectedCell) {
+                        selectedCell.classList.remove('cell-selected');
+                    }
+                    selectedCell = null;
+                    selectedReason = null;
+                    errorReasonsContainer.innerHTML = '<p>Выберите ячейку с ошибкой</p>';
+                }
+                
+                updateStats();
+                createRoadmap();
+            }
+            
+            // Показ финальных результатов
+            function showFinalResults() {
+                let totalGrade = 0;
+                let completedTables = 0;
+                
+                databaseTables.forEach(table => {
+                    if (table.completed) {
+                        completedTables++;
+                        // Оценка для каждой таблицы
+                        if (table.attemptsLeft >= 2) {
+                            totalGrade += 5;
+                        } else if (table.attemptsLeft >= 0) {
+                            totalGrade += 4;
+                        } else {
+                            totalGrade += 3;
+                        }
+                    } else {
+                        totalGrade += 3;
+                    }
+                });
+                
+                // Средняя оценка
+                const averageGrade = Math.round(totalGrade / databaseTables.length);
+                
+                let message;
+                if (averageGrade === 5) {
+                    message = "Поздравляем! Вы отлично справились с заданием!";
+                } else if (averageGrade === 4) {
+                    message = "Хорошая работа! Есть небольшие недочеты.";
+                } else {
+                    message = "Вам нужно больше практики. Попробуйте еще раз!";
+                }
+                
+                document.getElementById('final-grade').textContent = averageGrade;
+                document.getElementById('final-grade').className = `grade grade-${averageGrade}`;
+                document.getElementById('result-text').textContent = message;
+                document.getElementById('final-errors').textContent = totalErrorsFound;
+                document.getElementById('final-tables').textContent = completedTables;
+                
+                resultModal.style.display = 'block';
+            }
+            
+            // Назначаем обработчики событий
+            closeModalBtn.addEventListener('click', closeTableModal);
+            cancelBtn.addEventListener('click', closeTableModal);
+            submitErrorBtn.addEventListener('click', submitError);
+            showResultsBtn.addEventListener('click', showFinalResults);
+            closeResultBtn.addEventListener('click', function() {
+                resultModal.style.display = 'none';
+            });
+            
+            // Закрытие модальных окон при клике вне их
+            window.addEventListener('click', function(event) {
+                if (event.target === tableModal) {
+                    closeTableModal();
+                }
+                if (event.target === resultModal) {
+                    resultModal.style.display = 'none';
+                }
+            });
+            
+            // Инициализация приложения
+            updateStats();
+            createRoadmap();
+        });
+    </script>
+</body>
+</html>
