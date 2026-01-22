@@ -98,82 +98,28 @@
             letter-spacing: 1px;
         }
 
-        .hint-area {
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-        }
-
-        .hint-card {
-            background: 
-                linear-gradient(135deg, rgba(58, 44, 0, 0.8), rgba(42, 30, 0, 0.8)),
-                url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="papyrus" patternUnits="userSpaceOnUse" width="100" height="100"><rect width="100" height="100" fill="%233a2c00"/><path d="M0,10 Q25,0 50,10 T100,10" stroke="%235a4a00" stroke-width="1" fill="none" opacity="0.1"/></pattern></defs></svg>');
-            border: 1px solid var(--color-primary);
-            padding: 14px 20px;
-            border-radius: 6px;
-            animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            width: 100%;
-            box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.2);
-        }
-
-        @keyframes slideIn {
-            from { 
-                transform: translateX(-20px); 
-                opacity: 0; 
-            }
-            to { 
-                transform: translateX(0); 
-                opacity: 1; 
-            }
-        }
-
-        .hint-content {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .hint-icon {
-            font-size: 20px;
-            animation: pulse 2s infinite;
-            color: var(--color-primary);
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .header-controls {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-        }
-
-        .tutorial-btn {
-            background: linear-gradient(135deg, var(--color-primary), #b8860b);
-            color: #1a1200;
-            border: none;
+        .era-display {
+            text-align: center;
+            min-width: 180px;
+            background: rgba(42, 30, 0, 0.7);
             padding: 10px 20px;
             border-radius: 6px;
+            border: 1px solid var(--color-primary);
+        }
+
+        .era-name {
+            font-size: 18px;
             font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-family: var(--font-main);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            color: var(--color-primary);
+            margin-bottom: 4px;
         }
 
-        .tutorial-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(212, 175, 55, 0.4);
+        .era-year {
+            font-size: 14px;
+            color: var(--color-text-muted);
         }
 
-        .turn-display {
+        .year-display {
             text-align: center;
             min-width: 120px;
             background: rgba(42, 30, 0, 0.7);
@@ -182,27 +128,15 @@
             border: 1px solid var(--color-primary);
         }
 
-        .turn-progress {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 8px;
+        .year-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-primary);
         }
 
-        .progress-bar {
-            flex: 1;
-            height: 6px;
-            background: rgba(58, 44, 0, 0.5);
-            border-radius: 3px;
-            overflow: hidden;
-            border: 1px solid var(--color-text-muted);
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--color-primary), #ffd700);
-            border-radius: 3px;
-            transition: width 0.5s ease;
+        .year-label {
+            font-size: 12px;
+            color: var(--color-text-muted);
         }
 
         /* Основная область */
@@ -296,150 +230,6 @@
             letter-spacing: 1px;
         }
 
-        .algorithms-section {
-            background: 
-                linear-gradient(135deg, rgba(42, 30, 0, 0.9), rgba(26, 18, 0, 0.9)),
-                url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="scroll" patternUnits="userSpaceOnUse" width="100" height="100"><rect width="100" height="100" fill="%232a1e00"/><ellipse cx="50" cy="50" rx="40" ry="45" stroke="%233a2c00" stroke-width="2" fill="none" opacity="0.3"/></pattern></defs></svg>');
-            border-radius: var(--border-radius);
-            padding: 20px;
-            border: 2px solid var(--color-primary);
-            box-shadow: 
-                inset 0 0 20px rgba(0, 0, 0, 0.5),
-                0 4px 12px rgba(0, 0, 0, 0.3);
-            flex: 1;
-        }
-
-        .algorithms-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .algorithm-card {
-            background: rgba(58, 44, 0, 0.6);
-            border-radius: 6px;
-            padding: 16px;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .algorithm-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="wax" patternUnits="userSpaceOnUse" width="20" height="20"><circle cx="10" cy="10" r="2" fill="%238b7355" opacity="0.1"/></pattern></defs></svg>');
-            pointer-events: none;
-        }
-
-        .algorithm-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-            border-color: var(--color-primary);
-        }
-
-        .algorithm-card.selected {
-            border-color: var(--color-success);
-            background: linear-gradient(
-                135deg,
-                rgba(139, 115, 85, 0.3),
-                rgba(58, 44, 0, 0.6)
-            );
-            animation: selectedGlow 2s infinite;
-        }
-
-        @keyframes selectedGlow {
-            0%, 100% { 
-                box-shadow: 0 0 0 0 rgba(139, 115, 85, 0.4),
-                          0 8px 25px rgba(0, 0, 0, 0.5); 
-            }
-            50% { 
-                box-shadow: 0 0 0 4px rgba(139, 115, 85, 0.2),
-                          0 8px 25px rgba(0, 0, 0, 0.5); 
-            }
-        }
-
-        .algorithm-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .algorithm-name {
-            font-weight: 600;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--color-primary);
-        }
-
-        .algorithm-cost {
-            background: var(--color-warning);
-            color: #1a1200;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: bold;
-            min-width: 70px;
-            text-align: center;
-            border: 1px solid var(--color-primary);
-        }
-
-        .algorithm-desc {
-            font-size: 13px;
-            color: var(--color-text);
-            margin-bottom: 12px;
-            line-height: 1.4;
-            position: relative;
-            z-index: 1;
-            font-style: italic;
-        }
-
-        .algorithm-stats {
-            display: flex;
-            gap: 16px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .algorithm-stat {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            flex: 1;
-        }
-
-        .stat-bar {
-            width: 100%;
-            height: 6px;
-            background: rgba(58, 44, 0, 0.8);
-            border-radius: 3px;
-            margin-bottom: 4px;
-            overflow: hidden;
-            border: 1px solid var(--color-text-muted);
-        }
-
-        .stat-fill {
-            height: 100%;
-            border-radius: 3px;
-            transition: width 0.5s ease;
-        }
-
-        .stat-label-small {
-            font-size: 10px;
-            color: var(--color-text-muted);
-            text-transform: uppercase;
-        }
-
         /* Карта */
         .map-section {
             background: 
@@ -530,52 +320,56 @@
                 inset 0 0 20px rgba(0, 0, 0, 0.3);
         }
 
-        .city:hover {
-            transform: translate(-50%, -50%) scale(1.2);
-            z-index: 20;
+        .city.locked {
+            opacity: 0.3;
+            filter: grayscale(1);
+            cursor: not-allowed;
         }
 
-        .city.selected {
-            border-color: var(--color-success);
-            animation: cityPulse 1.5s infinite;
+        .city.active {
+            border-color: var(--color-primary);
+        }
+
+        .city.has-trader {
+            animation: cityPulse 2s infinite;
         }
 
         @keyframes cityPulse {
             0% { 
                 box-shadow: 
-                    0 0 0 0 rgba(139, 115, 85, 0.7),
+                    0 0 0 0 rgba(212, 175, 55, 0.7),
                     0 4px 20px rgba(0, 0, 0, 0.5); 
             }
             70% { 
                 box-shadow: 
-                    0 0 0 15px rgba(139, 115, 85, 0),
+                    0 0 0 15px rgba(212, 175, 55, 0),
                     0 4px 20px rgba(0, 0, 0, 0.5); 
             }
             100% { 
                 box-shadow: 
-                    0 0 0 0 rgba(139, 115, 85, 0),
+                    0 0 0 0 rgba(212, 175, 55, 0),
                     0 4px 20px rgba(0, 0, 0, 0.5); 
             }
         }
 
         .city-icon {
             font-size: 36px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
             filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
         }
 
         .city-name {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             text-align: center;
             color: var(--color-primary);
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
         }
 
         .city-info {
-            font-size: 12px;
+            font-size: 11px;
             text-align: center;
             line-height: 1.3;
         }
@@ -586,20 +380,33 @@
             background: rgba(58, 44, 0, 0.8);
             padding: 2px 6px;
             border-radius: 4px;
-            margin: 4px 0;
+            margin: 2px 0;
             border: 1px solid var(--color-warning);
             display: inline-block;
         }
 
-        .city-value {
-            font-weight: 700;
-            margin-top: 2px;
+        .city-traders {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--color-primary);
+            color: #1a1200;
+            font-size: 12px;
+            font-weight: bold;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #1a1200;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         /* Торговые пути */
         .trade-route {
             position: absolute;
-            height: 4px;
+            height: 3px;
             background: linear-gradient(90deg, var(--color-primary), transparent);
             border-radius: 2px;
             transform-origin: 0 0;
@@ -613,23 +420,50 @@
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
         }
 
+        .trade-route.preview {
+            background: rgba(212, 175, 55, 0.5);
+            border: 1px dashed var(--color-primary);
+        }
+
         .merchant {
             position: absolute;
-            width: 40px;
-            height: 40px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background: linear-gradient(135deg, var(--color-warning), #8b7355);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 16px;
             transform: translate(-50%, -50%);
             z-index: 20;
-            transition: left 0.5s ease, top 0.5s ease;
+            transition: left 2s linear, top 2s linear;
             box-shadow: 
                 0 4px 15px rgba(0, 0, 0, 0.5),
                 inset 0 0 10px rgba(255, 255, 255, 0.2);
             border: 2px solid var(--color-primary);
+            cursor: pointer;
+        }
+
+        .merchant.idle {
+            animation: merchantFloat 3s infinite ease-in-out;
+            background: linear-gradient(135deg, var(--color-primary), #b8860b);
+        }
+
+        @keyframes merchantFloat {
+            0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+            50% { transform: translate(-50%, -50%) translateY(-5px); }
+        }
+
+        .merchant.selected {
+            border-color: var(--color-success);
+            box-shadow: 0 0 20px rgba(139, 115, 85, 0.8);
+            animation: merchantSelected 1s infinite;
+        }
+
+        @keyframes merchantSelected {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
         }
 
         /* Нижняя панель */
@@ -730,26 +564,71 @@
             box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
         }
 
-        .action-btn.success {
-            background: linear-gradient(135deg, var(--color-success), #6b5c43);
-            color: var(--color-text);
-        }
-
-        .action-btn.success:hover:not(:disabled) {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(139, 115, 85, 0.5);
-        }
-
-        .action-btn.danger {
-            background: linear-gradient(135deg, var(--color-danger), #660000);
-            color: var(--color-text);
-        }
-
         .action-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             transform: none !important;
             box-shadow: none !important;
+        }
+
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            background: linear-gradient(135deg, rgba(42, 30, 0, 0.95), rgba(26, 18, 0, 0.95));
+            border: 2px solid var(--color-primary);
+            border-radius: 8px;
+            padding: 20px;
+            min-width: 300px;
+            max-width: 400px;
+            z-index: 1000;
+            transform: translateX(400px);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification-message {
+            font-size: 14px;
+            color: var(--color-text);
+            line-height: 1.5;
+        }
+
+        .notification-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: var(--color-primary);
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .notification-close:hover {
+            background: var(--color-primary);
+            color: #1a1200;
         }
 
         /* Модальные окна */
@@ -759,11 +638,11 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(10, 7, 0, 0.9);
+            background: rgba(10, 7, 0, 0.95);
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            z-index: 2000;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s ease;
@@ -826,42 +705,6 @@
             padding-bottom: 15px;
         }
 
-        /* Туториал */
-        .tutorial-section {
-            margin-bottom: 30px;
-        }
-
-        .tutorial-section h3 {
-            color: var(--color-warning);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 20px;
-        }
-
-        .tutorial-item {
-            margin-bottom: 15px;
-            padding: 15px;
-            background: rgba(58, 44, 0, 0.5);
-            border-radius: 6px;
-            border-left: 3px solid var(--color-primary);
-        }
-
-        .tutorial-item h4 {
-            color: var(--color-primary);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .tutorial-item p {
-            color: var(--color-text);
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
         /* Результаты игры */
         .results-grid {
             display: grid;
@@ -893,7 +736,7 @@
             letter-spacing: 1px;
         }
 
-        .algorithm-analysis {
+        .strategy-analysis {
             background: rgba(58, 44, 0, 0.6);
             padding: 20px;
             border-radius: 8px;
@@ -922,58 +765,6 @@
             align-items: center;
             gap: 10px;
         }
-
-        /* Адаптивность */
-        @media (max-width: 1200px) {
-            .main-area {
-                grid-template-columns: 300px 1fr;
-            }
-            
-            .resource-display {
-                flex-wrap: wrap;
-            }
-            
-            .resource-item {
-                min-width: 160px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .game-container {
-                height: auto;
-                min-height: 100vh;
-                grid-template-rows: auto auto auto;
-            }
-            
-            .header {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .main-area {
-                grid-template-columns: 1fr;
-                height: auto;
-            }
-            
-            .footer {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            
-            .action-buttons {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .action-btn {
-                min-width: 160px;
-            }
-            
-            .resource-item {
-                flex: 1;
-                min-width: 140px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -985,30 +776,14 @@
                 <h1>Древние Алгоритмы</h1>
             </div>
             
-            <div class="hint-area">
-                <div class="hint-card">
-                    <div class="hint-content">
-                        <span class="hint-icon">⚔️</span>
-                        <span id="hintText">Выберите мудрость из свитков и укажите города для торгового пути. Берегите казну!</span>
-                    </div>
-                </div>
+            <div class="era-display">
+                <div class="era-name" id="eraName">ДРЕВНОСТЬ</div>
+                <div class="era-year" id="eraYears">3000-1000 гг. до н.э.</div>
             </div>
             
-            <div class="header-controls">
-                <button class="tutorial-btn" id="tutorialBtn">
-                    <i class="fas fa-book"></i>
-                    <span>СВИТОК МУДРОСТИ</span>
-                </button>
-                <div class="turn-display">
-                    <div style="font-size: 28px; font-weight: 700; color: var(--color-primary);" id="turnNumber">1</div>
-                    <div style="font-size: 12px; color: var(--color-text-muted);">ХОД ИГРЫ</div>
-                    <div class="turn-progress">
-                        <span style="font-size: 12px; color: var(--color-text-muted);">1/30</span>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 3.33%;"></div>
-                        </div>
-                    </div>
-                </div>
+            <div class="year-display">
+                <div class="year-number" id="yearNumber">3000</div>
+                <div class="year-label">ДО НАШЕЙ ЭРЫ</div>
             </div>
         </div>
 
@@ -1019,35 +794,57 @@
                 <div class="stats-section">
                     <div class="section-title">
                         <i class="fas fa-chess-king"></i>
-                        <span>ГЛАВНАЯ КАЗНА</span>
+                        <span>ЦАРСТВО ВРЕМЁН</span>
                     </div>
                     <div class="stats-grid">
                         <div class="stat-card">
-                            <div class="stat-value" id="statGold">300</div>
+                            <div class="stat-value" id="statGold">1500</div>
                             <div class="stat-label">ЗОЛОТЫХ МОНЕТ</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-value" id="statTraders">1</div>
+                            <div class="stat-value" id="statTraders">1/1</div>
                             <div class="stat-label">КАРАВАНЩИКИ</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-value" id="statRoutes">0</div>
-                            <div class="stat-label">ТОРГОВЫХ ПУТЕЙ</div>
+                            <div class="stat-label">АКТИВНЫХ ПУТЕЙ</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-value" id="statProfit">+0</div>
-                            <div class="stat-label">ДОХОД В ХОД</div>
+                            <div class="stat-value" id="statCities">5/24</div>
+                            <div class="stat-label">ОТКРЫТЫХ ГОРОДОВ</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="algorithms-section">
+                <div class="stats-section">
                     <div class="section-title">
-                        <i class="fas fa-scroll"></i>
-                        <span>СВИТКИ МУДРОСТИ</span>
+                        <i class="fas fa-road"></i>
+                        <span>МАРШРУТ КАРАВАНА</span>
                     </div>
-                    <div class="algorithms-list" id="algorithmsList">
-                        <!-- Алгоритмы будут добавлены через JS -->
+                    <div id="routeInfo" style="color: var(--color-text-muted); font-size: 14px; padding: 15px; text-align: center;">
+                        Выберите торговца для прокладки маршрута
+                    </div>
+                    <div id="selectedRoute" style="display: none;">
+                        <div style="margin-bottom: 15px; padding: 10px; background: rgba(58, 44, 0, 0.6); border-radius: 6px;">
+                            <div style="color: var(--color-primary); font-weight: bold; margin-bottom: 5px;" id="routeCities"></div>
+                            <div style="color: var(--color-warning); font-size: 12px;" id="routeDistance"></div>
+                        </div>
+                        <button id="confirmRouteBtn" class="action-btn primary" style="width: 100%; padding: 12px;">
+                            <i class="fas fa-check"></i>
+                            <span>ПОДТВЕРДИТЬ МАРШРУТ</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stats-section">
+                    <div class="section-title">
+                        <i class="fas fa-history"></i>
+                        <span>ЛЕТОПИСЬ</span>
+                    </div>
+                    <div id="eventLog" style="height: 200px; overflow-y: auto; padding: 10px; background: rgba(58, 44, 0, 0.4); border-radius: 6px;">
+                        <div style="color: var(--color-text-muted); font-size: 12px; text-align: center; padding: 20px;">
+                            События будут появляться здесь
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1080,7 +877,7 @@
                 <div class="resource-item">
                     <div class="resource-icon">🏛️</div>
                     <div class="resource-info">
-                        <div class="resource-value" id="goldValue">300</div>
+                        <div class="resource-value" id="goldValue">1500</div>
                         <div class="resource-label">КАЗНА ЦАРСТВА</div>
                     </div>
                 </div>
@@ -1089,103 +886,37 @@
                     <div class="resource-icon">🐫</div>
                     <div class="resource-info">
                         <div class="resource-value" id="tradersValue">1</div>
-                        <div class="resource-label">КАРАВАНЩИКИ</div>
+                        <div class="resource-label">СВОБОДНЫЕ ТОРГОВЦЫ</div>
                     </div>
                 </div>
                 
                 <div class="resource-item">
-                    <div class="resource-icon">🌍</div>
+                    <div class="resource-icon">⏳</div>
                     <div class="resource-info">
-                        <div class="resource-value" id="citiesValue">24</div>
-                        <div class="resource-label">ГОРОДА ИМПЕРИИ</div>
+                        <div class="resource-value" id="routeLength">3</div>
+                        <div class="resource-label">ШАГОВ МАРШРУТА</div>
                     </div>
                 </div>
             </div>
             
             <div class="action-buttons">
-                <button class="action-btn primary" id="nextTurnBtn">
-                    <i class="fas fa-hourglass-half"></i>
-                    <span>СЛЕДУЮЩИЙ ХОД</span>
+                <button class="action-btn primary" id="playPauseBtn">
+                    <i class="fas fa-play"></i>
+                    <span>НАЧАТЬ ЭПОХУ</span>
                 </button>
-                <button class="action-btn success" id="createRouteBtn">
-                    <i class="fas fa-road"></i>
-                    <span>ПРОЛОЖИТЬ ПУТЬ</span>
+                <button class="action-btn primary" id="autoRouteBtn" disabled>
+                    <i class="fas fa-robot"></i>
+                    <span>АВТО-МАРШРУТ (50💰)</span>
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Модальное окно туториала -->
-    <div class="modal" id="tutorialModal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeTutorial">&times;</button>
-            <h2 class="modal-title">📜 СВИТОК МУДРОСТИ ТОРГОВЦА</h2>
-            
-            <div class="tutorial-section">
-                <h3><i class="fas fa-chess-board"></i> СУТЬ ИГРЫ</h3>
-                <div class="tutorial-item">
-                    <h4><i class="fas fa-crown"></i> ЦЕЛЬ</h4>
-                    <p>Вы - правитель древнего царства. Создавайте торговые пути, используя мудрость свитков, чтобы обогатить свою казну. Игра длится 30 ходов или пока казна не опустеет.</p>
-                </div>
-                <div class="tutorial-item">
-                    <h4><i class="fas fa-skull-crossbones"></i> ПОРАЖЕНИЕ</h4>
-                    <p>Если ваша казна опустеет (0 или меньше золотых) - вы проиграли! Выбирайте пути мудро, каждый торговец на счету.</p>
-                </div>
-            </div>
-
-            <div class="tutorial-section">
-                <h3><i class="fas fa-scroll"></i> СВИТКИ МУДРОСТИ (АЛГОРИТМЫ)</h3>
-                <div class="tutorial-item">
-                    <h4><i class="fas fa-map-marker-alt"></i> ПУТЬ СОСЕДА (50💰)</h4>
-                    <p>Всегда выбирает ближайший город. Дешёв, но недальновиден. Хорош в начале игры для создания сети путей.</p>
-                </div>
-                <div class="tutorial-item">
-                    <h4><i class="fas fa-chess-queen"></i> ЦАРСКИЙ РАСЧЁТ (150💰)</h4>
-                    <p>Находит самый выгодный путь. Дорог, но точен. Используйте, когда нужна максимальная прибыль с минимальным риском.</p>
-                </div>
-                <div class="tutorial-item">
-                    <h4><i class="fas fa-dna"></i> ЭВОЛЮЦИЯ ПУТИ (100💰)</h4>
-                    <p>Плавно улучшает маршруты. Баланс цены и качества. Идеален для середины игры.</p>
-                </div>
-                <div class="tutorial-item">
-                    <h4><i class="fas fa-ant"></i> МУРАВЬИНЫЙ СЛЕД (120💰)</h4>
-                    <p>Ищет устойчивые пути. Хорош в условиях изменчивого рынка. Меньше риска, стабильная прибыль.</p>
-                </div>
-                <div class="tutorial-item">
-                    <h4><i class="fas fa-tree"></i> МЕТОД ВЕТВЕЙ (180💰)</h4>
-                    <p>Самый точный, но самый дорогой. Для сложных длинных маршрутов. Риск минимален, прибыль максимальна.</p>
-                </div>
-            </div>
-
-            <div class="tutorial-section">
-                <h3><i class="fas fa-chess-knight"></i> СТРАТЕГИЯ</h3>
-                <div class="strategy-tip">
-                    <h4><i class="fas fa-early"></i> НАЧАЛО ИГРЫ</h4>
-                    <p>Используйте дешёвые алгоритмы (Путь соседа) для создания сети коротких путей. Получайте новых торговцев, посещая новые города.</p>
-                </div>
-                <div class="strategy-tip">
-                    <h4><i class="fas fa-middle"></i> СЕРЕДИНА ИГРЫ</h4>
-                    <p>Переходите на сбалансированные алгоритмы (Эволюция пути). Оптимизируйте существующие маршруты, увеличивайте прибыль.</p>
-                </div>
-                <div class="strategy-tip">
-                    <h4><i class="fas fa-late"></i> КОНЕЦ ИГРЫ</h4>
-                    <p>Используйте дорогие точные алгоритмы (Царский расчёт, Метод ветвей) для максимизации прибыли перед окончанием игры.</p>
-                </div>
-                <div class="tutorial-item">
-                    <h4><i class="fas fa-city"></i> ПОЛУЧЕНИЕ ТОРГОВЦЕВ</h4>
-                    <p>Новый торговец появляется, когда существующий торговец впервые посещает новый город. Каждый город можно "открыть" только один раз для получения торговца.</p>
-                </div>
-            </div>
-
-            <div class="tutorial-section">
-                <h3><i class="fas fa-map"></i> УПРАВЛЕНИЕ КАРТОЙ</h3>
-                <p style="color: var(--color-text); padding: 15px; background: rgba(58, 44, 0, 0.5); border-radius: 6px;">
-                    <i class="fas fa-mouse-pointer"></i> Перетаскивайте карту для просмотра • 
-                    <i class="fas fa-search-plus"></i> Увеличивайте масштаб кнопками справа • 
-                    <i class="fas fa-crosshairs"></i> Центрируйте карту
-                </p>
-            </div>
-        </div>
+    <!-- Уведомления -->
+    <div class="notification" id="notification">
+        <button class="notification-close">&times;</button>
+        <div class="notification-title" id="notificationTitle"></div>
+        <div class="notification-message" id="notificationMessage"></div>
     </div>
 
     <!-- Модальное окно результатов -->
@@ -1204,8 +935,8 @@
                     <div class="result-label">СОЗДАНО ПУТЕЙ</div>
                 </div>
                 <div class="result-stat">
-                    <div class="result-value" id="finalProfit">0</div>
-                    <div class="result-label">ОБЩАЯ ПРИБЫЛЬ</div>
+                    <div class="result-value" id="finalTraders">0</div>
+                    <div class="result-label">ТОРГОВЦЕВ МАКС</div>
                 </div>
                 <div class="result-stat">
                     <div class="result-value" id="finalScore">0</div>
@@ -1213,14 +944,9 @@
                 </div>
             </div>
 
-            <div class="algorithm-analysis">
+            <div class="strategy-analysis">
                 <h3 class="analysis-title"><i class="fas fa-chart-bar"></i> АНАЛИЗ СТРАТЕГИИ</h3>
                 <div id="strategyAnalysis"></div>
-            </div>
-
-            <div class="strategy-tip" id="finalAdvice">
-                <h4><i class="fas fa-lightbulb"></i> СОВЕТ ДЛЯ СЛЕДУЮЩЕЙ ИГРЫ</h4>
-                <p>Комбинируйте алгоритмы в зависимости от фазы игры. Начинайте с дешёвых, заканчивайте дорогими точными.</p>
             </div>
 
             <button class="action-btn primary" style="margin-top: 30px; width: 100%;" onclick="location.reload()">
@@ -1231,21 +957,50 @@
     </div>
 
     <script>
-        class AncientTradingGame {
+        class HistoricalTradingGame {
             constructor() {
                 // Игровые состояния
-                this.gold = 300; // Меньше стартового капитала
-                this.totalTraders = 1; // Начинаем с 1 торговца
+                this.gold = 1500; // Увеличил стартовое золото
+                this.totalTraders = 1;
                 this.availableTraders = 1;
-                this.turn = 1;
-                this.maxTurns = 30; // Увеличили до 30 ходов
-                this.score = 0;
-                this.totalProfit = 0;
-                this.incomePerTurn = 0;
+                this.year = -3000;
+                this.maxYears = 5020;
                 this.gameOver = false;
+                this.isPlaying = false;
+                this.currentEra = 0;
+                this.baseRouteLength = 3;
                 
-                // Механика получения торговцев
-                this.discoveredCities = new Set(); // Города, уже дававшие торговцев
+                // Эпохи
+                this.eras = [
+                    { name: "ДРЕВНОСТЬ", start: -3000, end: -1000, color: "#8b7355", icon: "🏺" },
+                    { name: "АНТИЧНОСТЬ", start: -999, end: 476, color: "#d4af37", icon: "⚔️" },
+                    { name: "СРЕДНЕВЕКОВЬЕ", start: 477, end: 1492, color: "#8b0000", icon: "🏰" },
+                    { name: "НОВОЕ ВРЕМЯ", start: 1493, end: 1914, color: "#b8860b", icon: "⚓" },
+                    { name: "СОВРЕМЕННОСТЬ", start: 1915, end: 2020, color: "#cd853f", icon: "🚀" }
+                ];
+                
+                // Города и торговцы
+                this.cities = [];
+                this.traders = [];
+                this.routes = [];
+                this.activeRoutes = 0;
+                this.discoveredCities = new Set();
+                
+                // Города для открытия при доставке нужного ресурса
+                this.cityConnections = new Map(); // Ключ: cityId, значение: массив cityId для открытия
+                
+                // Выбор маршрута
+                this.selectedTrader = null;
+                this.routeInProgress = [];
+                this.previewRoutes = [];
+                
+                // Стоимость содержания (уменьшил)
+                this.upkeepPerTrader = 2; // Было 5
+                this.upkeepPerCity = 1;   // Было 2
+                
+                // Исторические события
+                this.events = [];
+                this.lastEventYear = -3000;
                 
                 // Управление картой
                 this.mapScale = 0.8;
@@ -1257,119 +1012,90 @@
                 this.mapStartX = 0;
                 this.mapStartY = 0;
                 
-                // Игровые объекты
-                this.cities = [];
-                this.routes = [];
-                this.selectedAlgorithm = null;
-                this.selectedCities = [];
-                this.gameState = 'SELECTING_ALGORITHM';
-                
-                // Статистика использования алгоритмов
-                this.algorithmUsage = {
-                    'nearest_neighbor': 0,
-                    'dynamic_programming': 0,
-                    'genetic_algorithm': 0,
-                    'ant_colony': 0,
-                    'branch_and_bound': 0
-                };
-                
-                // Типы ресурсов (античная тематика)
-                this.resourceTypes = [
-                    { id: 'grain', name: 'Пшеница', icon: '🌾', baseValue: 15, volatility: 0.4 },
-                    { id: 'wine', name: 'Вино', icon: '🍷', baseValue: 25, volatility: 0.6 },
-                    { id: 'oil', name: 'Оливковое масло', icon: '🫒', baseValue: 20, volatility: 0.5 },
-                    { id: 'metal', name: 'Бронза', icon: '🛡️', baseValue: 30, volatility: 0.7 },
-                    { id: 'marble', name: 'Мрамор', icon: '🗿', baseValue: 40, volatility: 0.3 },
-                    { id: 'silk', name: 'Шёлк', icon: '👘', baseValue: 35, volatility: 0.8 },
-                    { id: 'spice', name: 'Пряности', icon: '🌶️', baseValue: 45, volatility: 0.9 },
-                    { id: 'gold', name: 'Золото', icon: '💰', baseValue: 60, volatility: 0.7 }
+                // Ресурсы по эпохам
+                this.resourcesByEra = [
+                    // Древность
+                    [
+                        { id: 'grain', name: 'Пшеница', icon: '🌾', value: 20, demand: 'wine' },
+                        { id: 'wine', name: 'Вино', icon: '🍷', value: 30, demand: 'oil' },
+                        { id: 'oil', name: 'Масло', icon: '🫒', value: 25, demand: 'grain' },
+                        { id: 'copper', name: 'Медь', icon: '🔧', value: 35, demand: 'wine' },
+                        { id: 'salt', name: 'Соль', icon: '🧂', value: 22, demand: 'grain' }
+                    ],
+                    // Античность
+                    [
+                        { id: 'grain', name: 'Пшеница', icon: '🌾', value: 25, demand: 'wine' },
+                        { id: 'wine', name: 'Вино', icon: '🍷', value: 35, demand: 'marble' },
+                        { id: 'marble', name: 'Мрамор', icon: '🗿', value: 45, demand: 'oil' },
+                        { id: 'metal', name: 'Бронза', icon: '🛡️', value: 40, demand: 'grain' },
+                        { id: 'glass', name: 'Стекло', icon: '🥃', value: 37, demand: 'wine' }
+                    ],
+                    // Средневековье
+                    [
+                        { id: 'grain', name: 'Пшеница', icon: '🌾', value: 30, demand: 'wine' },
+                        { id: 'wine', name: 'Вино', icon: '🍷', value: 40, demand: 'spice' },
+                        { id: 'spice', name: 'Пряности', icon: '🌶️', value: 50, demand: 'silk' },
+                        { id: 'silk', name: 'Шёлк', icon: '👘', value: 55, demand: 'metal' },
+                        { id: 'metal', name: 'Железо', icon: '⚔️', value: 45, demand: 'grain' },
+                        { id: 'fur', name: 'Меха', icon: '🧥', value: 42, demand: 'salt' }
+                    ],
+                    // Новое время
+                    [
+                        { id: 'grain', name: 'Пшеница', icon: '🌾', value: 35, demand: 'silk' },
+                        { id: 'silk', name: 'Шёлк', icon: '👘', value: 65, demand: 'spice' },
+                        { id: 'spice', name: 'Пряности', icon: '🌶️', value: 75, demand: 'tea' },
+                        { id: 'tea', name: 'Чай', icon: '🍵', value: 60, demand: 'coffee' },
+                        { id: 'coffee', name: 'Кофе', icon: '☕', value: 70, demand: 'sugar' },
+                        { id: 'sugar', name: 'Сахар', icon: '🍬', value: 55, demand: 'grain' },
+                        { id: 'cotton', name: 'Хлопок', icon: '👕', value: 50, demand: 'tea' }
+                    ],
+                    // Современность
+                    [
+                        { id: 'oil', name: 'Нефть', icon: '🛢️', value: 100, demand: 'tech' },
+                        { id: 'tech', name: 'Техника', icon: '💻', value: 150, demand: 'oil' },
+                        { id: 'cars', name: 'Авто', icon: '🚗', value: 120, demand: 'oil' },
+                        { id: 'medicine', name: 'Лекарства', icon: '💊', value: 130, demand: 'tech' },
+                        { id: 'food', name: 'Продукты', icon: '🍔', value: 85, demand: 'tech' },
+                        { id: 'electronics', name: 'Электроника', icon: '📱', value: 145, demand: 'oil' }
+                    ]
                 ];
                 
-                // Алгоритмы в античном стиле
-                this.algorithms = [
-                    {
-                        id: 'nearest_neighbor',
-                        name: 'Путь соседа',
-                        description: 'Всегда к ближайшему городу. Быстро, но близоруко.',
-                        cost: 50,
-                        baseEfficiency: 0.6,
-                        efficiencyFactors: {
-                            distance: 0.8,
-                            volatility: 0.3,
-                            complexity: 0.9
-                        },
-                        maxCities: 4,
-                        color: '#8b7355',
-                        icon: '📍'
-                    },
-                    {
-                        id: 'dynamic_programming',
-                        name: 'Царский расчёт',
-                        description: 'Точнейший путь для мудрого правителя.',
-                        cost: 150,
-                        baseEfficiency: 0.95,
-                        efficiencyFactors: {
-                            distance: 0.5,
-                            volatility: 0.9,
-                            complexity: 0.1
-                        },
-                        maxCities: 6,
-                        color: '#d4af37',
-                        icon: '👑'
-                    },
-                    {
-                        id: 'genetic_algorithm',
-                        name: 'Эволюция пути',
-                        description: 'Путь, что крепнет с каждым поколением.',
-                        cost: 100,
-                        baseEfficiency: 0.8,
-                        efficiencyFactors: {
-                            distance: 0.7,
-                            volatility: 0.7,
-                            complexity: 0.6
-                        },
-                        maxCities: 5,
-                        color: '#b8860b',
-                        icon: '🧬'
-                    },
-                    {
-                        id: 'ant_colony',
-                        name: 'Муравьиный след',
-                        description: 'Как муравьи находят путь к меду.',
-                        cost: 120,
-                        baseEfficiency: 0.85,
-                        efficiencyFactors: {
-                            distance: 0.6,
-                            volatility: 0.8,
-                            complexity: 0.4
-                        },
-                        maxCities: 5,
-                        color: '#cd853f',
-                        icon: '🐜'
-                    },
-                    {
-                        id: 'branch_and_bound',
-                        name: 'Метод ветвей',
-                        description: 'Отсекая лишнее, находить суть пути.',
-                        cost: 180,
-                        baseEfficiency: 0.98,
-                        efficiencyFactors: {
-                            distance: 0.4,
-                            volatility: 0.95,
-                            complexity: 0.2
-                        },
-                        maxCities: 7,
-                        color: '#8b4513',
-                        icon: '🌳'
-                    }
+                // Исторические города (24 города, 5 активных на старте)
+                this.historicalCities = [
+                    // Эпоха Древности - 5 активных городов
+                    { name: "Ур", era: 0, x: 400, y: 500, isActive: true, connections: [5, 6, 7, 8] }, // Открывает Афины, Рим, Александрию, Карфаген
+                    { name: "Мемфис", era: 0, x: 600, y: 550, isActive: true, connections: [5, 9, 10] }, // Открывает Афины, Константинополь, Венецию
+                    { name: "Вавилон", era: 0, x: 700, y: 400, isActive: true, connections: [6, 7, 11] }, // Открывает Рим, Александрию, Багдад
+                    { name: "Ниневия", era: 0, x: 750, y: 450, isActive: true, connections: [8, 11, 12] }, // Открывает Карфаген, Багдад, Париж
+                    { name: "Сузы", era: 0, x: 800, y: 500, isActive: true, connections: [9, 10, 13] }, // Открывает Константинополь, Венецию, Лондон
+                    
+                    // Эпоха Античности - будут открыты
+                    { name: "Афины", era: 1, x: 350, y: 600, isActive: false, connections: [14, 15, 16] }, // Открывает Амстердам, Нью-Йорк, Токио
+                    { name: "Рим", era: 1, x: 300, y: 550, isActive: false, connections: [14, 17, 18] }, // Открывает Амстердам, Шанхай, Берлин
+                    { name: "Александрия", era: 1, x: 550, y: 600, isActive: false, connections: [15, 19, 20] }, // Открывает Нью-Йорк, Мумбаи, Стамбул
+                    { name: "Карфаген", era: 1, x: 250, y: 500, isActive: false, connections: [16, 21, 22] }, // Открывает Токио, Каир, Дамаск
+                    
+                    // Эпоха Средневековья
+                    { name: "Константинополь", era: 2, x: 450, y: 500, isActive: false, connections: [17, 19, 23] }, // Открывает Шанхай, Мумбаи, Мадрид
+                    { name: "Венеция", era: 2, x: 280, y: 450, isActive: false, connections: [18, 20, 21] }, // Открывает Берлин, Стамбул, Каир
+                    { name: "Багдад", era: 2, x: 850, y: 450, isActive: false, connections: [22, 23] }, // Открывает Дамаск, Мадрид
+                    
+                    // Эпоха Нового времени
+                    { name: "Париж", era: 3, x: 200, y: 400, isActive: false, connections: [] },
+                    { name: "Лондон", era: 3, x: 150, y: 350, isActive: false, connections: [] },
+                    { name: "Амстердам", era: 3, x: 230, y: 380, isActive: false, connections: [] },
+                    
+                    // Эпоха Современности
+                    { name: "Нью-Йорк", era: 4, x: 100, y: 300, isActive: false, connections: [] },
+                    { name: "Токио", era: 4, x: 1200, y: 400, isActive: false, connections: [] },
+                    { name: "Шанхай", era: 4, x: 1100, y: 450, isActive: false, connections: [] },
+                    { name: "Берлин", era: 4, x: 350, y: 380, isActive: false, connections: [] },
+                    { name: "Мумбаи", era: 4, x: 950, y: 600, isActive: false, connections: [] },
+                    { name: "Стамбул", era: 4, x: 500, y: 450, isActive: false, connections: [] },
+                    { name: "Каир", era: 4, x: 650, y: 550, isActive: false, connections: [] },
+                    { name: "Дамаск", era: 4, x: 750, y: 500, isActive: false, connections: [] },
+                    { name: "Мадрид", era: 4, x: 150, y: 450, isActive: false, connections: [] }
                 ];
-                
-                // Жёсткие рыночные условия
-                this.marketConditions = {
-                    volatility: 0.6, // Высокая изменчивость
-                    demand: 0.4,     // Низкий спрос
-                    competition: 0.5  // Высокая конкуренция
-                };
                 
                 this.init();
             }
@@ -1377,22 +1103,20 @@
             init() {
                 this.setupMapControls();
                 this.createCities();
-                this.setupAlgorithms();
+                this.createInitialTrader();
                 this.setupEventListeners();
-                this.updateMarketConditions();
                 this.updateUI();
-                this.showHint('⚔️ Царь! Ваша казна скудна - всего 300 золотых. Выберите свиток мудрости для первого торгового пути.');
-                this.updateMapTransform();
+                this.updateEra();
+                this.centerMap();
                 
-                // Центрируем карту
-                setTimeout(() => this.centerMap(), 100);
+                this.showNotification("🏛️ ДРЕВНОСТЬ НАЧАЛАСЬ", "3000 лет до н.э. 5 городов доступны для торговли. Постройте маршруты!");
+                this.logEvent("3000 г. до н.э. - Начало эпохи Древности");
+                this.logEvent("Доступные города: Ур, Мемфис, Вавилон, Ниневия, Сузы");
             }
 
             setupMapControls() {
                 const mapWrapper = document.getElementById('mapWrapper');
-                const gameMap = document.getElementById('gameMap');
                 
-                // Перемещение карты мышкой
                 mapWrapper.addEventListener('mousedown', (e) => {
                     if (this.gameOver) return;
                     this.isDragging = true;
@@ -1420,7 +1144,6 @@
                     mapWrapper.style.cursor = 'grab';
                 });
                 
-                // Зум колесом мыши
                 mapWrapper.addEventListener('wheel', (e) => {
                     if (this.gameOver) return;
                     e.preventDefault();
@@ -1444,7 +1167,6 @@
                     this.updateMapTransform();
                 });
                 
-                // Кнопки управления
                 document.getElementById('zoomInBtn').addEventListener('click', () => {
                     if (this.gameOver) return;
                     this.mapScale = Math.min(2, this.mapScale * 1.2);
@@ -1460,62 +1182,6 @@
                 document.getElementById('centerMapBtn').addEventListener('click', () => {
                     if (this.gameOver) return;
                     this.centerMap();
-                });
-                
-                // Управление стрелками
-                document.addEventListener('keydown', (e) => {
-                    if (this.gameOver) return;
-                    const moveSpeed = 50 / this.mapScale;
-                    
-                    switch(e.key) {
-                        case 'ArrowUp':
-                            e.preventDefault();
-                            this.mapY += moveSpeed;
-                            break;
-                        case 'ArrowDown':
-                            e.preventDefault();
-                            this.mapY -= moveSpeed;
-                            break;
-                        case 'ArrowLeft':
-                            e.preventDefault();
-                            this.mapX += moveSpeed;
-                            break;
-                        case 'ArrowRight':
-                            e.preventDefault();
-                            this.mapX -= moveSpeed;
-                            break;
-                        case '+':
-                        case '=':
-                            e.preventDefault();
-                            this.mapScale = Math.min(2, this.mapScale * 1.2);
-                            break;
-                        case '-':
-                            e.preventDefault();
-                            this.mapScale = Math.max(0.5, this.mapScale * 0.8);
-                            break;
-                        case '0':
-                            e.preventDefault();
-                            this.centerMap();
-                            break;
-                    }
-                    
-                    this.updateMapTransform();
-                });
-                
-                // Туториал
-                document.getElementById('tutorialBtn').addEventListener('click', () => {
-                    document.getElementById('tutorialModal').classList.add('active');
-                });
-                
-                document.getElementById('closeTutorial').addEventListener('click', () => {
-                    document.getElementById('tutorialModal').classList.remove('active');
-                });
-                
-                // Закрытие туториала по клику вне окна
-                document.getElementById('tutorialModal').addEventListener('click', (e) => {
-                    if (e.target === document.getElementById('tutorialModal')) {
-                        document.getElementById('tutorialModal').classList.remove('active');
-                    }
                 });
             }
 
@@ -1540,95 +1206,119 @@
                 map.innerHTML = '';
                 
                 this.cities = [];
-                const cityCount = 24; // В 2 раза больше городов
-                
-                // Создаём 6 регионов с городами
-                const regions = [
-                    { centerX: 300, centerY: 300, radius: 200, count: 4 },
-                    { centerX: 900, centerY: 350, radius: 180, count: 4 },
-                    { centerX: 500, centerY: 700, radius: 220, count: 4 },
-                    { centerX: 1100, centerY: 750, radius: 190, count: 4 },
-                    { centerX: 200, centerY: 900, radius: 170, count: 4 },
-                    { centerX: 1300, centerY: 400, radius: 210, count: 4 }
-                ];
-                
-                let cityIndex = 0;
-                regions.forEach(region => {
-                    for (let i = 0; i < region.count; i++) {
-                        if (cityIndex >= cityCount) break;
-                        
-                        const angle = (i / region.count) * Math.PI * 2;
-                        const radius = region.radius * (0.6 + Math.random() * 0.8);
-                        const x = region.centerX + Math.cos(angle) * radius;
-                        const y = region.centerY + Math.sin(angle) * radius;
-                        
-                        const resource = this.resourceTypes[cityIndex % this.resourceTypes.length];
-                        // Город требует другой ресурс
-                        const demandIndex = (cityIndex + 3) % this.resourceTypes.length;
-                        const demand = this.resourceTypes[demandIndex];
-                        
-                        const city = {
-                            id: cityIndex,
-                            name: this.getAncientCityName(cityIndex),
-                            x: x,
-                            y: y,
-                            resource: resource,
-                            demand: demand,
-                            baseValue: resource.baseValue,
-                            currentValue: this.calculateResourceValue(resource),
-                            visited: false,
-                            gaveTrader: false, // Новое поле: давал ли уже торговца
-                            routes: [],
-                            element: null
-                        };
-                        
-                        this.cities.push(city);
-                        
-                        const cityEl = this.createCityElement(city);
-                        city.element = cityEl;
-                        map.appendChild(cityEl);
-                        
-                        cityIndex++;
+                this.historicalCities.forEach((cityData, index) => {
+                    const eraResources = this.resourcesByEra[cityData.era];
+                    const resource = eraResources[Math.floor(Math.random() * eraResources.length)];
+                    
+                    // Выбираем ресурс, который требуется городу (отличный от того, что он производит)
+                    let demandResource;
+                    do {
+                        demandResource = eraResources[Math.floor(Math.random() * eraResources.length)];
+                    } while (demandResource.id === resource.id);
+                    
+                    const city = {
+                        id: index,
+                        ...cityData,
+                        resource: resource,
+                        demand: demandResource,
+                        isDiscovered: cityData.isActive,
+                        visitedBy: new Set(),
+                        tradersInCity: new Set(),
+                        baseValue: resource.value,
+                        currentValue: this.calculateCityValue(cityData, resource),
+                        gaveTrader: false,
+                        element: null,
+                        routes: []
+                    };
+                    
+                    this.cities.push(city);
+                    
+                    if (city.isDiscovered) {
+                        this.discoveredCities.add(city.id);
                     }
+                    
+                    // Сохраняем связи для открытия городов
+                    if (cityData.connections) {
+                        this.cityConnections.set(city.id, cityData.connections);
+                    }
+                    
+                    const cityEl = this.createCityElement(city);
+                    city.element = cityEl;
+                    map.appendChild(cityEl);
                 });
             }
 
-            getAncientCityName(index) {
-                const names = [
-                    'Афины', 'Спарта', 'Фивы', 'Коринф', 'Родос', 'Эфес',
-                    'Милет', 'Троя', 'Карфаген', 'Александрия', 'Мемфис', 'Фивы',
-                    'Вавилон', 'Ниневия', 'Сузы', 'Персеполь', 'Сарды', 'Экбатана',
-                    'Кносс', 'Микены', 'Тиринф', 'Пилос', 'Иолк', 'Делос'
-                ];
-                return names[index] || `Город ${index + 1}`;
+            calculateCityValue(cityData, resource) {
+                let value = resource.value;
+                
+                // Базовая стоимость
+                const randomFactor = 0.8 + Math.random() * 0.4;
+                value *= randomFactor;
+                
+                // Бонус для крупных городов
+                const majorCities = ['Ур', 'Вавилон', 'Мемфис', 'Афины', 'Рим', 'Константинополь'];
+                if (majorCities.includes(cityData.name)) {
+                    value *= 1.3;
+                }
+                
+                return Math.round(value);
             }
 
             createCityElement(city) {
                 const el = document.createElement('div');
-                el.className = 'city';
+                el.className = `city ${city.isDiscovered ? 'active' : 'locked'}`;
                 el.style.left = `${city.x}px`;
                 el.style.top = `${city.y}px`;
                 el.style.background = this.getCityGradient(city.resource.id);
+                el.dataset.cityId = city.id;
                 
-                const valueColor = city.currentValue > city.baseValue ? '#8b7355' : '#8b0000';
-                const valueChange = city.currentValue > city.baseValue ? '↑' : '↓';
+                const cityContent = document.createElement('div');
+                cityContent.style.position = 'relative';
                 
-                el.innerHTML = `
-                    <div class="city-icon">${city.resource.icon}</div>
-                    <div class="city-name">${city.name}</div>
-                    <div class="city-info">
-                        <div class="city-demand">Требует: ${city.demand.icon}</div>
-                        <div class="city-value" style="color: ${valueColor}">
-                            ${city.currentValue}💰 ${valueChange}
+                if (!city.isDiscovered) {
+                    cityContent.innerHTML = `
+                        <div class="city-icon">❓</div>
+                        <div class="city-name">Неизвестно</div>
+                    `;
+                } else {
+                    cityContent.innerHTML = `
+                        <div class="city-icon">${city.resource.icon}</div>
+                        <div class="city-name">${city.name}</div>
+                        <div class="city-info">
+                            <div class="city-demand">Требует: ${city.demand.icon}</div>
+                            <div class="city-value">${city.currentValue}💰</div>
                         </div>
-                    </div>
-                `;
+                    `;
+                }
                 
-                el.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    this.selectCity(city);
-                });
+                el.appendChild(cityContent);
+                
+                if (city.isDiscovered) {
+                    el.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        this.selectCityForRoute(city);
+                    });
+                }
+                
                 return el;
+            }
+
+            updateCityTradersDisplay(city) {
+                if (!city.element) return;
+                
+                // Удаляем старый счетчик
+                const oldCounter = city.element.querySelector('.city-traders');
+                if (oldCounter) {
+                    oldCounter.remove();
+                }
+                
+                // Добавляем новый если есть торговцы
+                if (city.tradersInCity.size > 0) {
+                    const counter = document.createElement('div');
+                    counter.className = 'city-traders';
+                    counter.textContent = city.tradersInCity.size;
+                    city.element.querySelector('div').appendChild(counter);
+                }
             }
 
             getCityGradient(resourceId) {
@@ -1636,637 +1326,896 @@
                     'grain': 'linear-gradient(135deg, #d4af37, #b8860b)',
                     'wine': 'linear-gradient(135deg, #8b0000, #660000)',
                     'oil': 'linear-gradient(135deg, #808000, #556b2f)',
-                    'metal': 'linear-gradient(135deg, #a9a9a9, #696969)',
+                    'copper': 'linear-gradient(135deg, #cd7f32, #b87333)',
+                    'salt': 'linear-gradient(135deg, #f5f5f5, #dcdcdc)',
                     'marble': 'linear-gradient(135deg, #f5f5f5, #d3d3d3)',
+                    'metal': 'linear-gradient(135deg, #a9a9a9, #696969)',
+                    'glass': 'linear-gradient(135deg, #87ceeb, #4682b4)',
                     'silk': 'linear-gradient(135deg, #da70d6, #ba55d3)',
                     'spice': 'linear-gradient(135deg, #ff4500, #dc143c)',
-                    'gold': 'linear-gradient(135deg, #ffd700, #daa520)'
+                    'fur': 'linear-gradient(135deg, #8b4513, #654321)',
+                    'tea': 'linear-gradient(135deg, #8b7355, #6b5c43)',
+                    'coffee': 'linear-gradient(135deg, #8b4513, #654321)',
+                    'sugar': 'linear-gradient(135deg, #ffe4e1, #ffb6c1)',
+                    'cotton': 'linear-gradient(135deg, #f0f8ff, #e6e6fa)',
+                    'tech': 'linear-gradient(135deg, #00bfff, #1e90ff)',
+                    'cars': 'linear-gradient(135deg, #ff4500, #ff6347)',
+                    'medicine': 'linear-gradient(135deg, #32cd32, #228b22)',
+                    'food': 'linear-gradient(135deg, #ffd700, #daa520)',
+                    'electronics': 'linear-gradient(135deg, #9370db, #8a2be2)'
                 };
                 return gradients[resourceId] || 'linear-gradient(135deg, #8b7355, #6b5c43)';
             }
 
-            calculateResourceValue(resource) {
-                const base = resource.baseValue;
-                const volatility = resource.volatility * this.marketConditions.volatility;
-                const demand = this.marketConditions.demand;
+            createInitialTrader() {
+                const initialCity = this.cities.find(c => c.name === "Ур");
+                if (!initialCity) return;
                 
-                const randomFactor = 0.7 + (Math.random() * 0.6); // Больше изменчивости
-                const demandFactor = 0.6 + (demand * 0.8); // Жёстче зависимость от спроса
-                
-                return Math.round(base * randomFactor * demandFactor);
-            }
-
-            setupAlgorithms() {
-                const container = document.getElementById('algorithmsList');
-                container.innerHTML = '';
-                
-                this.algorithms.forEach(algo => {
-                    const card = document.createElement('div');
-                    card.className = 'algorithm-card';
-                    card.dataset.id = algo.id;
-                    
-                    const efficiency = this.calculateAlgorithmEfficiency(algo);
-                    const canAfford = this.gold >= algo.cost;
-                    
-                    if (!canAfford) {
-                        card.classList.add('unavailable');
-                    }
-                    
-                    card.innerHTML = `
-                        <div class="algorithm-header">
-                            <div class="algorithm-name">
-                                <span>${algo.icon}</span>
-                                <span>${algo.name}</span>
-                            </div>
-                            <div class="algorithm-cost">${algo.cost}💰</div>
-                        </div>
-                        <div class="algorithm-desc">${algo.description}</div>
-                        <div class="algorithm-stats">
-                            <div class="algorithm-stat">
-                                <div class="stat-bar">
-                                    <div class="stat-fill" style="width: ${efficiency * 100}%; background: ${algo.color};"></div>
-                                </div>
-                                <div class="stat-label-small">Сила свитка</div>
-                            </div>
-                            <div class="algorithm-stat">
-                                <div class="stat-bar">
-                                    <div class="stat-fill" style="width: ${(1 - algo.cost / 200) * 100}%; background: ${algo.color};"></div>
-                                </div>
-                                <div class="stat-label-small">Цена знания</div>
-                            </div>
-                        </div>
-                    `;
-                    
-                    if (canAfford) {
-                        card.addEventListener('click', () => this.selectAlgorithm(algo));
-                    }
-                    container.appendChild(card);
-                });
-            }
-
-            calculateAlgorithmEfficiency(algorithm) {
-                const { distance, volatility, complexity } = algorithm.efficiencyFactors;
-                const { volatility: marketVolatility } = this.marketConditions;
-                
-                const distanceFactor = distance;
-                const volatilityFactor = 1 - Math.abs(volatility - marketVolatility);
-                const competitionFactor = 1 - this.marketConditions.competition;
-                
-                let efficiency = algorithm.baseEfficiency * (distanceFactor * 0.4 + volatilityFactor * 0.4 + competitionFactor * 0.2);
-                
-                // Жёстче условия: эффективность снижается с каждым использованием алгоритма
-                const usage = this.algorithmUsage[algorithm.id] || 0;
-                efficiency *= Math.max(0.5, 1 - (usage * 0.05)); // До 50% снижения
-                
-                return Math.min(1, Math.max(0.3, efficiency)); // Минимум 30%
-            }
-
-            selectAlgorithm(algorithm) {
-                if (this.gameState !== 'SELECTING_ALGORITHM' || this.gameOver) return;
-                if (this.gold < algorithm.cost) {
-                    this.showHint('❌ Казна пустеет! Не хватает золота для этого свитка.', 'error');
-                    return;
-                }
-
-                document.querySelectorAll('.algorithm-card').forEach(card => {
-                    card.classList.remove('selected');
-                });
-                
-                document.querySelector(`.algorithm-card[data-id="${algorithm.id}"]`).classList.add('selected');
-                
-                this.selectedAlgorithm = algorithm;
-                this.gameState = 'SELECTING_CITIES';
-                
-                this.cities.forEach(city => {
-                    city.element.classList.add('selected');
-                });
-                
-                this.showHint(
-                    `✅ Выбран свиток: ${algorithm.name}. Выберите от 2 до ${algorithm.maxCities} городов для пути. ` +
-                    `Сила свитка: ${Math.round(this.calculateAlgorithmEfficiency(algorithm) * 100)}%`
-                );
-            }
-
-            selectCity(city) {
-                if (this.gameState !== 'SELECTING_CITIES' || !this.selectedAlgorithm || this.gameOver) return;
-                
-                if (this.selectedCities.includes(city)) {
-                    this.selectedCities = this.selectedCities.filter(c => c !== city);
-                    city.element.classList.remove('selected');
-                    this.showHint(`🗺️ ${city.name} убран из пути. Выбрано: ${this.selectedCities.length}`);
-                    return;
-                }
-                
-                if (this.selectedCities.length >= this.selectedAlgorithm.maxCities) {
-                    this.showHint(`❌ Не более ${this.selectedAlgorithm.maxCities} городов для этого свитка!`, 'error');
-                    return;
-                }
-                
-                this.selectedCities.push(city);
-                city.element.classList.add('selected');
-                
-                this.showHint(
-                    `🗺️ Выбран ${city.name}. Всего: ${this.selectedCities.length}/${this.selectedAlgorithm.maxCities}. ` +
-                    `Нажмите "Проложить путь", когда готовы.`
-                );
-            }
-
-            createRoute() {
-                if (this.gameState !== 'SELECTING_CITIES' || this.gameOver) return;
-                if (this.selectedCities.length < 2) {
-                    this.showHint('❌ Нужно минимум 2 города для пути!', 'error');
-                    return;
-                }
-                if (this.availableTraders <= 0) {
-                    this.showHint('❌ Нет свободных караванщиков! Ждите следующего хода.', 'error');
-                    return;
-                }
-                if (this.gold < this.selectedAlgorithm.cost) {
-                    this.showHint('❌ Казна пуста! Не хватает золота.', 'error');
-                    return;
-                }
-
-                // Жёстче: платим ДО создания маршрута
-                this.gold -= this.selectedAlgorithm.cost;
-                
-                // Увеличиваем использование алгоритма
-                this.algorithmUsage[this.selectedAlgorithm.id] = (this.algorithmUsage[this.selectedAlgorithm.id] || 0) + 1;
-                
-                // Создаём маршрут
-                const routeId = this.routes.length;
-                const route = {
-                    id: routeId,
-                    name: this.getRouteName(routeId),
-                    algorithm: this.selectedAlgorithm,
-                    cities: [...this.selectedCities],
-                    currentCityIndex: 0,
-                    profit: this.calculateRouteProfit(this.selectedAlgorithm, this.selectedCities),
-                    efficiency: this.calculateRouteEfficiency(this.selectedAlgorithm, this.selectedCities),
-                    isActive: true,
-                    risk: this.calculateRouteRisk(this.selectedCities),
-                    visitedCities: new Set([this.selectedCities[0].id]), // Начинаем с первого города
-                    turnsCompleted: 0
+                const trader = {
+                    id: 0,
+                    name: "Син-Аххе-Риба",
+                    cityId: initialCity.id,
+                    route: [],
+                    currentPosition: 0,
+                    isMoving: false,
+                    isTraveling: false,
+                    cargo: null,
+                    goldEarned: 0,
+                    element: null,
+                    isIdle: true,
+                    currentTargetCityId: null
                 };
                 
-                this.routes.push(route);
-                this.availableTraders--; // Торговец занят
-                
-                // Визуализируем
-                this.visualizeRoute(route);
-                
-                // Сбрасываем выбор
-                this.resetSelection();
-                
-                // Обновляем доход
-                this.calculateIncomePerTurn();
-                
-                this.showHint(
-                    `✅ Путь "${route.name}" создан! ` +
-                    `Доход: ${route.profit}💰/ход. ` +
-                    `Риск: ${route.risk}%. ` +
-                    `Караванщиков осталось: ${this.availableTraders}`
-                );
-                
-                this.updateUI();
-                this.setupAlgorithms(); // Обновляем доступность алгоритмов
+                this.traders.push(trader);
+                initialCity.tradersInCity.add(trader.id);
+                this.createTraderElement(trader);
+                this.updateCityTradersDisplay(initialCity);
             }
 
-            getRouteName(index) {
-                const names = [
-                    'Шёлковый путь', 'Путь благовоний', 'Янтарный путь', 'Путь специй',
-                    'Золотой путь', 'Медный путь', 'Путь вина', 'Путь оливок',
-                    'Путь мрамора', 'Путь шёлка', 'Путь бронзы', 'Путь зерна'
-                ];
-                return names[index] || `Торговый путь ${index + 1}`;
-            }
-
-            calculateRouteProfit(algorithm, cities) {
-                if (cities.length < 2) return 0;
+            createTraderElement(trader) {
+                const city = this.cities.find(c => c.id === trader.cityId);
+                if (!city) return;
                 
-                let profit = algorithm.baseEfficiency * 40; // Меньше базовой прибыли
-                
-                cities.forEach(city => {
-                    profit += city.currentValue * 0.4; // Меньше прибыли с города
-                });
-                
-                // Бонус за удовлетворение спроса - реже и меньше
-                for (let i = 0; i < cities.length - 1; i++) {
-                    const current = cities[i];
-                    const next = cities[i + 1];
-                    
-                    if (next.demand.id === current.resource.id && Math.random() > 0.7) {
-                        profit += current.currentValue * 0.6;
-                    }
-                }
-                
-                // Жёстче: эффективность и риск сильнее влияют
-                profit *= this.calculateAlgorithmEfficiency(algorithm);
-                const risk = this.calculateRouteRisk(cities);
-                profit *= (1 - risk / 150); // Сильнее штраф за риск
-                
-                return Math.max(5, Math.round(profit)); // Минимум 5 золота
-            }
-
-            calculateRouteEfficiency(algorithm, cities) {
-                let efficiency = algorithm.baseEfficiency;
-                
-                let totalDistance = 0;
-                for (let i = 0; i < cities.length - 1; i++) {
-                    const dist = this.calculateDistance(cities[i], cities[i + 1]);
-                    totalDistance += dist;
-                }
-                
-                const avgDistance = totalDistance / (cities.length - 1);
-                const distanceFactor = algorithm.efficiencyFactors.distance;
-                
-                // Жёстче: эффективность быстрее падает с расстоянием
-                efficiency *= 1 / (1 + avgDistance / 100) * distanceFactor;
-                
-                const volatilityFactor = algorithm.efficiencyFactors.volatility;
-                efficiency *= (0.4 + volatilityFactor * 0.6); // Сильнее влияние изменчивости
-                
-                return Math.min(1, Math.max(0.2, efficiency)); // Минимум 20%
-            }
-
-            calculateRouteRisk(cities) {
-                let risk = 10; // Базовый риск
-                
-                for (let i = 0; i < cities.length - 1; i++) {
-                    const dist = this.calculateDistance(cities[i], cities[i + 1]);
-                    risk += dist * 0.08; // Больше риска за расстояние
-                }
-                
-                cities.forEach(city => {
-                    risk += city.resource.volatility * 25; // Больше риска от волатильности
-                });
-                
-                risk += this.marketConditions.competition * 40; // Больше риска от конкуренции
-                
-                // Увеличиваем риск с каждым ходом игры
-                risk += (this.turn - 1) * 1.5;
-                
-                return Math.min(95, Math.round(risk));
-            }
-
-            calculateDistance(city1, city2) {
-                const dx = city1.x - city2.x;
-                const dy = city1.y - city2.y;
-                return Math.sqrt(dx * dx + dy * dy);
-            }
-
-            visualizeRoute(route) {
                 const map = document.getElementById('gameMap');
-                
-                for (let i = 0; i < route.cities.length - 1; i++) {
-                    const cityA = route.cities[i];
-                    const cityB = route.cities[i + 1];
-                    
-                    const path = document.createElement('div');
-                    path.className = 'trade-route active';
-                    path.style.background = route.algorithm.color;
-                    
-                    const dx = cityB.x - cityA.x;
-                    const dy = cityB.y - cityA.y;
-                    const length = Math.sqrt(dx * dx + dy * dy);
-                    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
-                    
-                    path.style.width = `${length}px`;
-                    path.style.left = `${cityA.x}px`;
-                    path.style.top = `${cityA.y}px`;
-                    path.style.transform = `rotate(${angle}deg)`;
-                    
-                    path.dataset.routeId = route.id;
-                    map.appendChild(path);
-                }
-                
                 const merchant = document.createElement('div');
-                merchant.className = 'merchant';
+                merchant.className = `merchant ${trader.isIdle ? 'idle' : ''}`;
+                merchant.style.left = `${city.x}px`;
+                merchant.style.top = `${city.y}px`;
+                merchant.dataset.traderId = trader.id;
                 merchant.innerHTML = '🐫';
-                merchant.style.left = `${route.cities[0].x}px`;
-                merchant.style.top = `${route.cities[0].y}px`;
-                merchant.style.background = route.algorithm.color;
-                merchant.dataset.routeId = route.id;
                 
+                merchant.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.selectTrader(trader);
+                });
+                
+                trader.element = merchant;
                 map.appendChild(merchant);
             }
 
-            nextTurn() {
-                if (this.gameOver) return;
+            selectTrader(trader) {
+                if (this.isPlaying || !trader.isIdle) return;
                 
-                // Проверка на банкротство
-                if (this.gold <= 0) {
-                    this.endGame('bankruptcy');
-                    return;
+                // Сбрасываем предыдущий выбор
+                if (this.selectedTrader) {
+                    this.selectedTrader.element.classList.remove('selected');
+                    this.clearRoutePreview();
                 }
                 
-                if (this.turn >= this.maxTurns) {
+                this.selectedTrader = trader;
+                trader.element.classList.add('selected');
+                
+                document.getElementById('routeInfo').innerHTML = `
+                    <div style="color: var(--color-primary); margin-bottom: 10px;">
+                        <strong>${trader.name}</strong> готов к маршруту
+                    </div>
+                    <div style="font-size: 12px; color: var(--color-text-muted);">
+                        Выберите ${this.baseRouteLength} города для посещения<br>
+                        Первый город: ${this.cities.find(c => c.id === trader.cityId).name}
+                    </div>
+                `;
+                
+                this.showPossibleRoutes(trader);
+            }
+
+            showPossibleRoutes(trader) {
+                this.clearRoutePreview();
+                
+                const startCity = this.cities.find(c => c.id === trader.cityId);
+                const availableCities = this.cities.filter(c => 
+                    c.isDiscovered && 
+                    c.id !== startCity.id
+                );
+                
+                // Показываем все доступные города
+                availableCities.forEach(city => {
+                    city.element.style.border = '2px dashed var(--color-primary)';
+                    city.element.style.transform = 'translate(-50%, -50%) scale(1.1)';
+                });
+            }
+
+            selectCityForRoute(city) {
+                if (!this.selectedTrader || this.isPlaying) return;
+                if (!city.isDiscovered) return;
+                
+                // Проверяем, можно ли добавить город
+                if (this.routeInProgress.includes(city)) {
+                    // Удаляем город из маршрута
+                    const index = this.routeInProgress.indexOf(city);
+                    this.routeInProgress.splice(index, 1);
+                    city.element.style.border = '2px dashed var(--color-primary)';
+                } else {
+                    // Проверяем максимальную длину
+                    if (this.routeInProgress.length >= this.baseRouteLength) {
+                        this.showNotification("❌ Достигнут предел", `Маршрут не может превышать ${this.baseRouteLength} городов`);
+                        return;
+                    }
+                    
+                    // Проверяем, что город не соседний с предыдущим
+                    if (this.routeInProgress.length > 0) {
+                        const lastCity = this.routeInProgress[this.routeInProgress.length - 1];
+                        const distance = this.calculateDistance(lastCity, city);
+                        if (distance > 400) {
+                            this.showNotification("⚠️ Слишком далеко", "Торговец не может пройти такое расстояние за один шаг");
+                            return;
+                        }
+                    }
+                    
+                    // Проверяем, что это не стартовый город
+                    const startCity = this.cities.find(c => c.id === this.selectedTrader.cityId);
+                    if (city.id === startCity.id) {
+                        this.showNotification("⚠️ Нельзя выбрать стартовый город", "Маршрут должен проходить через другие города");
+                        return;
+                    }
+                    
+                    this.routeInProgress.push(city);
+                    city.element.style.border = '3px solid var(--color-success)';
+                }
+                
+                // Обновляем отображение маршрута
+                this.updateRoutePreview();
+                
+                // Если маршрут завершён, показываем кнопку подтверждения
+                if (this.routeInProgress.length === this.baseRouteLength) {
+                    document.getElementById('selectedRoute').style.display = 'block';
+                    
+                    const routeText = this.routeInProgress.map(c => c.name).join(' → ');
+                    document.getElementById('routeCities').textContent = routeText;
+                    
+                    let totalDistance = 0;
+                    for (let i = 0; i < this.routeInProgress.length - 1; i++) {
+                        totalDistance += this.calculateDistance(this.routeInProgress[i], this.routeInProgress[i + 1]);
+                    }
+                    document.getElementById('routeDistance').textContent = 
+                        `Общая дистанция: ${Math.round(totalDistance)} шагов`;
+                } else {
+                    document.getElementById('selectedRoute').style.display = 'none';
+                }
+            }
+
+            updateRoutePreview() {
+                // Удаляем старые preview
+                document.querySelectorAll('.trade-route.preview').forEach(el => el.remove());
+                
+                // Создаем новые preview
+                const startCity = this.cities.find(c => c.id === this.selectedTrader.cityId);
+                let previousCity = startCity;
+                
+                for (let i = 0; i < this.routeInProgress.length; i++) {
+                    const currentCity = this.routeInProgress[i];
+                    this.createRouteElement(previousCity, currentCity, true);
+                    previousCity = currentCity;
+                }
+                
+                // Последний отрезок назад в стартовый город
+                if (this.routeInProgress.length === this.baseRouteLength) {
+                    this.createRouteElement(previousCity, startCity, true);
+                }
+            }
+
+            clearRoutePreview() {
+                document.querySelectorAll('.trade-route.preview').forEach(el => el.remove());
+                this.cities.forEach(city => {
+                    if (city.element) {
+                        city.element.style.border = '';
+                        city.element.style.transform = '';
+                    }
+                });
+                this.routeInProgress = [];
+                document.getElementById('selectedRoute').style.display = 'none';
+            }
+
+            createRouteElement(cityA, cityB, isPreview = false) {
+                const map = document.getElementById('gameMap');
+                
+                const path = document.createElement('div');
+                path.className = `trade-route ${isPreview ? 'preview' : 'active'}`;
+                
+                const dx = cityB.x - cityA.x;
+                const dy = cityB.y - cityA.y;
+                const length = Math.sqrt(dx * dx + dy * dy);
+                const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                
+                path.style.width = `${length}px`;
+                path.style.left = `${cityA.x}px`;
+                path.style.top = `${cityA.y}px`;
+                path.style.transform = `rotate(${angle}deg)`;
+                
+                if (!isPreview) {
+                    path.dataset.routeId = `${cityA.id}-${cityB.id}`;
+                }
+                
+                map.appendChild(path);
+                return path;
+            }
+
+            calculateDistance(cityA, cityB) {
+                const dx = cityA.x - cityB.x;
+                const dy = cityA.y - cityB.y;
+                return Math.sqrt(dx * dx + dy * dy);
+            }
+
+            confirmRoute() {
+                if (!this.selectedTrader || this.routeInProgress.length !== this.baseRouteLength) {
+                    this.showNotification("❌ Маршрут не готов", "Выберите нужное количество городов");
+                    return;
+                }
+
+                // Создаем маршрут (циклический: стартовый город → выбранные города → стартовый город)
+                const startCity = this.cities.find(c => c.id === this.selectedTrader.cityId);
+                const route = {
+                    traderId: this.selectedTrader.id,
+                    cities: [startCity, ...this.routeInProgress, startCity], // Циклический маршрут
+                    currentStep: 0,
+                    isActive: true
+                };
+                
+                // Обновляем торговца
+                this.selectedTrader.route = route.cities.map(c => c.id);
+                this.selectedTrader.currentPosition = 0;
+                this.selectedTrader.isIdle = false;
+                this.selectedTrader.isMoving = true;
+                this.selectedTrader.element.classList.remove('idle', 'selected');
+                
+                // Убираем торговца из текущего города
+                startCity.tradersInCity.delete(this.selectedTrader.id);
+                this.updateCityTradersDisplay(startCity);
+                
+                // Создаем визуальные пути
+                for (let i = 0; i < route.cities.length - 1; i++) {
+                    this.createRouteElement(route.cities[i], route.cities[i + 1]);
+                }
+                
+                this.routes.push(route);
+                this.activeRoutes++;
+                this.availableTraders--;
+                
+                const routeNames = route.cities.slice(1, -1).map(c => c.name).join(' → ');
+                this.logEvent(`${this.getYearText()} - ${this.selectedTrader.name} начал маршрут: ${startCity.name} → ${routeNames} → ${startCity.name}`);
+                
+                // Сбрасываем выбор
+                this.clearRoutePreview();
+                this.selectedTrader = null;
+                
+                this.updateUI();
+                
+                this.showNotification("✅ Маршрут создан", "Торговец готов к отправке. Начните эпоху!");
+            }
+
+            playPause() {
+                if (this.gameOver) return;
+                
+                if (!this.isPlaying) {
+                    // Проверяем, есть ли активные маршруты
+                    if (this.activeRoutes === 0) {
+                        this.showNotification("⚠️ Нет активных маршрутов", "Сначала создайте хотя бы один маршрут");
+                        return;
+                    }
+                    
+                    // Проверяем, хватит ли денег на содержание
+                    const upkeep = this.calculateUpkeep();
+                    if (this.gold < upkeep) {
+                        this.showNotification("💀 БАНКРОТСТВО!", "Не хватает золота на содержание торговцев");
+                        this.endGame('bankruptcy');
+                        return;
+                    }
+                    
+                    this.isPlaying = true;
+                    document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-pause"></i><span>ПАУЗА</span>';
+                    this.gameLoop = setInterval(() => this.processYear(), 1500); // Замедлил темп
+                    
+                    this.showNotification("▶️ ЭПОХА НАЧАЛАСЬ", "Время идёт, торговцы в пути...");
+                } else {
+                    this.isPlaying = false;
+                    clearInterval(this.gameLoop);
+                    document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-play"></i><span>ПРОДОЛЖИТЬ</span>';
+                    
+                    this.showNotification("⏸️ ЭПОХА НА ПАУЗЕ", "Вы можете изменить маршруты торговцев");
+                }
+            }
+
+            processYear() {
+                if (this.gameOver) return;
+                
+                this.year++;
+                
+                // Проверяем конец игры по времени
+                if (this.year >= 2020) {
                     this.endGame('time');
                     return;
                 }
-
-                let turnProfit = 0;
-                let failedRoutes = 0;
-                let newTraders = 0;
                 
+                // Обновляем эпоху
+                this.updateEra();
+                
+                // Содержание торговцев и городов (только если игра идет)
+                if (this.isPlaying) {
+                    const upkeep = this.calculateUpkeep();
+                    this.gold -= upkeep;
+                    
+                    // Проверка банкротства
+                    if (this.gold <= 0) {
+                        this.gold = 0;
+                        this.endGame('bankruptcy');
+                        return;
+                    }
+                    
+                    // Двигаем торговцев
+                    this.moveTraders();
+                    
+                    // Случайные события
+                    if (Math.random() < 0.05 && this.year - this.lastEventYear > 100) { // Реже события
+                        this.generateEvent();
+                    }
+                }
+                
+                this.updateUI();
+            }
+
+            calculateUpkeep() {
+                const tradersCost = this.traders.length * this.upkeepPerTrader;
+                const citiesCost = this.discoveredCities.size * this.upkeepPerCity;
+                return tradersCost + citiesCost;
+            }
+
+            moveTraders() {
                 this.routes.forEach(route => {
-                    if (route.isActive) {
-                        // Проверка риска
-                        const riskRoll = Math.random() * 100;
-                        if (riskRoll < route.risk) {
-                            route.isActive = false;
-                            this.availableTraders++;
-                            failedRoutes++;
-                            
-                            document.querySelectorAll(`.trade-route[data-route-id="${route.id}"]`).forEach(el => {
-                                el.classList.remove('active');
-                            });
-                            
-                            this.showHint(`⚡ Путь "${route.name}" разрушен! Риск: ${route.risk}%`, 'warning');
-                        } else {
-                            // Получаем прибыль
-                            const actualProfit = Math.round(route.profit * route.efficiency);
-                            this.gold += actualProfit;
-                            this.totalProfit += actualProfit;
-                            turnProfit += actualProfit;
-                            
-                            // Двигаем торговца
-                            this.moveMerchant(route);
-                            
-                            // Проверяем посещение новых городов для получения торговцев
-                            const currentCity = route.cities[route.currentCityIndex];
-                            if (!currentCity.gaveTrader && !this.discoveredCities.has(currentCity.id)) {
-                                // Даём нового торговца
-                                this.totalTraders++;
-                                this.availableTraders++;
-                                currentCity.gaveTrader = true;
-                                this.discoveredCities.add(currentCity.id);
-                                newTraders++;
-                                
-                                this.showHint(`🎉 Караванщик из ${currentCity.name} присоединился к вам!`, 'success');
-                            }
-                            
-                            // Переходим к следующему городу
-                            route.currentCityIndex = (route.currentCityIndex + 1) % route.cities.length;
-                            route.turnsCompleted++;
-                            
-                            // Устаревание маршрута (после 8 ходов эффективность падает)
-                            if (route.turnsCompleted >= 8) {
-                                route.efficiency *= 0.95;
-                            }
+                    if (!route.isActive) return;
+                    
+                    const trader = this.traders.find(t => t.id === route.traderId);
+                    if (!trader || !trader.isMoving) return;
+                    
+                    // Если торговец уже в пути между городами
+                    if (trader.isTraveling) {
+                        return; // Ждем следующего года
+                    }
+                    
+                    // Определяем следующий город
+                    const nextPosition = (trader.currentPosition + 1) % route.cities.length;
+                    const currentCity = route.cities[trader.currentPosition];
+                    const nextCity = route.cities[nextPosition];
+                    
+                    // Начинаем движение к следующему городу
+                    trader.isTraveling = true;
+                    trader.currentTargetCityId = nextCity.id;
+                    
+                    // Убираем из текущего города
+                    currentCity.tradersInCity.delete(trader.id);
+                    this.updateCityTradersDisplay(currentCity);
+                    
+                    // Двигаем торговца (замедленная анимация)
+                    this.moveTraderToCity(trader, nextCity);
+                    
+                    // Устанавливаем таймер прибытия (2 секунды для анимации)
+                    setTimeout(() => {
+                        if (!this.isPlaying) return;
+                        
+                        trader.isTraveling = false;
+                        trader.currentPosition = nextPosition;
+                        trader.cityId = nextCity.id;
+                        
+                        // Добавляем в новый город
+                        nextCity.tradersInCity.add(trader.id);
+                        this.updateCityTradersDisplay(nextCity);
+                        
+                        // Прибытие в город
+                        this.arriveAtCity(trader, currentCity, nextCity);
+                        
+                        // Проверяем, завершился ли маршрут (вернулись в стартовый город)
+                        if (nextPosition === 0) {
+                            this.completeRoute(trader, route);
                         }
+                    }, 2000);
+                });
+                
+                // Обновляем доступность кнопки авто-маршрута
+                document.getElementById('autoRouteBtn').disabled = this.gold < 50 || this.availableTraders === 0;
+            }
+
+            moveTraderToCity(trader, city) {
+                if (!trader.element) return;
+                
+                trader.element.style.transition = 'left 2s linear, top 2s linear';
+                trader.element.style.left = `${city.x}px`;
+                trader.element.style.top = `${city.y}px`;
+                
+                // Обновляем город, чтобы показать наличие торговца
+                city.element.classList.add('has-trader');
+            }
+
+            arriveAtCity(trader, fromCity, toCity) {
+                // Убираем подсветку с предыдущего города
+                fromCity.element.classList.remove('has-trader');
+                
+                // Если торговец что-то везет, проверяем, нужно ли это городу
+                if (trader.cargo && trader.cargo.id === toCity.demand.id) {
+                    // Успешная доставка!
+                    const profit = Math.round(toCity.currentValue * 1.5);
+                    this.gold += profit;
+                    trader.goldEarned += profit;
+                    
+                    this.logEvent(`${this.getYearText()} - ${trader.name} доставил ${trader.cargo.name} в ${toCity.name} (+${profit}💰)`);
+                    
+                    // Открываем связанные города если они есть
+                    this.openConnectedCities(toCity);
+                }
+                
+                // Проверяем, первый ли раз торговец посещает этот город
+                if (!toCity.visitedBy.has(trader.id)) {
+                    toCity.visitedBy.add(trader.id);
+                    
+                    // Если город впервые посещен вообще (открываем его если он был закрыт)
+                    if (!this.discoveredCities.has(toCity.id)) {
+                        this.discoverCity(toCity);
+                    }
+                    
+                    // Если город еще не давал торговца (и это не начальный город торговца)
+                    if (!toCity.gaveTrader) {
+                        // Добавляем нового торговца в ЭТОТ ЖЕ ГОРОД
+                        this.addNewTrader(toCity);
+                        toCity.gaveTrader = true;
+                        
+                        this.showNotification("🎉 НОВЫЙ КАРАВАНЩИК!", `${toCity.name} предоставил нового торговца`);
+                    }
+                }
+                
+                // Берем новый ресурс из города
+                trader.cargo = toCity.resource;
+            }
+
+            discoverCity(city) {
+                city.isDiscovered = true;
+                this.discoveredCities.add(city.id);
+                city.element.classList.remove('locked');
+                city.element.classList.add('active');
+                
+                // Обновляем отображение города
+                city.element.querySelector('.city-icon').textContent = city.resource.icon;
+                city.element.querySelector('.city-name').textContent = city.name;
+                city.element.querySelector('.city-demand').innerHTML = `Требует: ${city.demand.icon}`;
+                city.element.querySelector('.city-value').textContent = `${city.currentValue}💰`;
+                
+                // Делаем город кликабельным
+                city.element.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    this.selectCityForRoute(city);
+                });
+                
+                this.showNotification("🗺️ НОВЫЙ ГОРОД ОТКРЫТ!", `${city.name} теперь доступен для торговли`);
+                this.logEvent(`${this.getYearText()} - Открыт новый город: ${city.name}`);
+            }
+
+            openConnectedCities(city) {
+                const connectedCityIds = this.cityConnections.get(city.id);
+                if (!connectedCityIds) return;
+                
+                let openedCount = 0;
+                connectedCityIds.forEach(cityId => {
+                    const connectedCity = this.cities[cityId];
+                    if (connectedCity && !connectedCity.isDiscovered) {
+                        this.discoverCity(connectedCity);
+                        openedCount++;
                     }
                 });
                 
-                // Жёсткие рыночные изменения
-                this.updateMarketConditions();
-                
-                // Минимальное восстановление торговцев
-                this.availableTraders = Math.min(this.totalTraders, this.availableTraders + (Math.random() > 0.7 ? 1 : 0));
-                
-                // Обновляем цены (сильнее колебания)
-                this.updateResourcePrices();
-                
-                this.turn++;
-                this.score += turnProfit;
-                
-                // Обновляем прогресс-бар
-                const progressPercent = (this.turn / this.maxTurns) * 100;
-                document.querySelector('.progress-fill').style.width = `${progressPercent}%`;
-                document.querySelector('.turn-progress span').textContent = `${this.turn}/${this.maxTurns}`;
-                
-                this.showHint(
-                    `📜 Ход ${this.turn}. Доход: ${turnProfit}💰. ` +
-                    `Потеряно путей: ${failedRoutes}. ` +
-                    `Новых караванщиков: ${newTraders}. ` +
-                    `Казне осталось: ${this.gold}💰`
-                );
-                
-                this.updateUI();
-                this.setupAlgorithms(); // Обновляем алгоритмы
-                
-                // Автоматическое завершение при нулевой казне
-                if (this.gold <= 0) {
-                    setTimeout(() => this.endGame('bankruptcy'), 500);
+                if (openedCount > 0) {
+                    this.showNotification("🌍 ОТКРЫТЫ НОВЫЕ ГОРОДА!", `Доставка в ${city.name} открыла ${openedCount} новых городов`);
                 }
             }
 
-            moveMerchant(route) {
-                const merchant = document.querySelector(`.merchant[data-route-id="${route.id}"]`);
-                if (!merchant || !route.isActive) return;
+            completeRoute(trader, route) {
+                // Торговец завершил полный цикл
+                trader.isIdle = true;
+                trader.isMoving = false;
+                trader.isTraveling = false;
+                trader.element.classList.add('idle');
+                this.availableTraders++;
+                route.isActive = false;
+                this.activeRoutes--;
                 
-                const currentCity = route.cities[route.currentCityIndex];
-                merchant.style.left = `${currentCity.x}px`;
-                merchant.style.top = `${currentCity.y}px`;
+                // Увеличиваем длину маршрута для всех
+                this.baseRouteLength++;
+                document.getElementById('routeLength').textContent = this.baseRouteLength;
+                
+                this.showNotification("📈 МАРШРУТЫ УДЛИНЕНЫ", `Теперь маршруты могут включать ${this.baseRouteLength} городов`);
+                this.logEvent(`${this.getYearText()} - ${trader.name} завершил маршрут. Теперь маршруты длиннее!`);
+                
+                // Обновляем кнопку старта/паузы если все торговцы свободны
+                if (this.availableTraders === this.totalTraders) {
+                    document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-play"></i><span>ПРОДОЛЖИТЬ</span>';
+                    this.isPlaying = false;
+                    clearInterval(this.gameLoop);
+                }
             }
 
-            updateMarketConditions() {
-                // Жёсткие изменения рынка
-                this.marketConditions.volatility = 0.4 + Math.random() * 0.6;
-                this.marketConditions.demand = 0.3 + Math.random() * 0.5;
-                this.marketConditions.competition = 0.4 + Math.random() * 0.5;
+            addNewTrader(city) {
+                const newTraderId = this.traders.length;
+                const trader = {
+                    id: newTraderId,
+                    name: this.getTraderName(newTraderId),
+                    cityId: city.id,
+                    route: [],
+                    currentPosition: 0,
+                    isMoving: false,
+                    isTraveling: false,
+                    cargo: null,
+                    goldEarned: 0,
+                    element: null,
+                    isIdle: true,
+                    currentTargetCityId: null
+                };
                 
-                // С каждым ходом условия ухудшаются
-                this.marketConditions.volatility = Math.min(0.9, this.marketConditions.volatility + (this.turn * 0.01));
-                this.marketConditions.competition = Math.min(0.9, this.marketConditions.competition + (this.turn * 0.01));
+                this.traders.push(trader);
+                this.totalTraders++;
+                this.availableTraders++;
+                
+                // Добавляем торговца в город
+                city.tradersInCity.add(trader.id);
+                this.updateCityTradersDisplay(city);
+                
+                this.createTraderElement(trader);
+                
+                this.logEvent(`${this.getYearText()} - Новый караванщик ${trader.name} присоединился в ${city.name}`);
             }
 
-            updateResourcePrices() {
+            getTraderName(id) {
+                const names = [
+                    "Хаммурапи", "Саргон", "Рамсес", "Тутмос", "Кир", "Дарий",
+                    "Перикл", "Александр", "Цезарь", "Август", "Константин", "Юстиниан",
+                    "Карл Великий", "Ричард", "Фридрих", "Генрих", "Фердинанд", "Изабелла",
+                    "Колумб", "Магеллан", "Васко да Гама", "Кортес", "Наполеон", "Веллингтон",
+                    "Рокфеллер", "Карнеги", "Форд", "Эдисон", "Тесла", "Гейтс", "Джобс"
+                ];
+                return names[id] || `Торговец ${id + 1}`;
+            }
+
+            updateEra() {
+                const newEra = this.eras.findIndex(era => this.year >= era.start && this.year <= era.end);
+                if (newEra !== -1 && newEra !== this.currentEra) {
+                    this.currentEra = newEra;
+                    const era = this.eras[this.currentEra];
+                    
+                    document.getElementById('eraName').textContent = era.name;
+                    document.getElementById('eraYears').textContent = 
+                        `${Math.abs(era.start)} ${era.start < 0 ? 'гг. до н.э.' : 'гг.'} - ${era.end} гг.`;
+                    
+                    // Обновляем ресурсы городов для новой эпохи
+                    this.updateCityResources();
+                    
+                    this.showNotification(`${era.icon} НОВАЯ ЭПОХА: ${era.name}`, 
+                        `Наступила новая историческая эпоха. Торговля изменилась!`);
+                    this.logEvent(`${this.getYearText()} - Начало эпохи ${era.name}`);
+                }
+            }
+
+            updateCityResources() {
                 this.cities.forEach(city => {
-                    city.currentValue = this.calculateResourceValue(city.resource);
-                    if (city.element) {
-                        const valueColor = city.currentValue > city.baseValue ? '#8b7355' : '#8b0000';
-                        const valueChange = city.currentValue > city.baseValue ? '↑' : '↓';
+                    if (city.era <= this.currentEra && city.isDiscovered) {
+                        const eraResources = this.resourcesByEra[city.era];
+                        const resource = eraResources[Math.floor(Math.random() * eraResources.length)];
                         
-                        city.element.querySelector('.city-value').innerHTML = 
-                            `${city.currentValue}💰 ${valueChange}`;
-                        city.element.querySelector('.city-value').style.color = valueColor;
+                        // Выбираем ресурс, который требуется городу
+                        let demandResource;
+                        do {
+                            demandResource = eraResources[Math.floor(Math.random() * eraResources.length)];
+                        } while (demandResource.id === resource.id);
+                        
+                        city.resource = resource;
+                        city.demand = demandResource;
+                        city.baseValue = resource.value;
+                        city.currentValue = this.calculateCityValue(city, resource);
+                        
+                        // Обновляем отображение
+                        if (city.element) {
+                            city.element.querySelector('.city-icon').textContent = resource.icon;
+                            city.element.querySelector('.city-demand').innerHTML = 
+                                `Требует: ${demandResource.icon}`;
+                            city.element.querySelector('.city-value').textContent = `${city.currentValue}💰`;
+                            city.element.style.background = this.getCityGradient(resource.id);
+                        }
                     }
                 });
             }
 
-            calculateIncomePerTurn() {
-                this.incomePerTurn = this.routes
-                    .filter(r => r.isActive)
-                    .reduce((sum, route) => sum + route.profit, 0);
+            generateEvent() {
+                const events = [
+                    {
+                        title: "⚔️ ВОЙНА!",
+                        message: "Военный конфликт перекрыл торговые пути. Доход снижен на 20%.",
+                        effect: () => {
+                            this.cities.forEach(city => {
+                                city.currentValue = Math.round(city.currentValue * 0.8);
+                            });
+                        }
+                    },
+                    {
+                        title: "🌾 УРОЖАЙ!",
+                        message: "Небывалый урожай пшеницы. Цены на зерно выросли!",
+                        effect: () => {
+                            this.cities.forEach(city => {
+                                if (city.resource.id === 'grain') {
+                                    city.currentValue = Math.round(city.currentValue * 1.5);
+                                }
+                            });
+                        }
+                    },
+                    {
+                        title: "🛳️ ОТКРЫТИЕ!",
+                        message: "Открыт новый торговый путь. Все города стали доступнее.",
+                        effect: () => {
+                            this.baseRouteLength++;
+                            document.getElementById('routeLength').textContent = this.baseRouteLength;
+                        }
+                    },
+                    {
+                        title: "💀 ЧУМА!",
+                        message: "Эпидемия опустошила города. Содержание удвоено на 10 лет.",
+                        effect: () => {
+                            this.upkeepPerCity *= 2;
+                            setTimeout(() => {
+                                this.upkeepPerCity /= 2;
+                            }, 10000);
+                        }
+                    },
+                    {
+                        title: "🏛️ РЕНЕССАНС!",
+                        message: "Культурный расцвет привлёк новых торговцев.",
+                        effect: () => {
+                            const idleTraders = this.traders.filter(t => t.isIdle);
+                            if (idleTraders.length < 3) {
+                                this.availableTraders++;
+                                this.totalTraders++;
+                            }
+                        }
+                    }
+                ];
+                
+                const event = events[Math.floor(Math.random() * events.length)];
+                this.showNotification(event.title, event.message);
+                event.effect();
+                
+                this.lastEventYear = this.year;
+                this.logEvent(`${this.getYearText()} - ${event.message}`);
             }
 
-            resetSelection() {
-                this.selectedAlgorithm = null;
-                this.selectedCities = [];
-                this.gameState = 'SELECTING_ALGORITHM';
+            autoRoute() {
+                if (this.gold < 50 || this.availableTraders === 0) return;
                 
-                document.querySelectorAll('.algorithm-card').forEach(card => {
-                    card.classList.remove('selected');
-                });
+                this.gold -= 50;
                 
-                this.cities.forEach(city => {
-                    city.element.classList.remove('selected');
+                // Находим свободного торговца
+                const idleTrader = this.traders.find(t => t.isIdle);
+                if (!idleTrader) return;
+                
+                this.selectTrader(idleTrader);
+                
+                // Автоматически выбираем оптимальный маршрут
+                const startCity = this.cities.find(c => c.id === idleTrader.cityId);
+                const availableCities = this.cities.filter(c => 
+                    c.isDiscovered && 
+                    c.id !== startCity.id &&
+                    this.calculateDistance(startCity, c) <= 400
+                );
+                
+                // Выбираем самые выгодные города, учитывая спрос
+                const bestCities = [...availableCities]
+                    .sort((a, b) => {
+                        // Приоритет: города, которым нужен ресурс стартового города
+                        const startCityResource = startCity.resource.id;
+                        const aScore = (a.demand.id === startCityResource ? 100 : 0) + a.currentValue;
+                        const bScore = (b.demand.id === startCityResource ? 100 : 0) + b.currentValue;
+                        return bScore - aScore;
+                    })
+                    .slice(0, this.baseRouteLength);
+                
+                // Сбрасываем текущий выбор и создаем новый маршрут
+                this.clearRoutePreview();
+                this.routeInProgress = bestCities;
+                
+                // Визуализируем маршрут
+                bestCities.forEach(city => {
+                    city.element.style.border = '3px solid var(--color-success)';
                 });
+                this.updateRoutePreview();
+                
+                // Автоматически подтверждаем
+                setTimeout(() => {
+                    if (this.routeInProgress.length === this.baseRouteLength) {
+                        this.confirmRoute();
+                        this.showNotification("🤖 МАРШРУТ СОЗДАН", "Алгоритм построил оптимальный путь за 50💰");
+                    }
+                }, 500);
+            }
+
+            endGame(reason) {
+                this.gameOver = true;
+                this.isPlaying = false;
+                clearInterval(this.gameLoop);
+                
+                const finalScore = this.gold + (this.totalTraders * 100) + (this.discoveredCities.size * 50);
+                let title = '';
+                let message = '';
+                
+                if (reason === 'bankruptcy') {
+                    title = '💀 БАНКРОТСТВО!';
+                    message = 'Ваша казна опустела. Торговля прекратилась.';
+                } else {
+                    title = '🏁 ИГРА ЗАВЕРШЕНА!';
+                    message = 'Вы достигли 2020 года. История продолжается...';
+                }
+                
+                // Сохраняем рекорд
+                const highScore = localStorage.getItem('highScore') || 0;
+                if (finalScore > highScore) {
+                    localStorage.setItem('highScore', finalScore);
+                    message += '\n🏆 УСТАНОВЛЕН НОВЫЙ РЕКОРД!';
+                }
+                
+                // Заполняем результаты
+                document.getElementById('finalGold').textContent = this.gold;
+                document.getElementById('finalRoutes').textContent = this.routes.length;
+                document.getElementById('finalTraders').textContent = this.totalTraders;
+                document.getElementById('finalScore').textContent = finalScore;
+                document.getElementById('resultsTitle').textContent = title;
+                document.getElementById('resultsMessage').innerHTML = message.replace('\n', '<br>');
+                
+                // Анализ стратегии
+                document.getElementById('strategyAnalysis').innerHTML = this.generateStrategyAnalysis();
+                
+                // Показываем модальное окно
+                setTimeout(() => {
+                    document.getElementById('resultsModal').classList.add('active');
+                }, 1000);
+            }
+
+            generateStrategyAnalysis() {
+                const totalDistance = this.routes.reduce((sum, route) => {
+                    return sum + route.cities.reduce((dist, city, i, arr) => {
+                        return i > 0 ? dist + this.calculateDistance(arr[i-1], city) : dist;
+                    }, 0);
+                }, 0);
+                
+                const avgRouteLength = this.routes.length > 0 ? 
+                    this.routes.reduce((sum, route) => sum + route.cities.length, 0) / this.routes.length : 0;
+                
+                let analysis = `
+                    <p>Вы управляли торговлей через ${Math.min(this.currentEra + 1, this.eras.length)} исторических эпох.</p>
+                    <p>Максимальная длина маршрута: <strong>${this.baseRouteLength} городов</strong></p>
+                    <p>Общая пройденная дистанция: <strong>${Math.round(totalDistance)} шагов</strong></p>
+                    <p>Средняя длина маршрута: <strong>${avgRouteLength.toFixed(1)} городов</strong></p>
+                `;
+                
+                // Рекомендации
+                if (this.totalTraders < 5) {
+                    analysis += '<div class="strategy-tip">';
+                    analysis += '<h4><i class="fas fa-users"></i> НУЖНО БОЛЬШЕ ТОРГОВЦЕВ</h4>';
+                    analysis += '<p>Посещайте города впервые - каждый новый город дает нового торговца!</p>';
+                    analysis += '</div>';
+                }
+                
+                if (this.baseRouteLength < 6) {
+                    analysis += '<div class="strategy-tip">';
+                    analysis += '<h4><i class="fas fa-road"></i> КОРОТКИЕ МАРШРУТЫ</h4>';
+                    analysis += '<p>Длинные маршруты увеличивают максимальную длину для всех и приносят больше прибыли.</p>';
+                    analysis += '</div>';
+                }
+                
+                const discoveredPercent = Math.round((this.discoveredCities.size / this.cities.length) * 100);
+                analysis += `<p>Открыто городов: <strong>${discoveredPercent}%</strong> (${this.discoveredCities.size} из ${this.cities.length})</p>`;
+                
+                return analysis;
+            }
+
+            getYearText() {
+                return this.year < 0 ? `${Math.abs(this.year)} г. до н.э.` : `${this.year} г.`;
+            }
+
+            logEvent(text) {
+                const eventLog = document.getElementById('eventLog');
+                const eventDiv = document.createElement('div');
+                eventDiv.style.cssText = `
+                    padding: 8px;
+                    margin-bottom: 5px;
+                    background: rgba(58, 44, 0, 0.4);
+                    border-radius: 4px;
+                    border-left: 3px solid var(--color-primary);
+                    font-size: 12px;
+                    color: var(--color-text);
+                `;
+                eventDiv.textContent = text;
+                
+                eventLog.insertBefore(eventDiv, eventLog.firstChild);
+                
+                // Ограничиваем количество записей
+                if (eventLog.children.length > 20) {
+                    eventLog.removeChild(eventLog.lastChild);
+                }
+            }
+
+            showNotification(title, message) {
+                const notification = document.getElementById('notification');
+                document.getElementById('notificationTitle').textContent = title;
+                document.getElementById('notificationMessage').textContent = message;
+                
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 5000);
             }
 
             setupEventListeners() {
-                document.getElementById('nextTurnBtn').addEventListener('click', () => this.nextTurn());
-                document.getElementById('createRouteBtn').addEventListener('click', () => this.createRoute());
+                document.getElementById('playPauseBtn').addEventListener('click', () => this.playPause());
+                document.getElementById('autoRouteBtn').addEventListener('click', () => this.autoRoute());
+                document.getElementById('confirmRouteBtn').addEventListener('click', () => this.confirmRoute());
+                document.querySelector('.notification-close').addEventListener('click', () => {
+                    document.getElementById('notification').classList.remove('show');
+                });
+                
+                // Закрытие уведомления по клику вне
+                document.getElementById('notification').addEventListener('click', (e) => {
+                    if (e.target === document.getElementById('notification')) {
+                        document.getElementById('notification').classList.remove('show');
+                    }
+                });
             }
 
             updateUI() {
+                // Обновляем год
+                document.getElementById('yearNumber').textContent = Math.abs(this.year);
+                document.getElementById('yearNumber').nextElementSibling.textContent = 
+                    this.year < 0 ? 'ДО НАШЕЙ ЭРЫ' : '';
+                
+                // Статистика
                 document.getElementById('statGold').textContent = this.gold;
-                document.getElementById('statTraders').textContent = this.availableTraders;
-                document.getElementById('statRoutes').textContent = this.routes.length;
-                document.getElementById('statProfit').textContent = `+${this.incomePerTurn}`;
+                document.getElementById('statTraders').textContent = `${this.availableTraders}/${this.totalTraders}`;
+                document.getElementById('statRoutes').textContent = this.activeRoutes;
+                document.getElementById('statCities').textContent = `${this.discoveredCities.size}/${this.cities.length}`;
                 
+                // Нижняя панель
                 document.getElementById('goldValue').textContent = this.gold;
-                document.getElementById('tradersValue').textContent = `${this.availableTraders}/${this.totalTraders}`;
-                document.getElementById('citiesValue').textContent = this.cities.length;
+                document.getElementById('tradersValue').textContent = this.availableTraders;
+                document.getElementById('routeLength').textContent = this.baseRouteLength;
                 
-                document.getElementById('turnNumber').textContent = this.turn;
-                
-                document.getElementById('createRouteBtn').disabled = 
-                    this.gameState !== 'SELECTING_CITIES' || 
-                    this.selectedCities.length < 2 ||
-                    this.gameOver;
-                
-                // Подсветка при банкротстве
-                if (this.gold < 100) {
+                // Подсветка при низком балансе
+                if (this.gold < 300) {
                     document.getElementById('goldValue').style.color = '#8b0000';
                     document.getElementById('statGold').style.color = '#8b0000';
                 } else {
                     document.getElementById('goldValue').style.color = 'var(--color-primary)';
                     document.getElementById('statGold').style.color = 'var(--color-primary)';
                 }
-            }
-
-            showHint(message, type = 'info') {
-                const hintElement = document.getElementById('hintText');
-                const icons = {
-                    info: '⚔️',
-                    error: '💀',
-                    success: '🏛️',
-                    warning: '⚡'
-                };
                 
-                hintElement.innerHTML = `<span class="hint-icon">${icons[type] || '⚔️'}</span> <span>${message}</span>`;
-                
-                const card = hintElement.parentElement.parentElement;
-                card.classList.remove('slideIn');
-                void card.offsetWidth;
-                card.classList.add('slideIn');
-            }
-
-            endGame(reason) {
-                this.gameOver = true;
-                
-                const finalScore = this.score + this.gold;
-                let title = '';
-                let message = '';
-                
-                if (reason === 'bankruptcy') {
-                    title = '💀 КАЗНА ОПУСТЕЛА!';
-                    message = 'Ваше царство обанкротилось. Торговые пути заброшены, караванщики разбежались.';
-                } else {
-                    title = '🏛️ ИГРА ЗАВЕРШЕНА!';
-                    message = '30 ходов миновало. Время подвести итоги правления.';
-                }
-                
-                // Заполняем результаты
-                document.getElementById('finalGold').textContent = this.gold;
-                document.getElementById('finalRoutes').textContent = this.routes.length;
-                document.getElementById('finalProfit').textContent = this.totalProfit;
-                document.getElementById('finalScore').textContent = finalScore;
-                document.getElementById('resultsTitle').textContent = title;
-                document.getElementById('resultsMessage').textContent = message;
-                
-                // Анализ стратегии
-                const analysis = this.generateStrategyAnalysis();
-                document.getElementById('strategyAnalysis').innerHTML = analysis;
-                
-                // Совет
-                const advice = this.generateAdvice();
-                document.getElementById('finalAdvice').querySelector('p').textContent = advice;
-                
-                // Показываем модальное окно
-                document.getElementById('resultsModal').classList.add('active');
-                
-                // Отключаем кнопки
-                document.getElementById('nextTurnBtn').disabled = true;
-                document.getElementById('createRouteBtn').disabled = true;
-            }
-
-            generateStrategyAnalysis() {
-                let analysis = '<div style="color: var(--color-text); line-height: 1.6;">';
-                
-                // Самый используемый алгоритм
-                let mostUsed = Object.entries(this.algorithmUsage).sort((a, b) => b[1] - a[1])[0];
-                if (mostUsed) {
-                    const algo = this.algorithms.find(a => a.id === mostUsed[0]);
-                    analysis += `<p><strong>Чаще всего использовался:</strong> ${algo.name} (${mostUsed[1]} раз)</p>`;
-                }
-                
-                // Эффективность алгоритмов
-                analysis += '<p><strong>Эффективность алгоритмов:</strong></p><ul style="margin-left: 20px;">';
-                this.algorithms.forEach(algo => {
-                    const usage = this.algorithmUsage[algo.id] || 0;
-                    if (usage > 0) {
-                        analysis += `<li>${algo.name}: ${usage} использований</li>`;
-                    }
-                });
-                analysis += '</ul>';
-                
-                // Анализ прибыли
-                const profitPerRoute = this.routes.length > 0 ? Math.round(this.totalProfit / this.routes.length) : 0;
-                analysis += `<p><strong>Средняя прибыль с пути:</strong> ${profitPerRoute}💰</p>`;
-                
-                // Рекомендации
-                if (this.algorithmUsage['nearest_neighbor'] > this.algorithmUsage['dynamic_programming'] * 2) {
-                    analysis += '<div class="strategy-tip" style="margin-top: 15px;">';
-                    analysis += '<h4><i class="fas fa-exclamation-triangle"></i> СЛИШКОМ ДЕШЁВЫЕ АЛГОРИТМЫ</h4>';
-                    analysis += '<p>Вы слишком часто использовали дешёвые алгоритмы. Попробуйте инвестировать в дорогие, но точные методы в середине игры.</p>';
-                    analysis += '</div>';
-                }
-                
-                if (this.totalTraders < 3) {
-                    analysis += '<div class="strategy-tip" style="margin-top: 15px;">';
-                    analysis += '<h4><i class="fas fa-users"></i> МАЛО КАРАВАНЩИКОВ</h4>';
-                    analysis += '<p>Посещайте больше новых городов в начале игры, чтобы получить дополнительных торговцев.</p>';
-                    analysis += '</div>';
-                }
-                
-                analysis += '</div>';
-                return analysis;
-            }
-
-            generateAdvice() {
-                const totalUsage = Object.values(this.algorithmUsage).reduce((a, b) => a + b, 0);
-                
-                if (totalUsage === 0) {
-                    return 'Вы не использовали ни одного алгоритма! В следующей игре попробуйте начинать с "Пути соседа".';
-                }
-                
-                const earlyGameUsage = this.algorithmUsage['nearest_neighbor'] || 0;
-                const midGameUsage = (this.algorithmUsage['genetic_algorithm'] || 0) + (this.algorithmUsage['ant_colony'] || 0);
-                const lateGameUsage = (this.algorithmUsage['dynamic_programming'] || 0) + (this.algorithmUsage['branch_and_bound'] || 0);
-                
-                if (earlyGameUsage < 2) {
-                    return 'Начинайте игру с 2-3 дешёвых алгоритмов "Путь соседа" для создания сети путей и получения торговцев.';
-                } else if (midGameUsage < lateGameUsage) {
-                    return 'В середине игры переходите на сбалансированные алгоритмы ("Эволюция пути", "Муравьиный след") для оптимизации.';
-                } else {
-                    return 'В конце игры используйте точные алгоритмы ("Царский расчёт", "Метод ветвей") для максимизации прибыли.';
-                }
+                // Обновляем доступность кнопок
+                document.getElementById('autoRouteBtn').disabled = this.gold < 50 || this.availableTraders === 0;
+                document.getElementById('playPauseBtn').disabled = this.activeRoutes === 0;
             }
         }
 
         // Инициализация игры
         let game;
         window.addEventListener('load', () => {
-            game = new AncientTradingGame();
-            
-            // Закрытие модального окна результатов по клику вне
-            document.getElementById('resultsModal').addEventListener('click', (e) => {
-                if (e.target === document.getElementById('resultsModal')) {
-                    document.getElementById('resultsModal').classList.remove('active');
-                }
-            });
+            game = new HistoricalTradingGame();
         });
     </script>
 </body>
