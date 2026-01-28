@@ -3,60 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Django Quest - Игровой тест</title>
+    <title>Django Quest - Игровой тест для начинающих</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 </head>
-<body>
+<body class="dark-theme">
     <!-- Главный экран -->
     <div id="main-screen" class="screen active">
         <div class="container">
             <div class="header">
-                <h1><i class="fas fa-dragon"></i> Django Quest</h1>
-                <p class="subtitle">Игровая аттестация по фреймворку Django</p>
+                <div class="logo">
+                    <i class="fas fa-code"></i>
+                    <h1>Django <span class="gradient-text">Quest</span></h1>
+                </div>
+                <p class="subtitle">Игровая аттестация для начинающих разработчиков Django</p>
             </div>
             
             <div class="content">
-                <div class="form-section">
-                    <h2><i class="fas fa-users"></i> Добавление учеников</h2>
-                    <div class="input-group">
-                        <input type="text" id="student-name" placeholder="Введите имя ученика" maxlength="20">
-                        <button id="add-student" class="btn-primary">
-                            <i class="fas fa-plus"></i> Добавить
-                        </button>
+                <div class="form-section card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-user-plus"></i> Добавление учеников</h2>
+                        <div class="stats-badge">
+                            <span id="student-count">0</span> / 30
+                        </div>
                     </div>
                     
-                    <div class="students-list" id="students-container">
-                        <!-- Список учеников будет здесь -->
-                    </div>
-                    
-                    <div class="controls">
-                        <button id="clear-students" class="btn-secondary">
-                            <i class="fas fa-trash"></i> Очистить список
-                        </button>
-                        <button id="start-rules" class="btn-primary" disabled>
-                            <i class="fas fa-arrow-right"></i> Продолжить
-                        </button>
-                    </div>
-                    
-                    <div class="stats">
-                        <p>Добавлено учеников: <span id="student-count">0</span></p>
-                        <p>Минимум: 2, Максимум: 30</p>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <div class="input-with-icon">
+                                <i class="fas fa-user"></i>
+                                <input type="text" id="student-name" placeholder="Введите имя ученика" maxlength="20">
+                            </div>
+                            <button id="add-student" class="btn-primary pulse">
+                                <i class="fas fa-plus"></i> Добавить
+                            </button>
+                        </div>
+                        
+                        <div class="students-list" id="students-container">
+                            <!-- Список учеников будет здесь -->
+                            <div class="empty-state">
+                                <i class="fas fa-users"></i>
+                                <p>Добавьте учеников чтобы начать</p>
+                            </div>
+                        </div>
+                        
+                        <div class="controls">
+                            <button id="clear-students" class="btn-secondary">
+                                <i class="fas fa-trash"></i> Очистить список
+                            </button>
+                            <button id="start-rules" class="btn-primary btn-large" disabled>
+                                <i class="fas fa-play"></i> Начать игру
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="game-info">
-                    <h3><i class="fas fa-info-circle"></i> Об игре</h3>
-                    <ul>
-                        <li><i class="fas fa-random"></i> Случайный выбор учеников</li>
-                        <li><i class="fas fa-star"></i> 3 уровня сложности вопросов</li>
-                        <li><i class="fas fa-trophy"></i> Система рейтинга с аватарками</li>
-                        <li><i class="fas fa-history"></i> 60 уникальных вопросов</li>
-                        <li><i class="fas fa-clock"></i> Таймер ответа: 60 секунд</li>
-                        <li><i class="fas fa-chart-bar"></i> Лидерборд в реальном времени</li>
-                    </ul>
+                <div class="game-info card">
+                    <div class="card-header">
+                        <h2><i class="fas fa-gamepad"></i> Как играть?</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="feature-grid">
+                            <div class="feature">
+                                <div class="feature-icon">
+                                    <i class="fas fa-random"></i>
+                                </div>
+                                <h4>Случайный выбор</h4>
+                                <p>Система выбирает учеников в случайном порядке</p>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-icon">
+                                    <i class="fas fa-layer-group"></i>
+                                </div>
+                                <h4>4 темы</h4>
+                                <p>Основы, Модели, Представления, Шаблоны</p>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <h4>3 уровня</h4>
+                                <p>1-3 балла за ответ</p>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-icon">
+                                    <i class="fas fa-trophy"></i>
+                                </div>
+                                <h4>Лидерборд</h4>
+                                <p>Рейтинг в реальном времени</p>
+                            </div>
+                        </div>
+                        
+                        <div class="requirements">
+                            <h4><i class="fas fa-exclamation-circle"></i> Требования:</h4>
+                            <ul>
+                                <li>Минимум 2 ученика</li>
+                                <li>Максимум 30 учеников</li>
+                                <li>60 секунд на ответ</li>
+                                <li>Вопросы не повторяются</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            
+            <div class="footer">
+                <p>Создано для аттестации по основам Django • Автосохранение включено</p>
             </div>
         </div>
     </div>
@@ -65,61 +119,125 @@
     <div id="rules-screen" class="screen">
         <div class="container">
             <div class="header">
-                <h1><i class="fas fa-book"></i> Правила игры</h1>
+                <div class="logo">
+                    <i class="fas fa-book"></i>
+                    <h1>Правила <span class="gradient-text">игры</span></h1>
+                </div>
                 <button id="back-to-main" class="btn-back">
                     <i class="fas fa-arrow-left"></i> Назад
                 </button>
             </div>
             
             <div class="rules-content">
-                <div class="rules-section">
-                    <h2><i class="fas fa-play-circle"></i> Как играть</h2>
-                    <ol>
-                        <li>Система случайным образом выбирает ученика</li>
-                        <li>Ученик выбирает одну из трех тем: <strong>Models</strong>, <strong>Views</strong> или <strong>Templates</strong></li>
-                        <li>Затем выбирает уровень сложности:
-                            <ul>
-                                <li><span class="badge badge-1">1 балл</span> - Базовый вопрос</li>
-                                <li><span class="badge badge-2">2 балла</span> - Вопрос средней сложности</li>
-                                <li><span class="badge badge-3">3 балла</span> - Сложный вопрос с деталями</li>
-                            </ul>
-                        </li>
-                        <li>На ответ дается ровно 1 минута</li>
-                        <li>После ответа учитель оценивает его правильность</li>
-                        <li>При правильном ответе баллы добавляются, при неправильном - нет</li>
-                        <li>Ученики с 5+ баллами больше не участвуют</li>
-                    </ol>
-                </div>
-                
-                <div class="rules-section">
-                    <h2><i class="fas fa-trophy"></i> Система оценивания</h2>
-                    <div class="scoring">
-                        <div class="score-card">
-                            <div class="score-header badge-1">1 балл</div>
-                            <p>Требуется краткий ответ, определение или простой пример</p>
+                <div class="rules-grid">
+                    <div class="rule-card card">
+                        <div class="rule-icon">
+                            <i class="fas fa-play-circle"></i>
                         </div>
-                        <div class="score-card">
-                            <div class="score-header badge-2">2 балла</div>
-                            <p>Требуется развернутое объяснение с примерами</p>
+                        <h3>Начало игры</h3>
+                        <ol>
+                            <li>Система случайно выбирает ученика</li>
+                            <li>Ученик выбирает тему вопроса</li>
+                            <li>Выбирает уровень сложности (1-3 балла)</li>
+                            <li>Получает вопрос на 60 секунд</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="rule-card card">
+                        <div class="rule-icon">
+                            <i class="fas fa-graduation-cap"></i>
                         </div>
-                        <div class="score-card">
-                            <div class="score-header badge-3">3 балла</div>
-                            <p>Требуется детальное объяснение с кодом и обоснованием</p>
+                        <h3>Оценивание</h3>
+                        <ul>
+                            <li>Учитель оценивает правильность ответа</li>
+                            <li>При правильном ответе начисляются баллы</li>
+                            <li>Ученики с 5+ баллами завершают игру</li>
+                            <li>Игра продолжается до окончания вопросов</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="rule-card card">
+                        <div class="rule-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Сложность вопросов</h3>
+                        <div class="difficulty-levels">
+                            <div class="level">
+                                <span class="badge badge-1">1 балл</span>
+                                <p>Базовый вопрос, краткий ответ</p>
+                            </div>
+                            <div class="level">
+                                <span class="badge badge-2">2 балла</span>
+                                <p>Средняя сложность, объяснение</p>
+                            </div>
+                            <div class="level">
+                                <span class="badge badge-3">3 балла</span>
+                                <p>Более сложный, развернутый ответ</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-card card">
+                        <div class="rule-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <h3>Важно знать</h3>
+                        <div class="important-list">
+                            <div class="important-item">
+                                <i class="fas fa-ban"></i>
+                                <span>Вопросы не повторяются</span>
+                            </div>
+                            <div class="important-item">
+                                <i class="fas fa-history"></i>
+                                <span>Каждый отвечает минимум 1 раз</span>
+                            </div>
+                            <div class="important-item">
+                                <i class="fas fa-crown"></i>
+                                <span>Лидерборд доступен всегда</span>
+                            </div>
+                            <div class="important-item">
+                                <i class="fas fa-flag-checkered"></i>
+                                <span>Игра до 5 баллов или вопросов</span>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="rules-section">
-                    <h2><i class="fas fa-exclamation-triangle"></i> Важно!</h2>
-                    <div class="important-notes">
-                        <p><i class="fas fa-ban"></i> Вопросы не повторяются</p>
-                        <p><i class="fas fa-user-graduate"></i> Каждый отвечает минимум 1 раз до повторного выбора</p>
-                        <p><i class="fas fa-clock"></i> Лидерборд доступен всегда, кроме времени ответа</p>
-                        <p><i class="fas fa-flag-checkered"></i> Игра заканчивается, когда все вопросы пройдены</p>
+                <div class="themes-explanation card">
+                    <h2><i class="fas fa-folder-open"></i> Темы вопросов</h2>
+                    <div class="themes-grid">
+                        <div class="theme-card" style="border-color: #4FC3A1;">
+                            <div class="theme-header">
+                                <i class="fas fa-rocket" style="color: #4FC3A1;"></i>
+                                <h3>Основы Django</h3>
+                            </div>
+                            <p>Создание проекта, приложения, настройки, фикстуры, админка</p>
+                        </div>
+                        <div class="theme-card" style="border-color: #FF9F43;">
+                            <div class="theme-header">
+                                <i class="fas fa-database" style="color: #FF9F43;"></i>
+                                <h3>Модели (Models)</h3>
+                            </div>
+                            <p>Создание моделей, поля, связи, методы, работа с данными</p>
+                        </div>
+                        <div class="theme-card" style="border-color: #36BFFA;">
+                            <div class="theme-header">
+                                <i class="fas fa-eye" style="color: #36BFFA;"></i>
+                                <h3>Представления (Views)</h3>
+                            </div>
+                            <p>Функции, классы, обработка запросов, формы, аутентификация</p>
+                        </div>
+                        <div class="theme-card" style="border-color: #8B5CF6;">
+                            <div class="theme-header">
+                                <i class="fas fa-file-code" style="color: #8B5CF6;"></i>
+                                <h3>Шаблоны (Templates)</h3>
+                            </div>
+                            <p>Шаблонизация, теги, фильтры, наследование, Bootstrap</p>
+                        </div>
                     </div>
                 </div>
                 
-                <button id="start-game" class="btn-primary btn-large">
+                <button id="start-game" class="btn-primary btn-large btn-start">
                     <i class="fas fa-play"></i> Начать тестирование!
                 </button>
             </div>
@@ -131,13 +249,28 @@
         <div class="container">
             <!-- Toolbar с прогрессом -->
             <div class="toolbar">
-                <div class="progress-info">
+                <div class="game-info-bar">
+                    <div class="info-item">
+                        <i class="fas fa-question-circle"></i>
+                        <span id="progress-text">0/60 вопросов</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-users"></i>
+                        <span id="active-students-count">0 активных</span>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <span id="game-time">00:00</span>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
                     <div class="progress-bar">
                         <div id="game-progress" class="progress-fill"></div>
                     </div>
-                    <div class="progress-text">
-                        <span id="progress-text">0/60 вопросов</span>
-                        <span id="timer" class="timer">01:00</span>
+                    <div class="progress-labels">
+                        <span>Прогресс</span>
+                        <span id="progress-percent">0%</span>
                     </div>
                 </div>
                 
@@ -151,99 +284,156 @@
                 </div>
             </div>
             
-            <div class="game-content">
+            <div class="game-main">
                 <!-- Левая панель: текущий ученик -->
-                <div class="current-student">
-                    <div class="student-card">
+                <div class="current-student card">
+                    <div class="student-header">
                         <div class="avatar-large" id="current-avatar">
                             <i class="fas fa-user"></i>
                         </div>
-                        <h2 id="current-student-name">Ожидание...</h2>
-                        <div class="student-stats">
-                            <p>Баллы: <span id="current-score">0</span></p>
-                            <p>Отвечал: <span id="current-answers">0</span> раз</p>
+                        <div class="student-info">
+                            <h2 id="current-student-name">Ожидание...</h2>
+                            <p class="student-status">Готов к ответу</p>
+                        </div>
+                    </div>
+                    
+                    <div class="student-stats">
+                        <div class="stat">
+                            <div class="stat-value" id="current-score">0</div>
+                            <div class="stat-label">Баллы</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="current-answers">0</div>
+                            <div class="stat-label">Ответы</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="current-correct">0%</div>
+                            <div class="stat-label">Успешность</div>
                         </div>
                     </div>
                     
                     <div class="themes-section">
                         <h3><i class="fas fa-folder-open"></i> Выберите тему</h3>
-                        <div class="themes">
+                        <div class="themes-grid-small">
+                            <button class="theme-btn" data-theme="basics">
+                                <i class="fas fa-rocket"></i>
+                                <span>Основы</span>
+                            </button>
                             <button class="theme-btn" data-theme="models">
-                                <i class="fas fa-database"></i> Models
+                                <i class="fas fa-database"></i>
+                                <span>Модели</span>
                             </button>
                             <button class="theme-btn" data-theme="views">
-                                <i class="fas fa-eye"></i> Views
+                                <i class="fas fa-eye"></i>
+                                <span>Представления</span>
                             </button>
                             <button class="theme-btn" data-theme="templates">
-                                <i class="fas fa-file-code"></i> Templates
+                                <i class="fas fa-file-code"></i>
+                                <span>Шаблоны</span>
                             </button>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Центральная панель: выбор сложности и вопрос -->
-                <div class="question-section">
-                    <div class="difficulty-selector">
+                <!-- Центральная панель -->
+                <div class="game-center">
+                    <div class="difficulty-section card">
                         <h3><i class="fas fa-chart-line"></i> Выберите сложность</h3>
                         <div class="difficulty-cards">
                             <div class="difficulty-card" data-difficulty="1">
-                                <div class="difficulty-header badge-1">1 балл</div>
-                                <p>Простой вопрос, краткий ответ</p>
-                                <button class="select-difficulty" data-difficulty="1">Выбрать</button>
+                                <div class="difficulty-header">
+                                    <span class="difficulty-badge badge-1">1 балл</span>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p>Простой вопрос, базовый ответ</p>
+                                <button class="select-difficulty" data-difficulty="1">
+                                    Выбрать
+                                </button>
                             </div>
                             <div class="difficulty-card" data-difficulty="2">
-                                <div class="difficulty-header badge-2">2 балла</div>
-                                <p>Средняя сложность, развернутый ответ</p>
-                                <button class="select-difficulty" data-difficulty="2">Выбрать</button>
+                                <div class="difficulty-header">
+                                    <span class="difficulty-badge badge-2">2 балла</span>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p>Средняя сложность, объяснение</p>
+                                <button class="select-difficulty" data-difficulty="2">
+                                    Выбрать
+                                </button>
                             </div>
                             <div class="difficulty-card" data-difficulty="3">
-                                <div class="difficulty-header badge-3">3 балла</div>
-                                <p>Сложный вопрос, детальное объяснение</p>
-                                <button class="select-difficulty" data-difficulty="3">Выбрать</button>
+                                <div class="difficulty-header">
+                                    <span class="difficulty-badge badge-3">3 балла</span>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <p>Сложный вопрос, развернутый ответ</p>
+                                <button class="select-difficulty" data-difficulty="3">
+                                    Выбрать
+                                </button>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="question-display">
+                    <div class="question-section card">
                         <div class="question-header">
-                            <h3><i class="fas fa-question-circle"></i> Вопрос</h3>
-                            <div class="question-info">
-                                <span id="question-theme">Тема: -</span>
-                                <span id="question-difficulty" class="badge">Сложность: -</span>
+                            <div>
+                                <h3><i class="fas fa-question-circle"></i> Вопрос</h3>
+                                <div class="question-info">
+                                    <span id="question-theme" class="question-theme">Тема: -</span>
+                                    <span id="question-difficulty" class="question-difficulty">Сложность: -</span>
+                                </div>
+                            </div>
+                            <div class="timer-display">
+                                <div class="timer-circle">
+                                    <svg width="80" height="80">
+                                        <circle class="timer-bg" cx="40" cy="40" r="35"></circle>
+                                        <circle class="timer-circle-progress" cx="40" cy="40" r="35"></circle>
+                                    </svg>
+                                    <div class="timer-value" id="circle-timer">60</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="question-text" id="question-text">
-                            Выберите тему и сложность для получения вопроса
-                        </div>
-                        <div class="timer-display">
-                            <div class="timer-circle">
-                                <svg width="100" height="100">
-                                    <circle class="timer-bg" cx="50" cy="50" r="45"></circle>
-                                    <circle class="timer-circle-progress" cx="50" cy="50" r="45"></circle>
-                                </svg>
-                                <div class="timer-value" id="circle-timer">60</div>
+                        
+                        <div class="question-body">
+                            <div class="question-text" id="question-text">
+                                Выберите тему и сложность для получения вопроса
                             </div>
+                            
+                            <div class="question-hint">
+                                <i class="fas fa-lightbulb"></i>
+                                <span id="question-hint">После выбора темы и сложности появится вопрос и начнется таймер</span>
+                            </div>
+                        </div>
+                        
+                        <div class="game-controls">
+                            <button id="next-student" class="btn-secondary" disabled>
+                                <i class="fas fa-random"></i> Следующий ученик
+                            </button>
+                            <button id="show-answer" class="btn-primary" disabled>
+                                <i class="fas fa-eye"></i> Показать ответ
+                            </button>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Правая панель: лидерборд -->
-                <div class="leaderboard-section">
-                    <h3><i class="fas fa-crown"></i> Лидерборд</h3>
-                    <div class="leaderboard" id="leaderboard-list">
-                        <!-- Лидерборд будет здесь -->
+                <!-- Правая панель: мини-лидерборд -->
+                <div class="leaderboard-mini card">
+                    <div class="leaderboard-header">
+                        <h3><i class="fas fa-crown"></i> Топ-5</h3>
+                        <button id="show-full-leaderboard" class="btn-small">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                    <div class="leaderboard-list" id="leaderboard-list">
+                        <!-- Мини-лидерборд будет здесь -->
+                        <div class="empty-leaderboard">
+                            <i class="fas fa-trophy"></i>
+                            <p>Игра начнется после первого вопроса</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Кнопки управления игрой -->
-            <div class="game-controls">
-                <button id="next-student" class="btn-secondary" disabled>
-                    <i class="fas fa-random"></i> Следующий ученик
-                </button>
-                <button id="show-answer" class="btn-secondary" disabled>
-                    <i class="fas fa-eye"></i> Показать ответ
-                </button>
             </div>
         </div>
     </div>
@@ -256,26 +446,52 @@
                 <span class="close-modal">&times;</span>
             </div>
             <div class="modal-body">
-                <div class="student-info">
-                    <div class="avatar-small" id="modal-avatar"></div>
-                    <div>
+                <div class="student-info-card">
+                    <div class="student-avatar-modal" id="modal-avatar"></div>
+                    <div class="student-details">
                         <h3 id="modal-student-name"></h3>
-                        <p>Тема: <span id="modal-theme"></span> | 
-                           Сложность: <span id="modal-difficulty"></span> | 
-                           Возможные баллы: <span id="modal-points"></span>
-                        </p>
+                        <div class="student-meta">
+                            <span class="meta-item">
+                                <i class="fas fa-folder"></i>
+                                <span id="modal-theme"></span>
+                            </span>
+                            <span class="meta-item">
+                                <i class="fas fa-star"></i>
+                                <span id="modal-difficulty"></span>
+                            </span>
+                            <span class="meta-item">
+                                <i class="fas fa-coins"></i>
+                                <span id="modal-points"></span> баллов
+                            </span>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="question-review">
-                    <h4><i class="fas fa-question"></i> Вопрос:</h4>
-                    <p id="modal-question"></p>
+                    <div class="review-section">
+                        <h4><i class="fas fa-question"></i> Вопрос:</h4>
+                        <div class="question-box" id="modal-question"></div>
+                    </div>
                     
-                    <h4><i class="fas fa-check-circle"></i> Правильный ответ:</h4>
-                    <p id="modal-correct-answer"></p>
+                    <div class="review-section">
+                        <h4><i class="fas fa-check-circle"></i> Правильный ответ:</h4>
+                        <div class="answer-box" id="modal-correct-answer"></div>
+                    </div>
                     
-                    <h4><i class="fas fa-comment"></i> Ответ ученика:</h4>
-                    <textarea id="student-answer" placeholder="Введите ответ ученика здесь..."></textarea>
+                    <div class="review-section">
+                        <h4><i class="fas fa-comment"></i> Ответ ученика:</h4>
+                        <div class="answer-input">
+                            <textarea id="student-answer" placeholder="Введите или вставьте ответ ученика здесь..."></textarea>
+                            <div class="answer-tools">
+                                <button id="clear-answer" class="btn-small">
+                                    <i class="fas fa-eraser"></i> Очистить
+                                </button>
+                                <div class="char-count">
+                                    <span id="char-count">0</span> символов
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="evaluation-buttons">
@@ -294,12 +510,25 @@
     <div id="leaderboard-modal" class="modal">
         <div class="modal-content wide">
             <div class="modal-header">
-                <h2><i class="fas fa-trophy"></i> Полный лидерборд</h2>
-                <span class="close-leaderboard">&times;</span>
+                <h2><i class="fas fa-trophy"></i> Лидерборд</h2>
+                <span class="close-modal">&times;</span>
             </div>
             <div class="modal-body">
-                <div class="full-leaderboard" id="full-leaderboard">
-                    <!-- Полный лидерборд будет здесь -->
+                <div class="leaderboard-tabs">
+                    <button class="tab-btn active" data-tab="current">Текущий рейтинг</button>
+                    <button class="tab-btn" data-tab="stats">Статистика</button>
+                </div>
+                
+                <div class="tab-content active" id="tab-current">
+                    <div class="full-leaderboard" id="full-leaderboard">
+                        <!-- Полный лидерборд будет здесь -->
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="tab-stats">
+                    <div class="stats-grid" id="stats-content">
+                        <!-- Статистика будет здесь -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -309,34 +538,56 @@
     <div id="completion-screen" class="screen">
         <div class="container">
             <div class="completion-content">
-                <div class="confetti"></div>
-                <div class="confetti"></div>
-                <div class="confetti"></div>
-                
-                <div class="completion-header">
-                    <h1><i class="fas fa-award"></i> Аттестация завершена!</h1>
-                    <p class="subtitle">Все вопросы пройдены. Вот итоговые результаты:</p>
+                <div class="confetti-container">
+                    <!-- Конфетти генерируются через JS -->
                 </div>
                 
-                <div class="final-results">
-                    <div class="winner-section">
+                <div class="completion-header">
+                    <div class="trophy-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h1>Аттестация завершена!</h1>
+                    <p class="subtitle">Все ученики показали свои знания Django</p>
+                </div>
+                
+                <div class="winner-section card">
+                    <div class="winner-info">
                         <div class="winner-avatar" id="winner-avatar">
                             <i class="fas fa-crown"></i>
                         </div>
-                        <h2 id="winner-name">Победитель</h2>
-                        <p class="winner-score">Набрал <span id="winner-points">0</span> баллов!</p>
+                        <div class="winner-details">
+                            <h2 id="winner-name">Победитель</h2>
+                            <p class="winner-score">Набрал <span id="winner-points">0</span> баллов!</p>
+                        </div>
                     </div>
-                    
-                    <div class="all-results">
-                        <h3><i class="fas fa-list-ol"></i> Итоговые результаты</h3>
+                    <div class="winner-stats">
+                        <div class="winner-stat">
+                            <div class="stat-value" id="winner-answers">0</div>
+                            <div class="stat-label">Ответов</div>
+                        </div>
+                        <div class="winner-stat">
+                            <div class="stat-value" id="winner-percentage">0%</div>
+                            <div class="stat-label">Успешность</div>
+                        </div>
+                        <div class="winner-stat">
+                            <div class="stat-value" id="winner-avg">0.0</div>
+                            <div class="stat-label">Средний балл</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="results-section">
+                    <h3><i class="fas fa-chart-bar"></i> Итоговые результаты</h3>
+                    <div class="results-table-container">
                         <table class="results-table">
                             <thead>
                                 <tr>
                                     <th>Место</th>
                                     <th>Ученик</th>
                                     <th>Баллы</th>
-                                    <th>Ответов</th>
-                                    <th>Процент успеха</th>
+                                    <th>Ответы</th>
+                                    <th>Успешность</th>
+                                    <th>Статус</th>
                                 </tr>
                             </thead>
                             <tbody id="final-results-table">
@@ -346,19 +597,51 @@
                     </div>
                 </div>
                 
+                <div class="game-stats card">
+                    <h4><i class="fas fa-info-circle"></i> Статистика игры</h4>
+                    <div class="stats-grid-small">
+                        <div class="game-stat">
+                            <i class="fas fa-question-circle"></i>
+                            <div>
+                                <div class="stat-number" id="total-questions">0</div>
+                                <div class="stat-label">Всего вопросов</div>
+                            </div>
+                        </div>
+                        <div class="game-stat">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <div class="stat-number" id="total-time">00:00</div>
+                                <div class="stat-label">Время игры</div>
+                            </div>
+                        </div>
+                        <div class="game-stat">
+                            <i class="fas fa-user-check"></i>
+                            <div>
+                                <div class="stat-number" id="completed-students">0</div>
+                                <div class="stat-label">Завершили</div>
+                            </div>
+                        </div>
+                        <div class="game-stat">
+                            <i class="fas fa-percentage"></i>
+                            <div>
+                                <div class="stat-number" id="avg-success">0%</div>
+                                <div class="stat-label">Средняя успешность</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="completion-controls">
                     <button id="restart-game" class="btn-primary">
-                        <i class="fas fa-redo"></i> Начать заново
+                        <i class="fas fa-redo"></i> Начать новую игру
                     </button>
                     <button id="back-to-main-from-end" class="btn-secondary">
                         <i class="fas fa-home"></i> На главную
                     </button>
                 </div>
                 
-                <div class="completion-stats">
-                    <p><i class="fas fa-question-circle"></i> Всего вопросов: <span id="total-questions">60</span></p>
-                    <p><i class="fas fa-clock"></i> Время игры: <span id="total-time">00:00</span></p>
-                    <p><i class="fas fa-user-check"></i> Активных учеников: <span id="active-students">0</span></p>
+                <div class="footer">
+                    <p>Игра создана для аттестации по основам Django • Магазин товаров • 2024</p>
                 </div>
             </div>
         </div>
