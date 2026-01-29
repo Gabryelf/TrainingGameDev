@@ -1628,3 +1628,104 @@ body.dark-theme {
 .completion-controls button {
     min-width: 200px;
 }
+
+/* Стили для таймера */
+.timer-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.timer-circle {
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.timer-circle svg {
+    width: 80px;
+    height: 80px;
+    transform: rotate(-90deg);
+}
+
+.timer-bg {
+    fill: none;
+    stroke: var(--bg-surface);
+    stroke-width: 6;
+}
+
+.timer-circle-progress {
+    fill: none;
+    stroke: #10b981;
+    stroke-width: 6;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s linear, stroke 0.3s ease;
+}
+
+.timer-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Inter', monospace;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+}
+
+/* Дополнительные исправления для кнопок */
+#show-answer:disabled,
+#next-student:disabled,
+.theme-btn:disabled,
+.select-difficulty:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.theme-btn:disabled:hover,
+.select-difficulty:disabled:hover {
+    border-color: var(--border-color) !important;
+    background: var(--bg-surface) !important;
+}
+
+/* Анимация для уведомлений */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Исправление для кругового прогресса таймера */
+.timer-circle-progress {
+    stroke-dasharray: 219.91; /* 2 * π * 35 */
+    stroke-dashoffset: 219.91;
+}
+
+/* Исправление отображения таймера в тулбаре */
+.game-info-bar {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+}
+
+.info-item i {
+    color: var(--primary-color);
+}

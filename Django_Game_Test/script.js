@@ -385,6 +385,7 @@ class DjangoGameTest {
             `У вас есть 60 секунд на ответ. Вопрос на ${difficulty} балл${difficulty > 1 ? 'а' : ''}. Постарайтесь ответить как можно полнее.`;
         
         document.getElementById('show-answer').disabled = false;
+        document.getElementById('next-student').disabled = false;
         this.startTimer();
     }
     
@@ -411,6 +412,7 @@ class DjangoGameTest {
         this.timeLeft = 60;
         this.updateTimerDisplay();
         
+        clearInterval(this.gameTimer);
         this.gameTimer = setInterval(() => {
             this.timeLeft--;
             this.updateTimerDisplay();
@@ -434,23 +436,33 @@ class DjangoGameTest {
         
         const minutes = Math.floor(this.timeLeft / 60);
         const seconds = this.timeLeft % 60;
-        timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         
-        circleTimer.textContent = this.timeLeft;
+        // Обновляем таймер в верхней части
+        if (timerElement) {
+            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
         
-        const circumference = 2 * Math.PI * 35;
-        const offset = circumference - (this.timeLeft / 60) * circumference;
-        progressCircle.style.strokeDashoffset = offset;
+        // Обновляем круговой таймер
+        if (circleTimer) {
+            circleTimer.textContent = this.timeLeft;
+        }
         
-        if (this.timeLeft <= 10) {
-            progressCircle.style.stroke = '#ef4444';
-            circleTimer.style.color = '#ef4444';
-        } else if (this.timeLeft <= 30) {
-            progressCircle.style.stroke = '#f59e0b';
-            circleTimer.style.color = '#f59e0b';
-        } else {
-            progressCircle.style.stroke = '#10b981';
-            circleTimer.style.color = '#10b981';
+        if (progressCircle) {
+            const circumference = 2 * Math.PI * 35;
+            const offset = circumference - (this.timeLeft / 60) * circumference;
+            progressCircle.style.strokeDasharray = circumference;
+            progressCircle.style.strokeDashoffset = offset;
+            
+            if (this.timeLeft <= 10) {
+                progressCircle.style.stroke = '#ef4444';
+                if (circleTimer) circleTimer.style.color = '#ef4444';
+            } else if (this.timeLeft <= 30) {
+                progressCircle.style.stroke = '#f59e0b';
+                if (circleTimer) circleTimer.style.color = '#f59e0b';
+            } else {
+                progressCircle.style.stroke = '#10b981';
+                if (circleTimer) circleTimer.style.color = '#10b981';
+            }
         }
     }
     
@@ -484,7 +496,9 @@ class DjangoGameTest {
     updateCharCount() {
         const textarea = document.getElementById('student-answer');
         const charCount = document.getElementById('char-count');
-        charCount.textContent = textarea.value.length;
+        if (textarea && charCount) {
+            charCount.textContent = textarea.value.length;
+        }
     }
     
     hideModal() {
@@ -558,6 +572,8 @@ class DjangoGameTest {
         });
         
         const leaderboardList = document.getElementById('leaderboard-list');
+        if (!leaderboardList) return;
+        
         leaderboardList.innerHTML = '';
         
         if (sortedStudents.length === 0) {
@@ -605,6 +621,8 @@ class DjangoGameTest {
     
     updateFullLeaderboard(sortedStudents) {
         const fullLeaderboard = document.getElementById('full-leaderboard');
+        if (!fullLeaderboard) return;
+        
         fullLeaderboard.innerHTML = '';
         
         sortedStudents.forEach((student, index) => {
@@ -722,9 +740,13 @@ class DjangoGameTest {
     
     updateProgress() {
         const progress = (this.answeredCount / this.totalQuestions) * 100;
-        document.getElementById('game-progress').style.width = `${progress}%`;
-        document.getElementById('progress-text').textContent = `${this.answeredCount}/${this.totalQuestions} вопросов`;
-        document.getElementById('progress-percent').textContent = `${Math.round(progress)}%`;
+        const progressBar = document.getElementById('game-progress');
+        const progressText = document.getElementById('progress-text');
+        const progressPercent = document.getElementById('progress-percent');
+        
+        if (progressBar) progressBar.style.width = `${progress}%`;
+        if (progressText) progressText.textContent = `${this.answeredCount}/${this.totalQuestions} вопросов`;
+        if (progressPercent) progressPercent.textContent = `${Math.round(progress)}%`;
     }
     
     startGameTimer() {
@@ -735,15 +757,21 @@ class DjangoGameTest {
                 this.gameDuration = Math.floor((Date.now() - this.gameStartTime) / 1000);
                 const minutes = Math.floor(this.gameDuration / 60);
                 const seconds = this.gameDuration % 60;
-                document.getElementById('game-time').textContent = 
-                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                const gameTimeElement = document.getElementById('game-time');
+                if (gameTimeElement) {
+                    gameTimeElement.textContent = 
+                        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
             }
         }, 1000);
     }
     
     updateActiveStudentsCount() {
         const activeCount = this.students.filter(s => s.active && s.score < 5).length;
-        document.getElementById('active-students-count').textContent = `${activeCount} активных`;
+        const activeCountElement = document.getElementById('active-students-count');
+        if (activeCountElement) {
+            activeCountElement.textContent = `${activeCount} активных`;
+        }
     }
     
     resetQuestionDisplay() {
@@ -1047,6 +1075,41 @@ document.addEventListener('DOMContentLoaded', () => {
         .notification-content span {
             font-weight: 600;
             color: var(--text-primary);
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #f00;
+            top: -10px;
+            opacity: 0;
+            animation: confetti-fall 5s linear infinite;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                top: -10px;
+                opacity: 1;
+                transform: rotate(0deg);
+            }
+            100% {
+                top: 100vh;
+                opacity: 0;
+                transform: rotate(360deg);
+            }
+        }
+        
+        #timer {
+            font-family: 'Inter', monospace;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+        
+        .toolbar-controls {
+            display: flex;
+            gap: 12px;
         }
     `;
     document.head.appendChild(style);

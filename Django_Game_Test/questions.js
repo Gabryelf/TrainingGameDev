@@ -61,12 +61,12 @@ const questionsDatabase = {
                 answer: "В settings.py указать STATIC_URL и STATICFILES_DIRS. В шаблоне использовать {% load static %} и {% static 'path/to/file' %}"
             },
             {
-                question: "Что делает команда python manage.py shell?",
-                answer: "Запускает интерактивную оболочку Python с загруженными настройками Django, чтобы работать с моделями и ORM."
+                question: "Назови 3 любые команды связанные с manage.py?",
+                answer: "пример : runserver, loaddata, makemigrations ..."
             },
             {
-                question: "Как создать свою собственную команду для manage.py?",
-                answer: "Создать файл management/commands в приложении и в нем класс Command с методом handle."
+                question: "Как создать миграции и с и х помощью пустые таблицы в базе данных?",
+                answer: "Запустить команду makemigrations с именем приложения и после команду migrate"
             },
             {
                 question: "Что такое DEBUG в settings.py и когда его нужно отключать?",
@@ -74,7 +74,7 @@ const questionsDatabase = {
             },
             {
                 question: "Как добавить поддержку другого языка в проекте?",
-                answer: "В settings.py добавить язык в LANGUAGES и использовать {% trans %} в шаблонах, затем создать файлы перевода."
+                answer: "В settings.py добавить язык в LANGUAGES."
             },
             {
                 question: "Что такое CSRF защита и как она работает?",
@@ -96,7 +96,7 @@ const questionsDatabase = {
             },
             {
                 question: "Какие настройки безопасности нужно обязательно проверить перед деплоем проекта?",
-                answer: "DEBUG = False, SECRET_KEY должен быть защищен, ALLOWED_HOSTS настроен, CSRF и CORS настройки, настройки сессий и куки, безопасность статических файлов."
+                answer: "DEBUG = False, SECRET_KEY должен быть защищен, настройки сессий и куки."
             },
             {
                 question: "Как реализовать систему скидок в интернет-магазине на Django?",
@@ -104,27 +104,27 @@ const questionsDatabase = {
             },
             {
                 question: "Что бы вы использовали для реализации поиска товаров и почему?",
-                answer: "Для простого поиска - фильтрацию по полям модели с помощью Q объектов. Для сложного поиска - django-filter или полнотекстовый поиск через PostgreSQL, если нужна высокая производительность."
+                answer: "Для простого поиска - фильтрацию по полям модели. Для сложного поиска - django-filter."
             },
             {
                 question: "Как организовать работу с изображениями товаров?",
-                answer: "Использовать ImageField в модели Product. Установить Pillow для обработки. Настроить MEDIA_URL и MEDIA_ROOT. Для оптимизации использовать django-imagekit для создания миниатюр."
+                answer: "Использовать ImageField в модели Product. Установить Pillow для обработки. Настроить MEDIA_URL и MEDIA_ROOT."
             },
             {
-                question: "Каким образом можно ускорить загрузку страниц каталога товаров?",
-                answer: "Использовать пагинацию (Django Paginator), кэширование (django-redis), оптимизировать запросы к БД (select_related, prefetch_related), сжимать статические файлы."
+                question: "Каким образом можно передать context и чем это может быть",
+                answer: "Можно в самом представлении views или через контекстный процессор, туда можно передать любые данные из базы или временные"
             },
             {
                 question: "Как реализовать систему отзывов к товарам?",
                 answer: "Создать модель Review с ForeignKey к Product и User. Добавить поля: текст, оценка (1-5), дата. В представлении товара выводить отзывы. Добавить форму для создания отзыва."
             },
             {
-                question: "Что делать, если нужно добавить новое поле в модель, которая уже используется в продакшене?",
-                answer: "Добавить поле с null=True или default значением. Создать миграцию. Протестировать на стейджинге. Задеплоить и применить миграции в нерабочее время. Если нужно перенести данные - написать кастомную миграцию."
+                question: "Что делать, если нужно добавить поле в модель которое может быть пустым?",
+                answer: "Добавить null=True и / или blank=True"
             },
             {
                 question: "Как организовать систему уведомлений для пользователей (о статусе заказа, новых товарах)?",
-                answer: "Создать модель Notification. Использовать сигналы (post_save) для создания уведомлений. Реализовать просмотр уведомлений в личном кабинете. Для email уведомлений использовать django-celery для асинхронной отправки."
+                answer: "Создать модель Notification. Добавить сообщения Notification.objects.filter(user.id) в профиль пользователя"
             }
         ]
     },
@@ -160,8 +160,8 @@ const questionsDatabase = {
                 answer: "Возвращает строковое представление объекта, которое показывается в административной панели."
             },
             {
-                question: "Как создать поле с выбором из нескольких вариантов?",
-                answer: "status = models.CharField(max_length=20, choices=STATUS_CHOICES)"
+                question: "Какой модуль и класс используется для наследование в наших моделях?",
+                answer: "Модуль models класс Model"
             },
             {
                 question: "Что такое ManyToManyField?",
@@ -206,8 +206,8 @@ const questionsDatabase = {
                 answer: "slug = models.SlugField(unique=True)"
             },
             {
-                question: "Что такое менеджер моделей (objects) и как создать свой?",
-                answer: "Менеджер - интерфейс для запросов к БД. Свой менеджер: class ActiveProductsManager(models.Manager): def get_queryset(self): return super().get_queryset().filter(is_active=True)"
+                question: "Что такое slug и что он делает?",
+                answer: "Автоматическая транслитерация без пробелов"
             },
             {
                 question: "Как сделать поле обязательным для заполнения?",
@@ -216,44 +216,44 @@ const questionsDatabase = {
         ],
         3: [
             {
-                question: "Как бы вы спроектировали модель для товаров интернет-магазина с вариациями (размер, цвет)?",
-                answer: "Создать Product (основная информация) и ProductVariant (варианты с ценой, остатком, размером, цветом). ProductVariant имеет ForeignKey к Product."
+                question: "Как бы вы спроектировали модель категорий товаров?",
+                answer: "Создать класс в приложении в скрипте models.py назвать Category, унаследовать models.Model и задать имя и slug"
             },
             {
                 question: "Как реализовать систему рейтинга товаров?",
                 answer: "Создать модель Rating с ForeignKey к Product и User, полем value (1-5). В Product добавить метод для расчета среднего рейтинга."
             },
             {
-                question: "Что делать, если нужно хранить дополнительные характеристики товаров (вес, размеры, материал)?",
-                answer: "Создать модель ProductAttribute и ProductAttributeValue. Или использовать JSONField для гибкого хранения характеристик."
+                question: "Что делать, если создали и внесли модель в базу данных и забыли добавить необходимые поля (например вес, размеры, материал)?",
+                answer: "Сохранить товары в фикстуры, если они есть, удалить базу или очистить, добавить нужные поля, провести миграции заново, переделать фикстуры и загрузить заново."
             },
             {
                 question: "Как организовать историю изменений цены товара?",
                 answer: "Создать модель PriceHistory с ForeignKey к Product, полями price, created_at. При сохранении товара создавать запись в истории."
             },
             {
-                question: "Каким образом можно оптимизировать запросы к базе данных при выводе каталога товаров?",
-                answer: "Использовать select_related для ForeignKey и prefetch_related для ManyToMany. Использовать only() для выбора нужных полей. Кэшировать результаты."
+                question: "Какими могут быть поля в модели заказов Orders",
+                answer: "Пользователь создатель заказа, товар в заказе, цена товара общая, количество товаров, дата создания, статус, адрес ..."
             },
             {
                 question: "Как реализовать систему скидок на уровне модели?",
                 answer: "Создать модель Discount. В Product добавить метод get_price_with_discount, который проверяет активные скидки и возвращает цену со скидкой."
             },
             {
-                question: "Что делать, если нужно добавить мягкое удаление (soft delete) товаров?",
-                answer: "Добавить поле is_deleted или deleted_at. Переопределить менеджер, чтобы исключать удаленные записи из запросов. Переопределить метод delete() для установки флага вместо реального удаления."
+                question: "Что делать, если ваши картинки при разработке не загружаются",
+                answer: "Проверить urlpatterns в urls.py главного приложения - там должны быть пути к папке media"
             },
             {
                 question: "Как организовать систему тегов для товаров?",
                 answer: "Создать модель Tag. В Product добавить ManyToManyField к Tag. Реализовать поиск товаров по тегам."
             },
             {
-                question: "Каким образом можно реализовать систему 'похожие товары'?",
-                answer: "Через ManyToManyField с симметричной связью или через алгоритм, который ищет товары из той же категории/с похожими тегами."
+                question: "Какие важные проверки нужны в методах в магазине товаров?",
+                answer: "Проверки на ввод цены, проверки на количество товаров в магазине, аутификация пользователя при входе в корзину ..."
             },
             {
-                question: "Как обеспечить целостность данных при удалении категории, в которой есть товары?",
-                answer: "Использовать on_delete=models.PROTECT, чтобы запретить удаление, или on_delete=models.SET_NULL, чтобы установить товарам category=None, или переместить товары в другую категорию перед удалением."
+                question: "Для чего нужен класс Meta",
+                answer: "Что бы формализовать данные в админке и сделать их человеко-читаемыми, обработать ротацию данных"
             }
         ]
     },
@@ -273,8 +273,8 @@ const questionsDatabase = {
                 answer: "return render(request, 'template.html', {'data': value})"
             },
             {
-                question: "Как обработать GET параметры в view?",
-                answer: "search_query = request.GET.get('q', '')"
+                question: "В каком скрипте вызываются представления и их функции в первую очередь для демонстрации пользователю",
+                answer: "В urlpatterns скрипта urls.py этого же приложения"
             },
             {
                 question: "Что такое декоратор @login_required?",
@@ -297,8 +297,8 @@ const questionsDatabase = {
                 answer: "if request.method == 'POST':\n    # обработать данные формы\n    return redirect('success_url')"
             },
             {
-                question: "Что такое Class-Based Views (CBV)?",
-                answer: "Представления на основе классов. Предоставляют готовую структуру для общих задач (ListView, DetailView, CreateView)."
+                question: "Что если я не могу или не хочу создавать свои представления, как обработать данные или передать их?",
+                answer: "В джанго на ряду со многими готовыми функциями и классами есть базовые представления на основе классов."
             }
         ],
         2: [
@@ -311,42 +311,42 @@ const questionsDatabase = {
                 answer: "Функция, которая получает объект или возвращает 404 ошибку, если объект не найден. Упрощает обработку несуществующих объектов."
             },
             {
-                question: "Как реализовать пагинацию в view?",
-                answer: "from django.core.paginator import Paginator\npaginator = Paginator(products, 10)\npage = request.GET.get('page')\nproducts_page = paginator.get_page(page)"
+                question: "Что это за переменная TEMPLATES_DIRS и что там нужно указать?",
+                answer: "Это основной путь к папке с общими шаблонами проекта. Обычно это BASE_DIR / templates"
             },
             {
-                question: "Что такое FormView и когда его использовать?",
-                answer: "CBV для работы с формами. Используется, когда нужно отобразить форму, обработать отправку и показать результат."
+                question: "Что такое forms и когда его использовать?",
+                answer: "Формы нужны что бы предоставить поля ввода, прлучить и обработать информацию с них"
             },
             {
                 question: "Как создать view для регистрации пользователя?",
                 answer: "Использовать UserCreationForm. В POST обработать форму, создать пользователя, выполнить вход и перенаправить на главную."
             },
             {
-                question: "Что такое миксины (mixins) в CBV?",
-                answer: "Классы, которые добавляют дополнительную функциональность через множественное наследование. Например, LoginRequiredMixin для проверки авторизации."
+                question: "Какие 3 джанго класса вы знаете?",
+                answer: "User, Model, ModelAdmin, Meta ..."
             },
             {
-                question: "Как передать дополнительные данные в шаблон в CBV?",
-                answer: "Переопределить метод get_context_data: def get_context_data(self, **kwargs): context = super().get_context_data(**kwargs); context['extra'] = 'data'; return context"
+                question: "Как передать все товары в шаблон?",
+                answer: "Через контекст в представлении или контекстный процессор, в шаблоне перебрать через for и отобразить поля"
             },
             {
-                question: "Как создать API endpoint, возвращающий JSON?",
-                answer: "from django.http import JsonResponse\ndef api_products(request): products = Product.objects.all().values() return JsonResponse(list(products), safe=False)"
+                question: "Что нужно сделать после того как создали миграции и перед тем как хотим пойти в админку",
+                answer: "Воспользоваться командой createsuperuser и создать супер пользователя"
             },
             {
                 question: "Что такое context в render()?",
                 answer: "Словарь с данными, которые передаются в шаблон и становятся доступными как переменные."
             },
             {
-                question: "Как ограничить доступ к view только для администраторов?",
-                answer: "Использовать декоратор @staff_member_required или permission_required('is_staff')"
+                question: "Как ограничить доступ в шаблоне только для администраторов?",
+                answer: "Использовать('is_staff' или 'is_superuser')"
             }
         ],
         3: [
             {
                 question: "Как бы вы реализовали view для корзины покупок с добавлением, удалением и изменением количества товаров?",
-                answer: "Создать view для отображения корзины (GET). Для добавления: view, которая принимает product_id и quantity через POST. Для изменения: view, которая изменяет quantity. Для удаления: view, которая удаляет товар из корзины. Использовать сессии для хранения корзины."
+                answer: "Создать view для отображения корзины (GET). Использовать сессии для хранения корзины."
             },
             {
                 question: "Как организовать процесс оформления заказа в интернет-магазине?",
@@ -354,7 +354,7 @@ const questionsDatabase = {
             },
             {
                 question: "Что делать, если нужно реализовать сложную фильтрацию товаров (по цене, категории, бренду, наличию)?",
-                answer: "Использовать django-filter или вручную проверять GET параметры и формировать Q объекты для запроса. Создать форму фильтрации и валидировать данные."
+                answer: "Использовать django-filter. Создать форму фильтрации и валидировать данные."
             },
             {
                 question: "Как реализовать view для личного кабинета пользователя с историей заказов?",
@@ -362,27 +362,27 @@ const questionsDatabase = {
             },
             {
                 question: "Каким образом можно оптимизировать view для каталога товаров, если товаров больше 1000?",
-                answer: "Использовать пагинацию (по 20-50 товаров на странице). Оптимизировать запросы к БД (select_related, prefetch_related). Кэшировать страницы или результаты запросов. Использовать только() для выбора нужных полей."
+                answer: "Использовать пагинацию (по 20-50 товаров на странице). Кэшировать страницы или результаты запросов. Использовать только() для выбора нужных полей."
             },
             {
-                question: "Как реализовать систему промокодов (купонов) при оформлении заказа?",
-                answer: "В view оформления заказа проверять промокод из POST запроса. Проверять его валидность, срок действия, минимальную сумму заказа. Применять скидку к итоговой сумме."
+                question: "Какие операторы можно использовать в шаблонизаторе джанго на фронтенде?",
+                answer: "for, if, else и специфические блоки самого шаблонизатора"
             },
             {
-                question: "Что делать, если нужно обрабатывать загрузку нескольких изображений для товара?",
-                answer: "Использовать форму с formsets или поле MultipleFileField. В view обрабатывать request.FILES.getlist('images'). Для каждого файла создавать модель ProductImage."
+                question: "Как создать базовый шаблон и как наследоваться от него ",
+                answer: "В папке templates создать файл base.html джанго его найдет по имени, в других шаблонах прописать extends base.html"
             },
             {
-                question: "Как организовать поиск товаров с автодополнением (autocomplete)?",
-                answer: "Создать API endpoint, который принимает search запрос и возвращает JSON с подходящими товарами. Использовать Ajax запросы с фронтенда. Оптимизировать поисковый запрос с помощью icontains или полнотекстового поиска."
+                question: "Как перейти по кнопке на другую страницу из шаблона?",
+                answer: "Для начала прописать пути и создать шаблоны для перехода, потом вызвать имя пути"
             },
             {
-                question: "Как реализовать view для сравнения товаров?",
-                answer: "Хранить ID товаров для сравнения в сессии. View для добавления/удаления товаров из списка сравнения. View для отображения сравнения - получать товары по ID и выводить их характеристики в таблице."
+                question: "Что такое block и как им пользоваться",
+                answer: "С его помощью можно вставлять любые данные в разные шаблоны"
             },
             {
-                question: "Что делать, если нужно реализовать систему 'избранных товаров' (wishlist)?",
-                answer: "Создать модель Wishlist с ForeignKey к User и Product. View для добавления/удаления товаров. View для отображения избранного. Использовать AJAX для добавления без перезагрузки страницы."
+                question: "Перечислите скрипты главного приложения и скрипты дополнительного приложения при самом создании?",
+                answer: "swgy.py, settings.py, urls.py, admin.py, views.py..."
             }
         ]
     },
@@ -422,50 +422,50 @@ const questionsDatabase = {
                 answer: "<img src=\"{{ product.image.url }}\" alt=\"{{ product.name }}\">"
             },
             {
-                question: "Как вывести дату в определенном формате?",
-                answer: "{{ order.created_at|date:'d.m.Y H:i' }}"
+                question: "Где должны или могут храниться шаблоны проекта?",
+                answer: "В папке templates и подпапках этой папки, так же templates может быть не общим, а для каждого приложения своим"
             },
             {
-                question: "Как написать комментарий в шаблоне?",
-                answer: "{# комментарий #} или {% comment %} многострочный комментарий {% endcomment %}"
+                question: "Как проверит аутификацию пользователя",
+                answer: "Через if user.is_autification"
             }
         ],
         2: [
             {
-                question: "Что такое фильтры (filters) в шаблонах и как их использовать?",
-                answer: "Фильтры преобразуют значения. Синтаксис: {{ variable|filter }}. Примеры: {{ name|upper }}, {{ price|floatformat:2 }}, {{ text|truncatechars:100 }}"
+                question: "Как и через какой модуль прокинуть пути из главного приложения к втстепенному",
+                answer: "В urlspatterns главного через модуль django.contrlib.urls и include"
             },
             {
-                question: "Как создать ссылку с параметрами?",
-                answer: "<a href=\"{% url 'product_detail' product.id %}\">{{ product.name }}</a>"
+                question: "Что есть в базовом шаблоне и чего нет в остальных",
+                answer: "Обычной структуры html document / meta / link / header / body ..."
             },
             {
-                question: "Как отобразить форму в шаблоне?",
-                answer: "{{ form.as_p }} или вручную: {{ form.field.label_tag }} {{ form.field }} {{ form.field.errors }}"
+                question: "Какой важный принци предлагает и продвигает джанго?",
+                answer: "DRY - не нужно повторять одно и тоже"
             },
             {
                 question: "Что такое тег csrf_token и зачем он нужен?",
                 answer: "{% csrf_token %} добавляет токен для защиты от CSRF атак. Обязателен для POST форм."
             },
             {
-                question: "Как работать с пагинацией в шаблоне?",
-                answer: "{% if page_obj.has_previous %}<a href=\"?page={{ page_obj.previous_page_number }}\">Назад</a>{% endif %}\nСтраница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}\n{% if page_obj.has_next %}<a href=\"?page={{ page_obj.next_page_number }}\">Вперед</a>{% endif %}"
+                question: "Что есть у джанго для того что бы хранить временную информацию о пользователе?",
+                answer: "Кеширование и кукки данные"
             },
             {
                 question: "Как использовать Bootstrap в шаблонах Django?",
                 answer: "Подключить Bootstrap CSS/JS через CDN или статические файлы. Использовать Bootstrap классы в HTML. Для форм использовать django-crispy-forms или вручную добавлять Bootstrap классы."
             },
             {
-                question: "Как создать шаблон для email уведомлений?",
-                answer: "Создать HTML файл в templates/emails/. В view использовать render_to_string для рендеринга шаблона с контекстом. Отправить email с HTML содержимым."
+                question: "Как создать кнопку с переходом в админку",
+                answer: "Нужно обязятельно спросить if is_staff или if is_superuser и только в этом случае показать кнопку с href='{% /admin %}'"
             },
             {
-                question: "Что такое теги url с параметрами?",
-                answer: "{% url 'view_name' arg1 arg2 %} или {% url 'view_name' param1=value1 param2=value2 %}"
+                question: "Что такое теги url и как их написать?",
+                answer: "{% url 'view_name' arg1 arg2 %} или {% url 'view_name' %}"
             },
             {
-                question: "Как отобразить ManyToMany поле в шаблоне?",
-                answer: "{% for category in product.categories.all %} {{ category.name }} {% endfor %}"
+                question: "Как отобразить категории поле в шаблоне?",
+                answer: "{% for category in categories %} {{ category.name }} {% endfor %}"
             },
             {
                 question: "Как использовать статические файлы в CSS (например, background-image)?",
@@ -478,40 +478,40 @@ const questionsDatabase = {
                 answer: "base.html (основа), header.html, footer.html, sidebar.html. Для страниц: products/list.html, products/detail.html, cart/view.html, checkout.html. Использовать блоки для динамического контента."
             },
             {
-                question: "Как реализовать шаблон для отображения товаров в виде сетки (grid) с помощью Bootstrap?",
-                answer: "<div class=\"row\">\n  {% for product in products %}\n    <div class=\"col-md-4 mb-4\">\n      <div class=\"card\">\n        <img src=\"{{ product.image.url }}\" class=\"card-img-top\">\n        <div class=\"card-body\">\n          <h5 class=\"card-title\">{{ product.name }}</h5>\n          <p class=\"card-text\">{{ product.price }} руб.</p>\n          <a href=\"{% url 'product_detail' product.id %}\" class=\"btn btn-primary\">Подробнее</a>\n        </div>\n      </div>\n    </div>\n  {% endfor %}\n</div>"
+                question: "Что можно реализовать с помощью Bootstrap в шаблонах джанго?",
+                answer: "Сетки, нав-бары, карточки, карусели, кнопки и тд"
             },
             {
-                question: "Каким образом можно реализовать шаблон для формы фильтрации товаров?",
-                answer: "Создать форму с полями для фильтрации. В шаблоне отобразить форму как <form method=\"get\">. Для каждого поля использовать {{ form.field }}. Добавить кнопку submit. Форма будет отправлять GET параметры."
+                question: "Что нужно сделать с моделями которые должны отображаться в админке?",
+                answer: "Зарегистрировать их в admin.py с использованием декораторов и в виде своих классов"
             },
             {
-                question: "Как создать шаблон для модального окна (Bootstrap modal) с формой добавления в корзину?",
-                answer: "Включить Bootstrap JS. Создать модальное окно с form внутри. Форма должна отправляться на URL добавления в корзину. Использовать AJAX для отправки без перезагрузки страницы."
+                question: "Каких главных принципов придерживается джанго - для чего он нужен?",
+                answer: "Быстрота разработки, устойчивая архитектура, шаблонизация, маштабируемость ..."
             },
             {
-                question: "Как реализовать шаблон для постраничной навигации (pagination) с Bootstrap?",
-                answer: "{% if page_obj.has_other_pages %}\n<nav aria-label=\"Page navigation\">\n  <ul class=\"pagination\">\n    {% if page_obj.has_previous %}\n      <li class=\"page-item\"><a class=\"page-link\" href=\"?page={{ page_obj.previous_page_number }}\">Previous</a></li>\n    {% endif %}\n    {% for num in page_obj.paginator.page_range %}\n      <li class=\"page-item {% if page_obj.number == num %}active{% endif %}\"><a class=\"page-link\" href=\"?page={{ num }}\">{{ num }}</a></li>\n    {% endfor %}\n    {% if page_obj.has_next %}\n      <li class=\"page-item\"><a class=\"page-link\" href=\"?page={{ page_obj.next_page_number }}\">Next</a></li>\n    {% endif %}\n  </ul>\n</nav>\n{% endif %}"
+                question: "В каком режиме необходимо вести разработку в IDE с джанго",
+                answer: "В режиме активированного виртуального окружения venv"
             },
             {
                 question: "Что делать, если нужно отображать разный контент для авторизованных и неавторизованных пользователей?",
                 answer: "{% if user.is_authenticated %}\n  <p>Добро пожаловать, {{ user.username }}!</p>\n  <a href=\"{% url 'logout' %}\">Выйти</a>\n{% else %}\n  <a href=\"{% url 'login' %}\">Войти</a>\n  <a href=\"{% url 'register' %}\">Регистрация</a>\n{% endif %}"
             },
             {
-                question: "Как организовать шаблон для отображения хлебных крошек (breadcrumbs)?",
-                answer: "Создать тег шаблона или передавать breadcrumbs в контексте. В шаблоне: <nav aria-label=\"breadcrumb\">\n  <ol class=\"breadcrumb\">\n    {% for breadcrumb in breadcrumbs %}\n      <li class=\"breadcrumb-item {% if forloop.last %}active{% endif %}\">\n        {% if not forloop.last %}<a href=\"{{ breadcrumb.url }}\">{% endif %}\n        {{ breadcrumb.name }}\n        {% if not forloop.last %}</a>{% endif %}\n      </li>\n    {% endfor %}\n  </ol>\n</nav>"
+                question: "Можно ли передать в шаблон все объекты какого либо своего класса и как?",
+                answer: "Можно, через контекст или процессор items = Items.objects.all()"
             },
             {
-                question: "Как реализовать шаблон для звездного рейтинга товара?",
-                answer: "{% with rating=product.average_rating %}\n  <div class=\"star-rating\">\n    {% for i in \"12345\"|make_list %}\n      {% if forloop.counter <= rating %}\n        <i class=\"fas fa-star text-warning\"></i>\n      {% else %}\n        <i class=\"far fa-star text-warning\"></i>\n      {% endif %}\n    {% endfor %}\n    <span class=\"ml-2\">({{ product.review_count }})</span>\n  </div>\n{% endwith %}"
+                question: "Что изначально доступно в джанго админке?",
+                answer: "Сразу можно создавать пользователей и группы"
             },
             {
-                question: "Каким образом можно реализовать шаблон для системы тегов товаров?",
-                answer: "{% for tag in product.tags.all %}\n  <a href=\"{% url 'products_by_tag' tag.slug %}\" class=\"badge badge-primary\">{{ tag.name }}</a>\n{% endfor %}"
+                question: "Что нужно сделать с контектным процессором после написания в нем функции",
+                answer: "Прописать к нему путь в сигналах settings.py"
             },
             {
-                question: "Как создать шаблон для отображения прогресса оформления заказа (шаги checkout)?",
-                answer: "<div class=\"checkout-steps\">\n  <div class=\"step {% if step >= 1 %}active{% endif %}\">1. Корзина</div>\n  <div class=\"step {% if step >= 2 %}active{% endif %}\">2. Доставка</div>\n  <div class=\"step {% if step >= 3 %}active{% endif %}\">3. Оплата</div>\n  <div class=\"step {% if step >= 4 %}active{% endif %}\">4. Подтверждение</div>\n</div>"
+                question: "Что будет если я забуду передать пути через include в settings.py?",
+                answer: "Приложения не будут в зоне видимости главного приложения, но ошибок не будет"
             }
         ]
     }
