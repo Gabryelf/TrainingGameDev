@@ -752,27 +752,27 @@ print(f"Пересечение всех трех: {result}")
 
 ### Практическое задание:
 ```python
-def sort_strings_by_length(strings):
+def find_index(items, target):
     """
-    Сортирует список строк по длине в порядке убывания.
+    Находит индекс первого вхождения элемента в списке.
     
     Args:
-        strings: список строк
+        items: список элементов
+        target: элемент для поиска
         
     Returns:
-        Отсортированный список
+        Индекс элемента или -1 если не найден
     """
-    # Сортируем по длине строки (ключ len), в обратном порядке (reverse=True)
-    sorted_strings = sorted(strings, key=len, reverse=True)
-    return sorted_strings
+    for i in range(len(items)):
+        if items[i] == target:
+            return i
+    return -1
 
 # Пример использования
-string_list = ["яблоко", "кот", "программирование", "дом", "алгоритм", "питон"]
-result = sort_strings_by_length(string_list)
-
-print("Строки, отсортированные по длине (от самой длинной к самой короткой):")
-for s in result:
-    print(f"  '{s}' - длина {len(s)}")
+fruits = ["яблоко", "банан", "апельсин", "виноград"]
+print(f"Список: {fruits}")
+print(f"Индекс 'банан': {find_index(fruits, 'банан')}")      # 1
+print(f"Индекс 'груша': {find_index(fruits, 'груша')}")      # -1
 ```
 
 ### Теоретическое задание:
@@ -816,81 +816,29 @@ A-B: 4, A-C: 2, B-C: 1, B-D: 5, C-D: 8, C-E: 10, D-E: 2, B-E: 3
 
 ### Практическое задание:
 ```python
-def flatten_list(nested_list):
+def filter_by_range(numbers, min_val, max_val):
     """
-    Преобразует список списков в один плоский список.
+    Возвращает список чисел, попадающих в заданный диапазон.
     
-    Args:
-        nested_list: список, содержащий списки
-        
-    Returns:
-        Плоский список
+    Args: numbers: список чисел min_val: минимальное значение max_val: максимальное значение
+    Returns: Список чисел в диапазоне [min_val, max_val]
     """
-    flat_list = []
+    result = []
     
-    for sublist in nested_list:
-        # Проверяем, является ли элемент списком
-        if isinstance(sublist, list):
-            # Если да, добавляем все его элементы
-            flat_list.extend(sublist)
-        else:
-            # Если нет, добавляем сам элемент
-            flat_list.append(sublist)
+    for num in numbers:
+        if min_val <= num <= max_val:
+            result.append(num)
     
-    return flat_list
+    return result
 
 # Пример использования
-nested = [[1, 2, 3], [4, 5], [6, 7, 8, 9], 10]
-result = flatten_list(nested)
-print(f"Вложенный список: {nested}")
-print(f"Плоский список: {result}")
+nums = [10, 15, 20, 25, 30, 35, 40]
+filtered = filter_by_range(nums, 20, 35)
 ```
 
 ### Теоретическое задание:
 ```
-AVL-ДЕРЕВО - сбалансированное бинарное дерево поиска:
-
-После вставки 1, 2, 3, 4, 5, 6:
-
-1. Вставка 1:    1
-2. Вставка 2:    1
-                   \
-                    2
-3. Вставка 3:    1   (несбалансировано: высота правого поддерева = 2)
-                   \
-                    2
-                     \
-                      3
-   Балансировка (правый поворот):    2
-                                     / \
-                                    1   3
-4. Вставка 4:    2
-                 / \
-                1   3
-                     \
-                      4
-5. Вставка 5:    2    (несбалансировано в узле 3)
-                 / \
-                1   3
-                     \
-                      4
-                       \
-                        5
-   Балансировка (левый-правый поворот):    2
-                                           / \
-                                          1   4
-                                             / \
-                                            3   5
-6. Вставка 6:    2
-                 / \
-                1   4
-                   / \
-                  3   5
-                       \
-                        6
-
-AVL-дерево поддерживает баланс: для каждого узла разница высот
-левого и правого поддеревьев не более 1.
+базы данных
 ```
 
 ---
@@ -899,40 +847,20 @@ AVL-дерево поддерживает баланс: для каждого у
 
 ### Практическое задание:
 ```python
-def are_anagrams(word1, word2):
+def sum_even_numbers(numbers):
     """
-    Проверяет, являются ли два слова анаграммами.
+    Находит сумму всех четных чисел в списке.
     
-    Args:
-        word1: первое слово
-        word2: второе слово
-        
-    Returns:
-        True если слова - анаграммы, иначе False
+    Args: numbers: список чисел   
+    Returns: Сумма четных чисел
     """
-    # Убираем пробелы и приводим к нижнему регистру
-    cleaned_word1 = word1.replace(" ", "").lower()
-    cleaned_word2 = word2.replace(" ", "").lower()
+    total = 0
+    ...
     
-    # Проверяем длины
-    if len(cleaned_word1) != len(cleaned_word2):
-        return False
-    
-    # Сортируем буквы и сравниваем
-    return sorted(cleaned_word1) == sorted(cleaned_word2)
+    return total
 
 # Пример использования
-test_pairs = [
-    ("listen", "silent"),
-    ("triangle", "integral"),
-    ("apple", "pale"),
-    ("Dormitory", "Dirty room"),
-    ("hello", "world")
-]
-
-for w1, w2 in test_pairs:
-    result = are_anagrams(w1, w2)
-    print(f"'{w1}' и '{w2}': {result}")
+nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 ```
 
 ### Теоретическое задание:
@@ -985,73 +913,34 @@ for w1, w2 in test_pairs:
 
 ### Практическое задание:
 ```python
-def find_top_three(numbers):
+def are_all_positive(numbers):
     """
-    Находит три самых больших числа в списке без полной сортировки.
+    Проверяет, все ли числа в списке положительные.
     
     Args:
         numbers: список чисел
         
     Returns:
-        Список трех самых больших чисел в порядке убывания
+        True если все числа > 0, иначе False
     """
-    if len(numbers) < 3:
-        return sorted(numbers, reverse=True)
-    
-    # Инициализируем три переменные для хранения наибольших значений
-    first = second = third = float('-inf')
-    
     for num in numbers:
-        if num > first:
-            # Нашли новый максимум, сдвигаем значения
-            third = second
-            second = first
-            first = num
-        elif num > second and num != first:
-            # Нашли новое второе значение
-            third = second
-            second = num
-        elif num > third and num != second and num != first:
-            # Нашли новое третье значение
-            third = num
-    
-    return [first, second, third]
+        if num <= 0:
+            return False
+    return True
 
 # Пример использования
-numbers_list = [10, 4, 78, 34, 92, 15, 67, 43]
-result = find_top_three(numbers_list)
-print(f"Список: {numbers_list}")
-print(f"Три самых больших числа: {result}")
+test1 = [1, 2, 3, 4, 5]
+test2 = [1, -2, 3, 4, 5]
+test3 = []
+
+print(f"{test1}: {are_all_positive(test1)}")  # True
+print(f"{test2}: {are_all_positive(test2)}")  # False
+print(f"{test3}: {are_all_positive(test3)}")  # True (пустой список)
 ```
 
 ### Теоретическое задание:
 ```
-ПРЕФИКСНОЕ ДЕРЕВО (TRIE) для слов: cat, car, dog, dot:
-
-Корень (пустая строка)
-    |
-    c---------d
-    |         |
-    a         o
-   / \       / \
-  t   r     g   t
-  |   |     |   |
- cat car   dog dot
-
-Структура узла:
-- Дети: словарь или массив ссылок на дочерние узлы
-- Флаг конца слова
-
-Поиск слов:
-1. "cat": c → a → t (флаг конца слова = True)
-2. "car": c → a → r (флаг конца слова = True)
-3. "ca": c → a (флаг конца слова = False - не полное слово)
-4. "do": d → o (флаг конца слова = False - не полное слово)
-
-Преимущества trie:
-- Быстрый поиск по префиксу
-- Эффективное хранение слов с общими префиксами
-- Автодополнение, проверка орфографии
+a = set(list_a)  /  list(a)
 ```
 
 ---
